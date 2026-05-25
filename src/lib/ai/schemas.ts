@@ -78,6 +78,31 @@ export type WorkoutPlanAI = z.infer<typeof WorkoutPlanSchema>;
 export type WorkoutDayAI = z.infer<typeof WorkoutDaySchema>;
 export type ExerciseAI = z.infer<typeof ExerciseSchema>;
 
+/* Lightweight structure (no exercises) — generated first, fast. */
+export const WorkoutDayStubSchema = z.object({
+  day_index: z.number().int().min(0).max(6),
+  title: z.string(),
+  focus: z.string(),
+  warmup: z.string(),
+  cooldown: z.string(),
+  cardio: z.string().optional(),
+});
+
+export const WorkoutStructureSchema = z.object({
+  split_name: z.string(),
+  days_per_week: z.number().int().min(2).max(7),
+  notes: z.string(),
+  days: z.array(WorkoutDayStubSchema).min(2),
+});
+
+/* A single day's exercises — generated per-day in parallel. */
+export const WorkoutDayExercisesSchema = z.object({
+  exercises: z.array(ExerciseSchema).min(2),
+});
+
+export type WorkoutStructureAI = z.infer<typeof WorkoutStructureSchema>;
+export type WorkoutDayStubAI = z.infer<typeof WorkoutDayStubSchema>;
+
 /* ============================================================================
    Diet plan
    ============================================================================ */

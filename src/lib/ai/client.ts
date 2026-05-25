@@ -2,13 +2,36 @@ import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { zodToJsonSchema } from "./zod-to-json-schema";
 
-export const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6";
+// Two tiers: vision-critical work (photo analysis, weekly photo comparison) uses
+// the stronger Sonnet model; text-only generation (workout, diet, coach chat)
+// uses the cheaper Haiku. Both overridable via env.
+export const VISION_MODEL =
+  process.env.ANTHROPIC_VISION_MODEL ??
+  process.env.ANTHROPIC_MODEL ??
+  "claude-sonnet-4-6";
+export const TEXT_MODEL =
+  process.env.ANTHROPIC_TEXT_MODEL ?? "claude-haiku-4-5";
+
+// Back-compat default.
+export const DEFAULT_MODEL = VISION_MODEL;
 
 export class AIConfigError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "AIConfigError";
   }
+}
+
+/**
+ * Build a system prompt with prompt caching enabled. `cache_control` is accepted
+ * by the API at runtime but isn't in the SDK 0.32 TextBlockParam type, so we cast.
+ */
+function cachedSystem(
+  text: string,
+): Anthropic.Messages.MessageCreateParamsNonStreaming["system"] {
+  return [
+    { type: "text", text, cache_control: { type: "ephemeral" } },
+  ] as unknown as Anthropic.Messages.MessageCreateParamsNonStreaming["system"];
 }
 
 let _client: Anthropic | null = null;
@@ -46,7 +69,9 @@ export async function generateStructured<T extends z.ZodTypeAny>(
   const response = await anthropic.messages.create({
     model: opts.model ?? DEFAULT_MODEL,
     max_tokens: opts.maxTokens ?? 4096,
-    system: opts.system,
+    // Cache the (static) system prompt — repeat calls within ~5 min reuse it at
+    // ~10% of the input cost. Big win for the parallel per-day workout calls.
+    system: cachedSystem(opts.system),
     tools: [
       {
         name: opts.toolName,
@@ -78,7 +103,7 @@ export async function generateText(opts: {
   const response = await anthropic.messages.create({
     model: opts.model ?? DEFAULT_MODEL,
     max_tokens: opts.maxTokens ?? 1024,
-    system: opts.system,
+    system: cachedSystem(opts.system),
     messages: opts.messages,
   });
   return response.content

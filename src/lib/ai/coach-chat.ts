@@ -1,5 +1,5 @@
 import type { UserProfile } from "@/lib/db/schema";
-import { generateText } from "./client";
+import { generateText, TEXT_MODEL } from "./client";
 import type Anthropic from "@anthropic-ai/sdk";
 
 const SYSTEM_PREFIX = `You are FitCoach AI — the user's personal training & nutrition coach inside the FitCoach app.
@@ -42,5 +42,5 @@ export async function answerCoachChat(input: CoachInput): Promise<string> {
     { role: "user", content: input.question },
   ];
 
-  return generateText({ system, messages, maxTokens: 800 });
+  return generateText({ system, messages, maxTokens: 800, model: TEXT_MODEL });
 }

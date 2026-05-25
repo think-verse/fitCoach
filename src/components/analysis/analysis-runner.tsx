@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnalysisView } from "./analysis-view";
@@ -44,7 +44,13 @@ export function AnalysisRunner() {
     return () => clearInterval(interval);
   }, []);
 
+  // Guard against React strict-mode double-invoke (dev) and re-renders firing a
+  // second expensive analysis. The analysis must run exactly once per mount.
+  const startedRef = useRef(false);
+
   useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
     let cancelled = false;
     async function run() {
       try {

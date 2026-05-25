@@ -6,9 +6,12 @@ import type { ZodTypeAny } from "zod";
  * Anthropic tool input_schema field (top-level "object" with properties).
  */
 export function zodToJsonSchema(schema: ZodTypeAny): Record<string, unknown> {
+  // Use the default (JSON Schema draft-07) target, NOT openApi3. The openApi3
+  // target emits `nullable: true`, which Anthropic's tool-use validator rejects
+  // (it requires JSON Schema draft 2020-12 — draft-07 output validates fine,
+  // OpenAPI's `nullable` keyword does not).
   const result = _zodToJsonSchema(schema, {
     $refStrategy: "none",
-    target: "openApi3",
   });
   // Strip the $schema key the library adds — Anthropic doesn't need it.
   if (typeof result === "object" && result !== null) {

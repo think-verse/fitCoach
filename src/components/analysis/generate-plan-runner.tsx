@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dumbbell, Salad, Sparkles, CheckCircle2 } from "lucide-react";
@@ -29,7 +29,12 @@ export function GeneratePlanRunner({ analysisId }: { analysisId?: string }) {
     return () => clearInterval(id);
   }, []);
 
+  // Fire the (expensive) plan generation exactly once per mount.
+  const startedRef = useRef(false);
+
   useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
     let cancelled = false;
     async function run() {
       try {

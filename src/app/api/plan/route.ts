@@ -9,7 +9,8 @@ import { computeNutrition } from "@/lib/calc";
 import type { BodyAnalysis } from "@/lib/ai/schemas";
 
 export const runtime = "nodejs";
-export const maxDuration = 90;
+// 60s is the Vercel Hobby ceiling. Plan gen now runs ~16s so this is ample.
+export const maxDuration = 60;
 
 /**
  * POST /api/plan

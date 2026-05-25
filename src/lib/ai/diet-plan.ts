@@ -1,5 +1,5 @@
 import type { UserProfile } from "@/lib/db/schema";
-import { generateStructured } from "./client";
+import { generateStructured, TEXT_MODEL } from "./client";
 import { DietPlanSchema, type DietPlanAI } from "./schemas";
 
 const SYSTEM = `You are FitCoach AI generating a personalized diet plan.
@@ -16,7 +16,13 @@ Rules:
 - Always include a pre_workout and post_workout option.
 - Grocery list should be a realistic weekly shop, grouped naturally
   (e.g. "1kg chicken breast", "12 eggs", "2L milk"), not a vague category list.
-- Every meal MUST have ≥2 alternatives with similar macros (for the swap feature).`;
+- Every meal MUST have exactly 2 alternatives with similar macros (swap feature).
+
+KEEP OUTPUT COMPACT (overly long output gets truncated):
+- description: one short sentence per meal.
+- alternatives: exactly 2, short ("3 boiled eggs + toast").
+- grocery_list: 8–12 concise items.
+- notes: 2 short sentences max.`;
 
 interface DietPlanInput {
   profile: UserProfile;
@@ -59,5 +65,6 @@ Include a grocery_list for the week and notes with cheat meal guidance.`;
     toolName: "submit_diet_plan",
     toolDescription: "Submit the personalized diet plan.",
     maxTokens: 4000,
+    model: TEXT_MODEL,
   });
 }

@@ -1,22 +1,40 @@
 import type { UserProfile } from "@/lib/db/schema";
-import { generateStructured } from "./client";
-import { WorkoutPlanSchema, type WorkoutPlanAI, type BodyAnalysis } from "./schemas";
+import { generateStructured, TEXT_MODEL } from "./client";
+import {
+  WorkoutStructureSchema,
+  WorkoutDayExercisesSchema,
+  WorkoutPlanSchema,
+  type WorkoutPlanAI,
+  type BodyAnalysis,
+} from "./schemas";
 
-const SYSTEM = `You are FitCoach AI generating a personalized training plan.
+/**
+ * Two-phase generation for speed (and to stay under Vercel's function limit):
+ *   1. One fast call produces the split structure (day titles + focus, no exercises).
+ *   2. Every training day's exercises are generated in parallel.
+ * A single monolithic call took ~85s and truncated; this lands at ~30–40s.
+ */
+
+const STRUCTURE_SYSTEM = `You are FitCoach AI designing a weekly training SPLIT (structure only — no exercises yet).
 
 Rules:
 - Split must match training days/week: 3=full body, 4=upper/lower or PPL+full,
   5=PPL+upper/lower, 6=PPL repeated.
-- Bias volume toward the priority muscle groups from the analysis.
-- Beginner = movement-focused, fewer total sets, longer rest. Advanced = higher
-  volume, intensity techniques okay.
-- For home users with no equipment, use bodyweight/dumbbell progressions.
-- Respect injuries: if shoulder pain, avoid behind-the-neck pressing; if knee
-  pain, avoid deep loaded squats — substitute and say why in form_cues.
-- demo_video_url: prefer canonical YouTube URLs for well-known exercises
-  (e.g. Athlean-X, Jeff Nippard, Renaissance Periodization). If unsure, leave empty.
-- Every exercise needs a concrete progression_rule
-  (e.g. "Add 2.5kg when you hit top of rep range for all sets").`;
+- Bias the split toward the user's priority muscle groups.
+- For each training day give: a short title (e.g. "Push — Chest/Shoulders/Triceps"),
+  a one-line focus, a one-line warmup, a one-line cooldown, and optional cardio.
+- Emit ONLY real training days (no rest days). Keep every field to one short sentence.`;
+
+const DAY_SYSTEM = `You are FitCoach AI filling in exercises for ONE training day.
+
+Rules:
+- Max 5 exercises. Order them big compound → isolation.
+- Respect equipment and injuries (substitute and explain briefly in form_cues).
+- form_cues: exactly 2 short cues (≤8 words each).
+- common_mistakes: exactly 2 short items (≤8 words each).
+- progression_rule: one short concrete sentence (e.g. "Add 2.5kg when you hit top of range").
+- demo_video_url: empty string "" unless certain of a real canonical YouTube URL. Never invent URLs.
+- Be concise and practical.`;
 
 export interface WorkoutPlanInput {
   profile: UserProfile;
@@ -28,32 +46,63 @@ export async function generateWorkoutPlan(
 ): Promise<WorkoutPlanAI> {
   const { profile, analysis } = input;
 
-  const prompt = `Generate a complete weekly training plan for this user.
+  const profileLine = [
+    `Goal: ${profile.goal}`,
+    `Experience: ${profile.experience}`,
+    `Training: ${profile.trainingDaysPerWeek} days/week at ${profile.trainingLocation}`,
+    `Equipment: ${(profile.equipment ?? []).join(", ") || "minimal"}`,
+    `Injuries: ${profile.injuries || "none"}`,
+    `Priority muscles: ${analysis.priority_muscle_groups.join(", ")}`,
+    `Weaknesses: ${analysis.cons.join("; ")}`,
+  ].join("\n");
 
-User profile:
-- Goal: ${profile.goal}
-- Experience: ${profile.experience}
-- Training: ${profile.trainingDaysPerWeek} days/week at ${profile.trainingLocation}
-- Equipment available: ${(profile.equipment ?? []).join(", ") || "unknown — assume minimal"}
-- Injuries / limitations: ${profile.injuries || "none"}
-- Height/weight: ${profile.heightCm} cm / ${profile.weightKg} kg
-
-From the body analysis:
-- Physique type: ${analysis.physique_type}
-- Priority muscle groups: ${analysis.priority_muscle_groups.join(", ")}
-- Weaknesses to address: ${analysis.cons.join("; ")}
-- 30-day goal: ${analysis.realistic_30_day_goal}
-
-Output every training day (do not skip rest days — for rest days emit a day with
-exercises=[] is NOT allowed; instead emit only the actual training days). Each
-exercise must include realistic numbers a real trainee can follow tomorrow.`;
-
-  return generateStructured({
-    system: SYSTEM,
-    user: prompt,
-    schema: WorkoutPlanSchema,
-    toolName: "submit_workout_plan",
-    toolDescription: "Submit the personalized weekly workout plan.",
-    maxTokens: 5000,
+  // Phase 1 — structure.
+  const structure = await generateStructured({
+    system: STRUCTURE_SYSTEM,
+    user: `Design the weekly split structure (no exercises).\n\n${profileLine}\n\n30-day goal: ${analysis.realistic_30_day_goal}`,
+    schema: WorkoutStructureSchema,
+    toolName: "submit_structure",
+    toolDescription: "Submit the weekly split structure (days, no exercises).",
+    maxTokens: 1500,
+    model: TEXT_MODEL,
   });
+
+  // Phase 2 — exercises for each day, in parallel.
+  const dayResults = await Promise.all(
+    structure.days.map((day) =>
+      generateStructured({
+        system: DAY_SYSTEM,
+        user: `Fill in exercises for this training day.
+
+User: ${profileLine}
+
+Day: "${day.title}" — focus: ${day.focus}
+
+Pick up to 5 exercises that fit the equipment, injuries, and this day's focus.`,
+        schema: WorkoutDayExercisesSchema,
+        toolName: "submit_day_exercises",
+        toolDescription: "Submit the exercises for this single training day.",
+        maxTokens: 2500,
+        model: TEXT_MODEL,
+      }).then((res) => ({ day, exercises: res.exercises })),
+    ),
+  );
+
+  // Assemble into the full plan shape and validate.
+  const assembled = {
+    split_name: structure.split_name,
+    days_per_week: structure.days_per_week,
+    notes: structure.notes,
+    days: dayResults.map(({ day, exercises }) => ({
+      day_index: day.day_index,
+      title: day.title,
+      focus: day.focus,
+      warmup: day.warmup,
+      cooldown: day.cooldown,
+      cardio: day.cardio,
+      exercises,
+    })),
+  };
+
+  return WorkoutPlanSchema.parse(assembled);
 }
