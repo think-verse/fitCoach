@@ -52,20 +52,40 @@ export function AnalysisRunner() {
     if (startedRef.current) return;
     startedRef.current = true;
     let cancelled = false;
+
+    async function callOnce(): Promise<Response> {
+      return fetch("/api/analysis", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ weekNumber: 0 }),
+      });
+    }
+
     async function run() {
-      try {
-        const res = await fetch("/api/analysis", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ weekNumber: 0 }),
-        });
-        const data = await res.json();
-        if (cancelled) return;
-        if (!res.ok) throw new Error(data.error ?? "Analysis failed.");
-        setResult(data);
-      } catch (e) {
-        if (cancelled) return;
-        setError(e instanceof Error ? e.message : "Analysis failed.");
+      // Up to 2 attempts to ride out cold-start / transient timeouts.
+      const MAX_ATTEMPTS = 2;
+      for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        try {
+          const res = await callOnce();
+          const retryable =
+            !res.ok && res.status >= 500 && attempt < MAX_ATTEMPTS;
+          if (retryable) {
+            await new Promise((r) => setTimeout(r, 2500));
+            continue;
+          }
+          const data = await res.json();
+          if (cancelled) return;
+          if (!res.ok) throw new Error(data.error ?? "Analysis failed.");
+          setResult(data);
+          return;
+        } catch (e) {
+          if (attempt < MAX_ATTEMPTS) {
+            await new Promise((r) => setTimeout(r, 2500));
+            continue;
+          }
+          if (cancelled) return;
+          setError(e instanceof Error ? e.message : "Analysis failed.");
+        }
       }
     }
     run();
