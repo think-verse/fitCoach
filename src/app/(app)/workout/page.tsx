@@ -50,17 +50,21 @@ export default async function WorkoutPage() {
         {days.map((day) => (
           <Card key={day.id} id={`day-${day.dayIndex}`}>
             <CardContent className="p-6">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="default">
-                      {DAY_NAMES[day.dayIndex] ?? `Day ${day.dayIndex + 1}`}
-                    </Badge>
-                    <Badge variant="muted">{day.focus}</Badge>
-                  </div>
-                  <h2 className="mt-2 text-lg font-bold">{day.title}</h2>
+              <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <Badge variant="default">
+                    {DAY_NAMES[day.dayIndex] ?? `Day ${day.dayIndex + 1}`}
+                  </Badge>
+                  <h2 className="mt-3 text-lg font-bold leading-tight">
+                    {day.title}
+                  </h2>
+                  {day.focus && (
+                    <p className="mt-1.5 text-sm leading-snug text-muted-foreground">
+                      {day.focus}
+                    </p>
+                  )}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="shrink-0 text-xs text-muted-foreground">
                   {day.exercises.length} exercises
                 </div>
               </div>

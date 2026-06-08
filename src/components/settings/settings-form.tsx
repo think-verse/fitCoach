@@ -28,7 +28,11 @@ export function SettingsForm({
     goal: profile.goal ?? "general_fitness",
     trainingDaysPerWeek: profile.trainingDaysPerWeek ?? 4,
     foodPref: profile.foodPref ?? "non_vegetarian",
-    dietStyle: profile.dietStyle ?? "mixed",
+    // Legacy 'indian' value (no longer offered) falls back to 'mixed' so the
+    // form Select has a valid option and a save doesn't fail Zod validation.
+    dietStyle: (profile.dietStyle === ("indian" as unknown as typeof profile.dietStyle)
+      ? "mixed"
+      : (profile.dietStyle ?? "mixed")) as "western" | "mixed",
     injuries: profile.injuries ?? "",
   });
   const [saved, setSaved] = useState(false);
@@ -139,9 +143,8 @@ export function SettingsForm({
                 }))
               }
             >
-              <option value="indian">Indian</option>
               <option value="western">Western</option>
-              <option value="mixed">Mixed</option>
+              <option value="mixed">Mixed / international</option>
             </Select>
           </Field>
 

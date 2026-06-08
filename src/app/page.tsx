@@ -29,7 +29,7 @@ const FEATURES = [
   {
     icon: Salad,
     title: "Smart diet plan",
-    body: "Calorie & macro targets with real meals — Indian, western, or mixed — at your budget, with easy swaps.",
+    body: "Calorie & macro targets with real meals built for your food preference and budget, with easy swaps.",
   },
   {
     icon: ChartBar,
@@ -104,8 +104,8 @@ const FAQ = [
     a: "Yes. Tell us your equipment (none, dumbbells, bands, full home gym, etc.) during onboarding and the plan adapts.",
   },
   {
-    q: "Do you support Indian food?",
-    a: "Yes — diet style 'Indian' uses rice, roti, dal, paneer, curd, eggs, chicken, soya, and other staples at your budget and food preference.",
+    q: "Can I use the app if I'm vegan or vegetarian?",
+    a: "Yes. During onboarding pick your food preference — vegan, vegetarian, eggetarian, or non-vegetarian — and every meal plan respects it.",
   },
   {
     q: "Can I cancel anytime?",

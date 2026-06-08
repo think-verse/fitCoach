@@ -18,7 +18,7 @@ export const OnboardingSchema = z.object({
   equipment: z.array(z.string()).default([]),
   trainingDaysPerWeek: z.coerce.number().int().min(2).max(7),
   foodPref: z.enum(["vegetarian", "non_vegetarian", "eggetarian", "vegan"]),
-  dietStyle: z.enum(["indian", "western", "mixed"]),
+  dietStyle: z.enum(["western", "mixed"]),
   budget: z.enum(["low", "medium", "high"]),
   activityLevel: z
     .enum(["sedentary", "light", "moderate", "active", "very_active"])
@@ -60,7 +60,7 @@ export const UpdateProfileSchema = z.object({
   ]),
   trainingDaysPerWeek: z.coerce.number().int().min(2).max(7),
   foodPref: z.enum(["vegetarian", "non_vegetarian", "eggetarian", "vegan"]),
-  dietStyle: z.enum(["indian", "western", "mixed"]),
+  dietStyle: z.enum(["western", "mixed"]),
   injuries: z.string().max(500).optional().nullable(),
 });
 export type UpdateProfileInput = z.infer<typeof UpdateProfileSchema>;

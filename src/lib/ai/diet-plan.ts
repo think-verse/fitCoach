@@ -8,11 +8,14 @@ Rules:
 - Hit the calorie and macro targets within ±5%.
 - Match food_pref strictly: vegan = no animal products, vegetarian = no meat/fish
   (eggs only if eggetarian), non_vegetarian = anything okay.
-- diet_style="indian" means use Indian staples: rice, roti, dal, paneer, curd,
-  chicken, eggs, oats, soya chunks, sprouts, fruits, vegetables. Real portions,
-  real meal names ("Chicken curry + 2 roti + salad"), not abstract macros.
-- budget="low" means cheap protein sources (eggs, dal, soya, chicken thighs over
-  breast, curd). budget="high" allows whey, paneer, salmon, lean cuts.
+- diet_style="western" = whole-foods Western diet (chicken, beef, fish, eggs,
+  oats, rice, potatoes, pasta, leafy greens, dairy). diet_style="mixed" =
+  international whole foods, you choose the cuisine that best fits the user's
+  goal. Use real meal names ("Grilled chicken + sweet potato + salad"), not
+  abstract macros.
+- budget="low" = cheap protein sources (eggs, chicken thighs, canned tuna,
+  Greek yogurt, beans, lentils, whey concentrate). budget="high" = lean cuts,
+  salmon, premium dairy, whey isolate.
 - Always include a pre_workout and post_workout option.
 - Grocery list should be a realistic weekly shop, grouped naturally
   (e.g. "1kg chicken breast", "12 eggs", "2L milk"), not a vague category list.

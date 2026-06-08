@@ -432,9 +432,8 @@ function StepDiet({
           }
         >
           <option value="">Select…</option>
-          <option value="indian">Indian</option>
           <option value="western">Western</option>
-          <option value="mixed">Mixed</option>
+          <option value="mixed">Mixed / international</option>
         </Select>
       </Field>
       <Field label="Budget">
