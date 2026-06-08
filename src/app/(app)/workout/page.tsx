@@ -80,6 +80,7 @@ export default async function WorkoutPage() {
                         <ExerciseVideo
                           src={ex.demoVideoUrl}
                           alt={ex.name}
+                          title={ex.name}
                         />
                         <div className="min-w-0">
                           <div className="font-semibold">{ex.name}</div>
