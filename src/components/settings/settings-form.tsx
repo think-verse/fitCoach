@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Loader2, LogOut, Save, Trash2 } from "lucide-react";
+import { Loader2, LogOut, RotateCcw, Save, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
   deleteAccount,
+  resetAccount,
   signOut,
   updateProfile,
 } from "@/app/actions/account";
@@ -44,6 +45,7 @@ export function SettingsForm({
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [confirmingReset, setConfirmingReset] = useState(false);
 
   function save() {
     setSaved(false);
@@ -201,6 +203,42 @@ export function SettingsForm({
               <span className="text-xs text-emerald-400">Saved.</span>
             )}
           </div>
+        </CardContent>
+      </Card>
+
+      <Card className="border-amber-500/30">
+        <CardContent className="space-y-3 p-6">
+          <h3 className="text-lg font-semibold text-amber-400">Start over</h3>
+          <p className="text-sm text-muted-foreground">
+            Wipe your profile, photos, plans, check-ins, and chat history — but
+            keep your account &amp; sign-in. You&rsquo;ll be sent back to
+            onboarding to set everything up fresh. Useful for testing the flow
+            or starting clean.
+          </p>
+          {confirmingReset ? (
+            <div className="flex flex-wrap gap-2">
+              <form action={resetAccount}>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  className="border-amber-500/50 text-amber-400"
+                >
+                  <RotateCcw className="h-4 w-4" /> Yes, reset my data
+                </Button>
+              </form>
+              <Button onClick={() => setConfirmingReset(false)} variant="ghost">
+                Cancel
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => setConfirmingReset(true)}
+              variant="outline"
+              className="border-amber-500/40 text-amber-400"
+            >
+              <RotateCcw className="h-4 w-4" /> Reset my data
+            </Button>
+          )}
         </CardContent>
       </Card>
 

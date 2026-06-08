@@ -25,7 +25,9 @@ export default async function AppLayout({
     // DB not configured — let the page render its empty/error state.
   }
 
-  if (profile && !profile.onboardingCompleted) {
+  // No profile = brand-new account OR data was reset → onboarding.
+  // Profile exists but onboarding not completed = same.
+  if (!profile || !profile.onboardingCompleted) {
     redirect("/onboarding");
   }
 
