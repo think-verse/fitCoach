@@ -7,6 +7,12 @@ import {
   type WorkoutPlanAI,
   type BodyAnalysis,
 } from "./schemas";
+import {
+  pickRelevantExercises,
+  matchExercise,
+  formatExerciseList,
+} from "@/lib/exercises/match";
+import { videoUrl } from "@/lib/exercises/library";
 
 /**
  * Two-phase generation for speed (and to stay under Vercel's function limit):
@@ -29,11 +35,15 @@ const DAY_SYSTEM = `You are FitCoach AI filling in exercises for ONE training da
 
 Rules:
 - Max 5 exercises. Order them big compound → isolation.
+- You will be given an EXERCISE LIBRARY (the only exercises with demo videos).
+  Whenever possible, pick exercises FROM THE LIBRARY using the EXACT name shown.
+  If a movement you want isn't in the library, you may invent one — but prefer
+  the library for ≥3 of the 5 picks. This keeps the in-app demo videos working.
 - Respect equipment and injuries (substitute and explain briefly in form_cues).
 - form_cues: exactly 2 short cues (≤8 words each).
 - common_mistakes: exactly 2 short items (≤8 words each).
 - progression_rule: one short concrete sentence (e.g. "Add 2.5kg when you hit top of range").
-- demo_video_url: empty string "" unless certain of a real canonical YouTube URL. Never invent URLs.
+- demo_video_url: leave as empty string "". The server fills it from the library.
 - Be concise and practical.`;
 
 export interface WorkoutPlanInput {
@@ -69,8 +79,16 @@ export async function generateWorkoutPlan(
 
   // Phase 2 — exercises for each day, in parallel.
   const dayResults = await Promise.all(
-    structure.days.map((day) =>
-      generateStructured({
+    structure.days.map((day) => {
+      // Filter our Cloudinary exercise library down to the muscles relevant to
+      // this day's focus, then list them in the prompt so the AI picks from real
+      // demo-available movements.
+      const { exercises: candidates } = pickRelevantExercises(
+        `${day.title} ${day.focus}`,
+      );
+      const library = formatExerciseList(candidates);
+
+      return generateStructured({
         system: DAY_SYSTEM,
         user: `Fill in exercises for this training day.
 
@@ -78,29 +96,42 @@ User: ${profileLine}
 
 Day: "${day.title}" — focus: ${day.focus}
 
+EXERCISE LIBRARY (use these exact names whenever possible):
+${library}
+
 Pick up to 5 exercises that fit the equipment, injuries, and this day's focus.`,
         schema: WorkoutDayExercisesSchema,
         toolName: "submit_day_exercises",
         toolDescription: "Submit the exercises for this single training day.",
         maxTokens: 2500,
         model: TEXT_MODEL,
-      }).then((res) => ({ day, exercises: res.exercises })),
-    ),
+      }).then((res) => ({ day, exercises: res.exercises, candidates }));
+    }),
   );
 
-  // Assemble into the full plan shape and validate.
+  // Assemble into the full plan shape, then match each AI-generated exercise to
+  // the Cloudinary library and inject the demo video URL.
   const assembled = {
     split_name: structure.split_name,
     days_per_week: structure.days_per_week,
     notes: structure.notes,
-    days: dayResults.map(({ day, exercises }) => ({
+    days: dayResults.map(({ day, exercises, candidates }) => ({
       day_index: day.day_index,
       title: day.title,
       focus: day.focus,
       warmup: day.warmup,
       cooldown: day.cooldown,
       cardio: day.cardio,
-      exercises,
+      exercises: exercises.map((ex) => {
+        // Try same-day candidates first (faster, day-focus-relevant), fall back
+        // to a global match (covers cross-muscle picks).
+        const match =
+          matchExercise(ex.name, candidates) ?? matchExercise(ex.name);
+        return {
+          ...ex,
+          demo_video_url: match ? videoUrl(match.publicId) : "",
+        };
+      }),
     })),
   };
 

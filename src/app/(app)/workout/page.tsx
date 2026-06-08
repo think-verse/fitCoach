@@ -1,18 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import {
-  Clock,
-  Dumbbell,
-  Repeat,
-  Target,
-  Activity,
-  ExternalLink,
-} from "lucide-react";
+import { Clock, Dumbbell, Repeat, Target, Activity } from "lucide-react";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { getActiveWorkoutPlan } from "@/lib/data/user-state";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ExerciseVideo } from "@/components/workout/exercise-video";
 
 export const metadata = { title: "Workout plan" };
 
@@ -82,33 +76,20 @@ export default async function WorkoutPage() {
                 {day.exercises.map((ex) => (
                   <Card key={ex.id} className="border-border/60">
                     <CardContent className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex-1">
+                      <div className="grid gap-4 sm:grid-cols-[200px_1fr]">
+                        <ExerciseVideo
+                          src={ex.demoVideoUrl}
+                          alt={ex.name}
+                          className="sm:max-w-[200px]"
+                        />
+                        <div>
                           <div className="font-semibold">{ex.name}</div>
                           <div className="mt-0.5 text-xs text-muted-foreground">
                             <Target className="mr-1 inline h-3 w-3" />
                             {ex.targetMuscle}
                           </div>
-                        </div>
-                        {ex.demoVideoUrl && (
-                          <Button
-                            asChild
-                            size="sm"
-                            variant="ghost"
-                            className="shrink-0"
-                          >
-                            <a
-                              href={ex.demoVideoUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              Demo <ExternalLink className="h-3 w-3" />
-                            </a>
-                          </Button>
-                        )}
-                      </div>
 
-                      <div className="mt-3 flex flex-wrap gap-3 text-xs">
+                          <div className="mt-3 flex flex-wrap gap-3 text-xs">
                         <span className="flex items-center gap-1">
                           <Repeat className="h-3 w-3 text-primary" />
                           {ex.sets} × {ex.reps}
@@ -148,6 +129,8 @@ export default async function WorkoutPage() {
                           {ex.alternativeExercise}
                         </div>
                       )}
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
