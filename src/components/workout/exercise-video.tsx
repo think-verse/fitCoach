@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 /**
  * Looping demo video for one exercise. Lazy-autoplays only when scrolled into
  * view, so a workout day with 5 cards doesn't run 5 videos simultaneously on
- * mobile. Falls back to a static placeholder when no URL is available.
+ * mobile. The wrapper enforces 16:9 (matches the source 1920x1080) so it never
+ * stretches taller than the video — no empty black space below.
  */
 export function ExerciseVideo({
   src,
@@ -29,7 +30,7 @@ export function ExerciseVideo({
         setVisible(entry.isIntersecting);
         if (entry.isIntersecting) {
           void el.play().catch(() => {
-            /* user gesture required on some browsers — silent retry next view */
+            /* autoplay blocked — silent retry on next view */
           });
         } else {
           el.pause();
@@ -42,22 +43,26 @@ export function ExerciseVideo({
   }, [src]);
 
   if (!src) {
-    // No video for this exercise yet — graceful placeholder.
     return (
       <div
         aria-label={`${alt} — demo not available`}
         className={cn(
-          "flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-muted/30 text-muted-foreground",
+          "flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-muted/30 text-xs text-muted-foreground",
           className,
         )}
       >
-        <span className="text-xs">No demo available</span>
+        No demo available
       </div>
     );
   }
 
   return (
-    <div className={cn("relative overflow-hidden rounded-xl bg-black", className)}>
+    <div
+      className={cn(
+        "relative aspect-video w-full overflow-hidden rounded-xl bg-black/40",
+        className,
+      )}
+    >
       <video
         ref={ref}
         src={src}
@@ -66,11 +71,11 @@ export function ExerciseVideo({
         playsInline
         preload="metadata"
         aria-label={`${alt} demo loop`}
-        className="aspect-video h-auto w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       {!visible && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40">
-          <Play className="h-8 w-8 fill-white/80 text-white/80" />
+          <Play className="h-10 w-10 fill-white/80 text-white/80" />
         </div>
       )}
     </div>

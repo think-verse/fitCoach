@@ -76,13 +76,12 @@ export default async function WorkoutPage() {
                 {day.exercises.map((ex) => (
                   <Card key={ex.id} className="border-border/60">
                     <CardContent className="p-4">
-                      <div className="grid gap-4 sm:grid-cols-[200px_1fr]">
+                      <div className="grid items-start gap-4 sm:grid-cols-[minmax(260px,2fr)_3fr]">
                         <ExerciseVideo
                           src={ex.demoVideoUrl}
                           alt={ex.name}
-                          className="sm:max-w-[200px]"
                         />
-                        <div>
+                        <div className="min-w-0">
                           <div className="font-semibold">{ex.name}</div>
                           <div className="mt-0.5 text-xs text-muted-foreground">
                             <Target className="mr-1 inline h-3 w-3" />
