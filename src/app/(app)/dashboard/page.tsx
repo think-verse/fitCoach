@@ -58,10 +58,13 @@ export default async function DashboardPage() {
       weight: Number(w.weightKg),
     }));
 
-  const currentWeight = weights[0]?.weightKg ? Number(weights[0].weightKg) : null;
+  // Most recent row may be a check-in with no weight logged — skip nulls so
+  // "Current" shows the user's actual last known weight, not a dash.
+  const weighed = weights.filter((w) => w.weightKg != null);
+  const currentWeight = weighed[0]?.weightKg ? Number(weighed[0].weightKg) : null;
   const startWeight =
-    weights.length > 1
-      ? Number(weights[weights.length - 1].weightKg ?? 0)
+    weighed.length > 1
+      ? Number(weighed[weighed.length - 1].weightKg ?? 0)
       : currentWeight;
   const delta =
     currentWeight && startWeight ? +(currentWeight - startWeight).toFixed(1) : 0;

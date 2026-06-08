@@ -30,6 +30,7 @@ export async function updateProfile(input: UpdateProfileInput) {
       trainingDaysPerWeek: data.trainingDaysPerWeek,
       foodPref: data.foodPref,
       dietStyle: data.dietStyle,
+      activityLevel: data.activityLevel,
       injuries: data.injuries ?? null,
       updatedAt: sql`now()`,
     })

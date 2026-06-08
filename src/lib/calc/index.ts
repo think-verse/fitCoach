@@ -59,17 +59,28 @@ export function tdee(bmrValue: number, level: ActivityLevel): number {
   return Math.round(bmrValue * ACTIVITY_MULT[level]);
 }
 
-/** Calorie target by goal. Conservative defaults, gym-evidence based. */
+/**
+ * Calorie target by goal. Gentle, evidence-based defaults:
+ *   fat_loss     -15% deficit  (sustainable, preserves muscle)
+ *   muscle_gain  +5% surplus   (lean gains, minimal fat addition)
+ *   recomposition near maintenance, high protein
+ *   strength     +3% (recover well without bloating up)
+ *   general_fit  maintenance
+ *
+ * The previous defaults (-20% / +10%) were too aggressive once stacked on top
+ * of the common "very_active" activity overestimate — produced unrealistic
+ * 3000+ kcal bulks for sub-70 kg trainees.
+ */
 export function targetCalories(tdeeValue: number, goal: Goal): number {
   switch (goal) {
     case "fat_loss":
-      return Math.round(tdeeValue * 0.8); // ~20% deficit
+      return Math.round(tdeeValue * 0.85);
     case "muscle_gain":
-      return Math.round(tdeeValue * 1.1); // ~10% surplus
-    case "recomposition":
-      return Math.round(tdeeValue * 0.97); // small deficit, high protein
-    case "strength":
       return Math.round(tdeeValue * 1.05);
+    case "recomposition":
+      return Math.round(tdeeValue * 0.97);
+    case "strength":
+      return Math.round(tdeeValue * 1.03);
     case "general_fitness":
     default:
       return tdeeValue;

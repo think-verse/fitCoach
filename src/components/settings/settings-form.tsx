@@ -33,6 +33,12 @@ export function SettingsForm({
     dietStyle: (profile.dietStyle === ("indian" as unknown as typeof profile.dietStyle)
       ? "mixed"
       : (profile.dietStyle ?? "mixed")) as "western" | "mixed",
+    activityLevel: (profile.activityLevel ?? "moderate") as
+      | "sedentary"
+      | "light"
+      | "moderate"
+      | "active"
+      | "very_active",
     injuries: profile.injuries ?? "",
   });
   const [saved, setSaved] = useState(false);
@@ -114,6 +120,33 @@ export function SettingsForm({
                 </option>
               ))}
             </Select>
+          </Field>
+
+          <Field label="Daily activity (outside training)">
+            <Select
+              value={form.activityLevel}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  activityLevel: e.target.value as typeof f.activityLevel,
+                }))
+              }
+            >
+              <option value="sedentary">Sedentary — desk job, little walking</option>
+              <option value="light">Light — some walking, light chores</option>
+              <option value="moderate">Moderate — daily walking + chores</option>
+              <option value="active">Active — on feet most of the day</option>
+              <option value="very_active">
+                Very active — physical / manual labor job
+              </option>
+            </Select>
+            <p className="text-[10px] leading-relaxed text-muted-foreground">
+              Don&rsquo;t count gym sessions here. Most desk workers who train
+              4–5×/week are <span className="text-foreground">light</span> or{" "}
+              <span className="text-foreground">moderate</span>. Picking{" "}
+              &ldquo;very active&rdquo; inflates your calorie target by
+              ~30%.
+            </p>
           </Field>
 
           <Field label="Food preference">

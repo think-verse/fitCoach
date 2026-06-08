@@ -61,6 +61,13 @@ export const UpdateProfileSchema = z.object({
   trainingDaysPerWeek: z.coerce.number().int().min(2).max(7),
   foodPref: z.enum(["vegetarian", "non_vegetarian", "eggetarian", "vegan"]),
   dietStyle: z.enum(["western", "mixed"]),
+  activityLevel: z.enum([
+    "sedentary",
+    "light",
+    "moderate",
+    "active",
+    "very_active",
+  ]),
   injuries: z.string().max(500).optional().nullable(),
 });
 export type UpdateProfileInput = z.infer<typeof UpdateProfileSchema>;
