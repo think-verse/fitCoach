@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { GoogleSignInButton } from "./google-signin-button";
+import { EmailSignInForm } from "./email-signin-form";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 export const metadata = { title: "Sign in" };
@@ -39,6 +40,14 @@ export default async function LoginPage({
               <GoogleSignInButton from={searchParams.from} />
             </div>
 
+            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="h-px flex-1 bg-border" />
+              <span>or use your email</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            <EmailSignInForm from={searchParams.from} />
+
             {searchParams.error && (
               <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
                 Sign-in failed. Please try again.
@@ -54,10 +63,10 @@ export default async function LoginPage({
         </Card>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          New here?{" "}
-          <span className="text-foreground">
-            Google sign-in creates your account automatically.
-          </span>
+          <span className="text-foreground">Email sign-in</span> is for
+          customers who purchased via the sales page.{" "}
+          <span className="text-foreground">Google</span> creates a free
+          account for anyone.
         </p>
       </div>
     </div>
