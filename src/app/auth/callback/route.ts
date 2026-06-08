@@ -9,7 +9,11 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const next = url.searchParams.get("next") ?? "/dashboard";
+  // Validate `next` — only allow same-origin paths. A full URL or protocol-
+  // relative `//evil.com` would otherwise turn this into an open redirect.
+  const rawNext = url.searchParams.get("next") ?? "/dashboard";
+  const next =
+    rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/dashboard";
 
   if (code) {
     const supabase = createClient();

@@ -39,7 +39,10 @@ export async function updateSession(request: NextRequest) {
     PUBLIC_PATHS.includes(path) ||
     path.startsWith(AUTH_CALLBACK) ||
     path.startsWith("/_next") ||
-    path.startsWith("/api/auth");
+    path.startsWith("/api/auth") ||
+    // Cron endpoint is hit by Vercel with no user cookie. It does its own
+    // auth via CRON_SECRET, so don't bounce it to /login.
+    path.startsWith("/api/cron");
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();
