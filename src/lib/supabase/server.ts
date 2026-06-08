@@ -38,12 +38,35 @@ export function createServiceClient() {
   );
 }
 
+/**
+ * Resolve the currently signed-in user.
+ *
+ * Critical: cold-starts on free-tier Supabase/Vercel can cause the FIRST call
+ * to auth.getUser() to time out or 5xx. The old implementation returned null on
+ * any failure, which made every protected page redirect a logged-in user to
+ * /login on a cold visit. Now we retry once on transient failure (~1.5s back-
+ * off) and ONLY return null when Supabase definitively confirms no session
+ * (HTTP 401/403) or we genuinely exhaust the retry.
+ */
 export async function getCurrentUser() {
   const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      if (data.user) return data.user;
+      // Definitive "no session" — don't waste time retrying.
+      if (error && (error.status === 401 || error.status === 403)) {
+        return null;
+      }
+      // Ambiguous: no user but no auth error either. Could be cold start.
+      // Retry once before giving up.
+    } catch {
+      // Network / fetch failure. Retry once.
+    }
+    if (attempt === 1) await new Promise((r) => setTimeout(r, 1500));
+  }
+  return null;
 }
 
 export async function requireUser() {

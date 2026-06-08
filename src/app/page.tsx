@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 const FEATURES = [
   {
@@ -112,7 +113,9 @@ const FAQ = [
   },
 ];
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const user = await getCurrentUser();
+
   return (
     <div className="min-h-dvh bg-background">
       {/* Top nav */}
@@ -137,8 +140,10 @@ export default function LandingPage() {
             >
               FAQ
             </Link>
-            <Button asChild size="sm">
-              <Link href="/login">Sign in</Link>
+            <Button asChild size="sm" variant={user ? "secondary" : "default"}>
+              <Link href={user ? "/dashboard" : "/login"}>
+                {user ? "Dashboard" : "Sign in"}
+              </Link>
             </Button>
           </div>
         </div>
@@ -162,8 +167,8 @@ export default function LandingPage() {
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button asChild size="xl" className="w-full sm:w-auto">
-              <Link href="/login">
-                Start free — analyze my physique
+              <Link href={user ? "/dashboard" : "/login"}>
+                {user ? "Go to Dashboard" : "Start free — analyze my physique"}
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>

@@ -19,7 +19,9 @@ export async function GET(request: Request) {
     const supabase = createClient();
     let lastError: unknown = null;
 
-    for (let attempt = 1; attempt <= 2; attempt++) {
+    // Retry logic for code exchange. Cold starts on free-tier DBs/Functions
+    // can cause the first exchange attempt to timeout or fail.
+    for (let attempt = 1; attempt <= 3; attempt++) {
       try {
         const { error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
@@ -29,13 +31,14 @@ export async function GET(request: Request) {
       } catch (e) {
         lastError = e;
       }
-      if (attempt === 1) {
-        // Short backoff before the retry — gives the backend a moment to wake.
-        await new Promise((r) => setTimeout(r, 1500));
+
+      if (attempt < 3) {
+        // Incremental backoff: 2s, then 4s.
+        await new Promise((r) => setTimeout(r, attempt * 2000));
       }
     }
 
-    console.error("[auth/callback] exchange failed:", lastError);
+    console.error("[auth/callback] exchange failed after 3 attempts:", lastError);
   }
 
   return NextResponse.redirect(

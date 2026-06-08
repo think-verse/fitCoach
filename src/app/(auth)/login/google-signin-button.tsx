@@ -21,7 +21,7 @@ export function GoogleSignInButton({ from }: { from?: string }) {
       provider: "google",
       options: {
         redirectTo: redirectTo.toString(),
-        queryParams: { access_type: "offline", prompt: "consent" },
+        queryParams: { access_type: "offline" },
       },
     });
     if (error) {

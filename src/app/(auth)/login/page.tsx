@@ -1,15 +1,23 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { GoogleSignInButton } from "./google-signin-button";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 export const metadata = { title: "Sign in" };
 
-export default function LoginPage({
+export default async function LoginPage({
   searchParams,
 }: {
   searchParams: { error?: string; from?: string };
 }) {
+  const user = await getCurrentUser();
+
+  if (user) {
+    redirect(searchParams.from || "/dashboard");
+  }
+
   return (
     <div className="flex min-h-dvh items-center justify-center bg-hero-glow px-4">
       <div className="w-full max-w-md">
