@@ -36,7 +36,11 @@ export async function updateSession(request: NextRequest) {
     path.startsWith(AUTH_CALLBACK) ||
     path.startsWith("/_next") ||
     path.startsWith("/api/auth") ||
-    path.startsWith("/api/cron");
+    path.startsWith("/api/cron") ||
+    // Webhooks come from external services (Make, systeme.io, etc.) with no
+    // user cookie. Bypass the auth check — the routes do their own auth via
+    // a query secret / signed header.
+    path.startsWith("/api/webhooks");
 
   // We MUST call supabase.auth.getUser() even on public paths. 
   // Why? To ensure the session is refreshed and cookies are updated in the browser.
