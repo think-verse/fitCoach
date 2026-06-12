@@ -32,17 +32,23 @@ const SUPPORTED_TIERS = new Set<string>(TIERS);
 const EmailSchema = z.string().email().max(254);
 
 export async function POST(req: Request) {
-  // 1. Secret check (if set in env).
+  const url = new URL(req.url);
+
+  // 1. Secret check (if set in env). Accept either:
+  //    - `X-Webhook-Secret` header (preferred — keeps the URL clean)
+  //    - `?secret=...` query param (fallback for funnel platforms that don't
+  //      let you set custom headers — e.g. some systeme.io plans)
   const expected = process.env.SYSTEMEIO_WEBHOOK_SECRET;
   if (expected) {
-    const got = req.headers.get("x-webhook-secret");
+    const got =
+      req.headers.get("x-webhook-secret") ??
+      url.searchParams.get("secret");
     if (got !== expected) {
       return NextResponse.json({ ok: false }, { status: 401 });
     }
   }
 
   // 2. Tier from URL.
-  const url = new URL(req.url);
   const tier = (url.searchParams.get("tier") ?? "pro_monthly").toLowerCase();
   if (!SUPPORTED_TIERS.has(tier)) {
     return NextResponse.json(
