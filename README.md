@@ -4,7 +4,9 @@
 
 A mobile-first AI fitness web app. Users upload physique photos, get an AI body analysis, unlock a personalized workout and diet plan, and check in weekly so the AI can adapt the plan.
 
-**Stack:** Next.js 14 (App Router) · Tailwind + shadcn-style UI · Supabase (Auth + Postgres + Storage) · Drizzle ORM · Anthropic Claude · Framer Motion · Recharts · Zod · React Hook Form · Vercel-ready.
+**Stack:** Next.js 14 (App Router) · Tailwind + shadcn-style UI · Firebase (Auth + Firestore + Storage) · Anthropic Claude · Cloudinary (exercise demos) · Resend (email) · Framer Motion · Recharts · Zod · React Hook Form · Vercel-ready.
+
+> **Note:** The backend was migrated from Supabase/Postgres/Drizzle to Firebase (Firestore + Storage + Admin SDK). Some setup sections below still reference the old Supabase flow and are being updated.
 
 ---
 
