@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
 import { GeneratePlanRunner } from "@/components/analysis/generate-plan-runner";
 
 export const metadata = { title: "Generating your plan" };

@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { db, schema } from "@/lib/db";
-import { requireUser } from "@/lib/supabase/server";
+import { requireUser } from "@/lib/firebase/auth";
+import { addProgressPhoto } from "@/lib/firestore/repo";
 
 interface RegisterArg {
   uploads: Array<{
@@ -17,14 +17,13 @@ export async function registerPhotos(arg: RegisterArg) {
   const user = await requireUser();
   if (!arg.uploads?.length) return;
 
-  await db.insert(schema.progressPhotos).values(
-    arg.uploads.map((u) => ({
-      userId: user.id,
+  for (const u of arg.uploads) {
+    await addProgressPhoto(user.id, {
       angle: u.angle,
       storagePath: u.storagePath,
       weekNumber: arg.weekNumber ?? 0,
-    })),
-  );
+    });
+  }
 
   revalidatePath("/analysis");
 }

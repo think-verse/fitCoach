@@ -1,4 +1,4 @@
-import type { UserProfile } from "@/lib/db/schema";
+import type { UserProfile } from "@/lib/firestore/types";
 import { generateText, TEXT_MODEL } from "./client";
 import type Anthropic from "@anthropic-ai/sdk";
 

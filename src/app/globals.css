@@ -71,4 +71,63 @@
     background-size: 200% 100%;
     @apply animate-shimmer;
   }
+  /* Animated multi-stop emerald→teal→indigo headline gradient. */
+  .gradient-text-animated {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      110deg,
+      #34d399,
+      #5eead4,
+      #818cf8,
+      #34d399
+    );
+    background-size: 220% 100%;
+    @apply animate-gradient-pan;
+  }
+  /* Faint dotted grid backdrop for sections. */
+  .bg-dots {
+    background-image: radial-gradient(
+      hsl(var(--border)) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+  /* Fade content out toward the bottom edge (for marquees / mocks). */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+  /* Thin glowing 1px hairline (used under the navbar / dividers). */
+  .hairline-glow {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(52, 211, 153, 0.5),
+      transparent
+    );
+  }
+}
+
+/* Respect reduced-motion: kill the looping decorative animations. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-gradient-pan,
+  .animate-scanline,
+  .animate-marquee,
+  .animate-pulse-glow,
+  .animate-shimmer {
+    animation: none !important;
+  }
 }

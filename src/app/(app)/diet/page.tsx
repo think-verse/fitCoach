@@ -12,7 +12,7 @@ import {
   Wheat,
   Zap,
 } from "lucide-react";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
 import { getActiveDietPlan } from "@/lib/data/user-state";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

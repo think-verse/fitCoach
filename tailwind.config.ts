@@ -59,10 +59,32 @@ const config: Config = {
           "0%,100%": { boxShadow: "0 0 0 0 rgba(34,197,94,0.5)" },
           "50%": { boxShadow: "0 0 40px 10px rgba(34,197,94,0.15)" },
         },
+        float: {
+          "0%,100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-16px)" },
+        },
+        gradientPan: {
+          "0%,100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        scanline: {
+          "0%": { transform: "translateY(0%)", opacity: "0" },
+          "12%": { opacity: "1" },
+          "88%": { opacity: "1" },
+          "100%": { transform: "translateY(1000%)", opacity: "0" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         shimmer: "shimmer 2.5s linear infinite",
         "pulse-glow": "pulseGlow 2.4s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
+        "gradient-pan": "gradientPan 8s ease infinite",
+        scanline: "scanline 3s ease-in-out infinite",
+        marquee: "marquee 36s linear infinite",
       },
     },
   },

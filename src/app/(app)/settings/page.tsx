@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
-import { getCurrentUser } from "@/lib/supabase/server";
-import { db, schema } from "@/lib/db";
+import { getCurrentUser } from "@/lib/firebase/auth";
+import { getProfile, getSubscription } from "@/lib/firestore/repo";
 import { SettingsForm } from "@/components/settings/settings-form";
 
 export const metadata = { title: "Settings" };
@@ -10,19 +9,10 @@ export default async function SettingsPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const [profile] = await db
-    .select()
-    .from(schema.userProfiles)
-    .where(eq(schema.userProfiles.userId, user.id))
-    .limit(1);
+  const profile = await getProfile(user.id);
   if (!profile) redirect("/onboarding");
 
-  const [subscription] = await db
-    .select()
-    .from(schema.subscriptions)
-    .where(eq(schema.subscriptions.userId, user.id))
-    .limit(1)
-    .catch(() => [null]);
+  const subscription = await getSubscription(user.id).catch(() => null);
 
   return (
     <div className="space-y-6">

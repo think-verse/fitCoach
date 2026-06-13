@@ -1,9 +1,18 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
 import {
   getCheckins,
+  getProfile,
   getWeightHistory,
 } from "@/lib/data/user-state";
+import { getSettings } from "@/lib/firestore/repo";
+import { healthyWeightRange } from "@/lib/insights";
+import {
+  formatWeight,
+  toDisplayWeight,
+  weightUnitLabel,
+  type Units,
+} from "@/lib/format/units";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckinForm } from "@/components/progress/checkin-form";
@@ -18,11 +27,21 @@ export default async function ProgressPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const [weights, checkins, nextWeek] = await Promise.all([
+  const [weights, checkins, nextWeek, profile, settings] = await Promise.all([
     getWeightHistory(user.id, 30),
     getCheckins(user.id),
     getNextWeekNumber().catch(() => 1),
+    getProfile(user.id).catch(() => null),
+    getSettings(user.id).catch(() => null),
   ]);
+
+  const units = (settings?.units ?? "metric") as Units;
+  const unitLabel = weightUnitLabel(units);
+  const healthy = healthyWeightRange(profile?.heightCm);
+  const healthyMinDisp =
+    healthy.minKg != null ? +toDisplayWeight(healthy.minKg, units).toFixed(1) : null;
+  const healthyMaxDisp =
+    healthy.maxKg != null ? +toDisplayWeight(healthy.maxKg, units).toFixed(1) : null;
 
   const weightPoints = [...weights]
     .reverse()
@@ -32,7 +51,7 @@ export default async function ProgressPage() {
         month: "short",
         day: "numeric",
       }),
-      weight: Number(w.weightKg),
+      weight: +toDisplayWeight(Number(w.weightKg), units).toFixed(1),
     }));
 
   return (
@@ -48,7 +67,12 @@ export default async function ProgressPage() {
           <p className="mb-3 text-xs text-muted-foreground">
             {weightPoints.length} data points
           </p>
-          <WeightChart data={weightPoints} />
+          <WeightChart
+            data={weightPoints}
+            healthyMin={healthyMinDisp}
+            healthyMax={healthyMaxDisp}
+            unit={unitLabel}
+          />
         </CardContent>
       </Card>
 
@@ -81,7 +105,7 @@ export default async function ProgressPage() {
                   <Badge variant="default">Week {c.weekNumber}</Badge>
                   {c.weightKg && (
                     <span className="text-sm text-muted-foreground">
-                      {c.weightKg} kg
+                      {formatWeight(c.weightKg, units)}
                     </span>
                   )}
                   {c.consistencyScore != null && (

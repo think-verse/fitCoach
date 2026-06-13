@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { zodToJsonSchema } from "./zod-to-json-schema";
+import { enqueue } from "./queue";
 
 // Two tiers: vision-critical work (photo analysis, weekly photo comparison) uses
 // the stronger Sonnet model; text-only generation (workout, diet, coach chat)
@@ -53,6 +54,8 @@ export interface StructuredOptions<T extends z.ZodTypeAny> {
   toolDescription: string;
   model?: string;
   maxTokens?: number;
+  /** Optional — applies the queue's per-user fairness cap. */
+  userId?: string;
 }
 
 /**
@@ -66,7 +69,7 @@ export async function generateStructured<T extends z.ZodTypeAny>(
   const anthropic = getAnthropic();
   const jsonSchema = zodToJsonSchema(opts.schema);
 
-  const response = await anthropic.messages.create({
+  const response = await enqueue(() => anthropic.messages.create({
     model: opts.model ?? DEFAULT_MODEL,
     max_tokens: opts.maxTokens ?? 4096,
     // Cache the (static) system prompt — repeat calls within ~5 min reuse it at
@@ -81,7 +84,7 @@ export async function generateStructured<T extends z.ZodTypeAny>(
     ],
     tool_choice: { type: "tool", name: opts.toolName },
     messages: [{ role: "user", content: opts.user }],
-  });
+  }), opts.userId);
 
   const toolBlock = response.content.find(
     (b): b is Anthropic.Messages.ToolUseBlock => b.type === "tool_use",
@@ -98,14 +101,15 @@ export async function generateText(opts: {
   messages: Anthropic.Messages.MessageParam[];
   model?: string;
   maxTokens?: number;
+  userId?: string;
 }): Promise<string> {
   const anthropic = getAnthropic();
-  const response = await anthropic.messages.create({
+  const response = await enqueue(() => anthropic.messages.create({
     model: opts.model ?? DEFAULT_MODEL,
     max_tokens: opts.maxTokens ?? 1024,
     system: cachedSystem(opts.system),
     messages: opts.messages,
-  });
+  }), opts.userId);
   return response.content
     .filter((b): b is Anthropic.Messages.TextBlock => b.type === "text")
     .map((b) => b.text)

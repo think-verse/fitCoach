@@ -49,9 +49,12 @@ export function AnalysisRunner() {
   const startedRef = useRef(false);
 
   useEffect(() => {
+    // startedRef already guarantees exactly one run across Strict-Mode
+    // remounts, so we must NOT also use a cleanup "cancelled" flag — that flag
+    // would cancel the single in-flight request and the result (which arrives
+    // after the remount) would be discarded, leaving the spinner stuck forever.
     if (startedRef.current) return;
     startedRef.current = true;
-    let cancelled = false;
 
     async function callOnce(): Promise<Response> {
       return fetch("/api/analysis", {
@@ -74,7 +77,6 @@ export function AnalysisRunner() {
             continue;
           }
           const data = await res.json();
-          if (cancelled) return;
           if (!res.ok) throw new Error(data.error ?? "Analysis failed.");
           setResult(data);
           return;
@@ -83,15 +85,11 @@ export function AnalysisRunner() {
             await new Promise((r) => setTimeout(r, 2500));
             continue;
           }
-          if (cancelled) return;
           setError(e instanceof Error ? e.message : "Analysis failed.");
         }
       }
     }
     run();
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   if (error) {

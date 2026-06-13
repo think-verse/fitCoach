@@ -1,4 +1,4 @@
-import type { UserProfile } from "@/lib/db/schema";
+import type { UserProfile } from "@/lib/firestore/types";
 import { generateStructured } from "./client";
 import {
   WeeklyUpdateSchema,

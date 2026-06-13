@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
-import { eq, desc } from "drizzle-orm";
-import { getCurrentUser } from "@/lib/supabase/server";
-import { db, schema } from "@/lib/db";
+import { getCurrentUser } from "@/lib/firebase/auth";
+import { getLatestAnalysis } from "@/lib/firestore/repo";
 import { AnalysisRunner } from "@/components/analysis/analysis-runner";
 import { AnalysisView } from "@/components/analysis/analysis-view";
 import type { BodyAnalysis } from "@/lib/ai/schemas";
@@ -18,13 +17,7 @@ export default async function AnalysisPage({
 
   // If we already have an analysis and the user didn't just upload fresh photos,
   // show the latest. Otherwise, run a new one.
-  const [latest] = await db
-    .select()
-    .from(schema.bodyAnalysisReports)
-    .where(eq(schema.bodyAnalysisReports.userId, user.id))
-    .orderBy(desc(schema.bodyAnalysisReports.createdAt))
-    .limit(1)
-    .catch(() => []);
+  const latest = await getLatestAnalysis(user.id).catch(() => null);
 
   const shouldRunFresh = searchParams.fresh === "1" || !latest;
 

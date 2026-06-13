@@ -1,4 +1,4 @@
-import type { UserProfile } from "@/lib/db/schema";
+import type { UserProfile } from "@/lib/firestore/types";
 import { generateStructured, TEXT_MODEL } from "./client";
 import {
   WorkoutStructureSchema,

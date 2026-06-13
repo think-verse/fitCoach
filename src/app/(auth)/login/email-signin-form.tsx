@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import { Loader2, Mail } from "lucide-react";
+import { sendSignInLinkToEmail } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/lib/supabase/client";
+import { clientAuth } from "@/lib/firebase/client";
+
+const EMAIL_KEY = "fc_emailForSignIn";
 
 /**
- * Magic-link sign-in. Only EXISTING users can request a link — so unless
- * someone has paid (and been provisioned by the systeme.io webhook) OR signed
- * in via Google previously, they get a generic "if your email is in our
- * system, you'll get a link" response.
- *
- * We never reveal whether an email exists (account-enumeration protection).
+ * Passwordless email magic-link sign-in (Firebase). We send a one-click link;
+ * completion happens at /auth/callback. We stash the email in localStorage so
+ * the callback can complete sign-in without re-prompting.
  */
 export function EmailSignInForm({ from }: { from?: string }) {
   const [email, setEmail] = useState("");
@@ -24,24 +24,20 @@ export function EmailSignInForm({ from }: { from?: string }) {
     if (!email.trim() || loading) return;
     setLoading(true);
 
-    const supabase = createClient();
-    const redirectTo = new URL(
-      "/auth/callback",
-      process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin,
-    );
-    if (from) redirectTo.searchParams.set("next", from);
+    const origin =
+      process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin;
+    const url = new URL("/auth/callback", origin);
+    if (from) url.searchParams.set("next", from);
 
-    // shouldCreateUser:false — only existing (paid / Google-signed-in) users
-    // can request a magic link. Random emails get the same generic UI message
-    // so we don't leak which addresses exist.
-    await supabase.auth.signInWithOtp({
-      email: email.trim(),
-      options: {
-        shouldCreateUser: false,
-        emailRedirectTo: redirectTo.toString(),
-      },
-    });
-
+    try {
+      await sendSignInLinkToEmail(clientAuth(), email.trim(), {
+        url: url.toString(),
+        handleCodeInApp: true,
+      });
+      window.localStorage.setItem(EMAIL_KEY, email.trim());
+    } catch (err) {
+      console.error(err);
+    }
     // Always show success — never reveal whether the email exists.
     setSent(true);
     setLoading(false);
@@ -54,9 +50,9 @@ export function EmailSignInForm({ from }: { from?: string }) {
           <Mail className="h-4 w-4" /> Check your inbox
         </div>
         <p className="mt-1 text-muted-foreground">
-          If <span className="text-foreground">{email}</span> is registered,
-          we&rsquo;ve sent a one-click sign-in link. It may take a minute to
-          arrive — check spam if not.
+          We&rsquo;ve sent a one-click sign-in link to{" "}
+          <span className="text-foreground">{email}</span>. It may take a minute
+          to arrive — check spam if not.
         </p>
       </div>
     );
@@ -74,11 +70,7 @@ export function EmailSignInForm({ from }: { from?: string }) {
         disabled={loading}
       />
       <Button type="submit" disabled={loading || !email.trim()} className="w-full" size="lg">
-        {loading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <Mail className="h-4 w-4" />
-        )}
+        {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
         Email me a sign-in link
       </Button>
     </form>

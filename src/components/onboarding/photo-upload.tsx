@@ -14,12 +14,39 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Disclaimer } from "@/components/ui/disclaimer";
-import { createClient } from "@/lib/supabase/client";
 import { registerPhotosAndContinue } from "@/app/actions/photos";
 import { cn } from "@/lib/utils";
 
 const ANGLES = ["front", "side", "back"] as const;
 type Angle = (typeof ANGLES)[number];
+
+/**
+ * Downscale + re-encode an image in the browser so it stays well under
+ * Claude's 10 MB image cap (base64 inflates ~33%). Max long edge 1600px,
+ * JPEG quality 0.82. Falls back to the original file if anything fails.
+ */
+async function compressImage(file: File): Promise<Blob> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const maxEdge = 1600;
+    const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+    const w = Math.round(bitmap.width * scale);
+    const h = Math.round(bitmap.height * scale);
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    bitmap.close?.();
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob((b) => resolve(b), "image/jpeg", 0.82),
+    );
+    return blob ?? file;
+  } catch {
+    return file;
+  }
+}
 
 const POSE_TIPS: Record<Angle, string> = {
   front: "Stand straight, arms slightly out, palms facing camera.",
@@ -33,14 +60,12 @@ interface Selected {
   previewUrl: string;
 }
 
-const BUCKET = process.env.NEXT_PUBLIC_SUPABASE_PHOTO_BUCKET ?? "physique-photos";
-
 export function PhotoUpload({
-  userId,
   weekNumber = 0,
   onComplete,
 }: {
-  userId: string;
+  /** Accepted for call-site compatibility; the server derives the uid from the session. */
+  userId?: string;
   weekNumber?: number;
   onComplete?: () => void;
 }) {
@@ -100,24 +125,27 @@ export function PhotoUpload({
     }
 
     setUploading(true);
-    const supabase = createClient();
     const uploads: { angle: Angle; storagePath: string }[] = [];
 
     try {
       for (const angle of ANGLES) {
         const item = selected[angle]!;
-        const ext = item.file.name.split(".").pop()?.toLowerCase() || "jpg";
-        const path = `${userId}/w${weekNumber}/${angle}-${Date.now()}.${ext}`;
-        const { error: upErr } = await supabase.storage
-          .from(BUCKET)
-          .upload(path, item.file, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: item.file.type,
-          });
-        if (upErr) throw upErr;
+        // Compress in-browser first so we never exceed Claude's image limit.
+        const compressed = await compressImage(item.file);
+        // Upload via the server (Admin SDK) — uses the verified session cookie,
+        // so it doesn't depend on client Firebase Auth state.
+        const fd = new FormData();
+        fd.append("file", compressed, `${angle}.jpg`);
+        fd.append("angle", angle);
+        fd.append("weekNumber", String(weekNumber));
+        const res = await fetch("/api/upload", { method: "POST", body: fd });
+        if (!res.ok) {
+          const body = (await res.json().catch(() => ({}))) as { error?: string };
+          throw new Error(body.error || "Upload failed");
+        }
+        const { storagePath } = (await res.json()) as { storagePath: string };
         setProgress((p) => ({ ...p, [angle]: 100 }));
-        uploads.push({ angle, storagePath: path });
+        uploads.push({ angle, storagePath });
       }
 
       startTransition(async () => {

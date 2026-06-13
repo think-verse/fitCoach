@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Clock, Dumbbell, Repeat, Target, Activity } from "lucide-react";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
 import { getActiveWorkoutPlan } from "@/lib/data/user-state";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -65,7 +65,7 @@ export default async function WorkoutPage() {
                   )}
                 </div>
                 <div className="shrink-0 text-xs text-muted-foreground">
-                  {day.exercises.length} exercises
+                  {(day.exercises ?? []).length} exercises
                 </div>
               </div>
 
@@ -77,7 +77,7 @@ export default async function WorkoutPage() {
               )}
 
               <div className="space-y-3">
-                {day.exercises.map((ex) => (
+                {(day.exercises ?? []).map((ex) => (
                   <Card key={ex.id} className="border-border/60">
                     <CardContent className="p-4">
                       <div className="grid items-start gap-4 sm:grid-cols-[minmax(260px,2fr)_3fr]">

@@ -4,91 +4,95 @@ import {
   Camera,
   ChartBar,
   Dumbbell,
-  Flame,
+  LogIn,
+  Mail,
+  RefreshCw,
   Salad,
-  ShieldCheck,
   Sparkles,
-  CheckCircle2,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
+import { getProfile } from "@/lib/firestore/repo";
+import { Navbar } from "@/components/marketing/navbar";
+import { Faq } from "@/components/marketing/faq";
+import { Reveal } from "@/components/marketing/reveal";
+import { Hero } from "@/components/marketing/hero";
+import { AnimatedCounter } from "@/components/marketing/animated-counter";
+
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FitCoach";
+
+const STATS = [
+  { value: 60, suffix: "s", label: "To your first AI analysis" },
+  { value: 3, suffix: "", label: "Photo angles read by AI" },
+  { value: 100, suffix: "%", label: "Personalized to you" },
+  { value: 7, suffix: "-day", label: "Adaptive check-in loop" },
+];
+
+const STEPS = [
+  { icon: LogIn, n: "1", t: "Sign in", d: "Free account in seconds — no card." },
+  { icon: Camera, n: "2", t: "Upload photos", d: "Front, side, back — same lighting." },
+  { icon: Sparkles, n: "3", t: "AI analysis", d: "Body type, weak points, BMI/TDEE." },
+  { icon: Dumbbell, n: "4", t: "Get your plan", d: "Workout + diet for your gear." },
+  { icon: RefreshCw, n: "5", t: "Check in weekly", d: "AI re-adapts as you change." },
+];
 
 const FEATURES = [
   {
     icon: Camera,
     title: "AI physique scan",
     body: "Upload front / side / back photos and get an instant AI visual estimate of strengths, weak points, and priority muscle groups.",
+    span: "md:col-span-2",
   },
   {
     icon: Dumbbell,
     title: "Personalized training",
-    body: "Split, exercises, sets, reps, rest, RPE, form cues, and demo links — built around your goal, gear, and recovery.",
+    body: "Split, sets, reps, rest, RPE, form cues, and demo links — built around your goal, gear, and recovery.",
+    span: "md:col-span-1",
   },
   {
     icon: Salad,
     title: "Smart diet plan",
-    body: "Calorie & macro targets with real meals built for your food preference and budget, with easy swaps.",
+    body: "Calorie & macro targets with real meals for your food preference and budget, with easy swaps.",
+    span: "md:col-span-1",
   },
   {
     icon: ChartBar,
     title: "Weekly progress AI",
-    body: "Upload a check-in photo each week. AI compares your photos and adjusts your plan automatically.",
+    body: "Upload a check-in photo each week. The AI compares your photos over time and adjusts your plan automatically.",
+    span: "md:col-span-2",
   },
 ];
 
-const STEPS = [
-  { n: "1", t: "Upload physique", d: "Front, side, back — same lighting." },
-  { n: "2", t: "Get AI analysis", d: "Body type, weak points, realistic goals." },
-  { n: "3", t: "Unlock your plan", d: "Workout + diet, tailored to you." },
-  { n: "4", t: "Track weekly", d: "Photo check-ins, AI re-adapts the plan." },
+const TESTIMONIALS = [
+  {
+    quote:
+      "The weekly photo check-ins kept me honest. My plan actually changed as I changed — it felt like a real coach.",
+    name: "Early member",
+    role: "Fat loss, 12 weeks",
+  },
+  {
+    quote:
+      "Finally a plan that fit my home gym and my budget. The macro targets were easy to hit with the meal swaps.",
+    name: "Early member",
+    role: "Recomposition",
+  },
+  {
+    quote:
+      "The AI spotted that my shoulders were lagging and reprioritized my split. Loved how specific it was.",
+    name: "Early member",
+    role: "Muscle gain",
+  },
 ];
 
-const PRICING = [
-  {
-    name: "Free",
-    price: "$0",
-    cadence: "forever",
-    bullets: [
-      "BMI / BMR / TDEE calculator",
-      "1 AI body analysis",
-      "Basic dashboard",
-    ],
-    cta: "Start free",
-    href: "/login",
-    highlight: false,
-  },
-  {
-    name: "Pro Monthly",
-    price: "$12",
-    cadence: "/month",
-    bullets: [
-      "Unlimited AI analyses",
-      "Weekly plan updates",
-      "AI coach chat",
-      "Progress photo timeline",
-      "Diet customization & swaps",
-    ],
-    cta: "Go Pro",
-    href: "/login",
-    highlight: true,
-  },
-  {
-    name: "Lifetime",
-    price: "$199",
-    cadence: "one-time",
-    bullets: [
-      "Everything in Pro",
-      "Lifetime access",
-      "Early founder pricing",
-      "All future features included",
-    ],
-    cta: "Get lifetime",
-    href: "/login",
-    highlight: false,
-  },
-];
+const GOAL_LABELS: Record<string, string> = {
+  fat_loss: "Fat loss",
+  muscle_gain: "Muscle gain",
+  recomposition: "Recomposition",
+  strength: "Strength",
+  general_fitness: "General fitness",
+};
 
 const FAQ = [
   {
@@ -104,239 +108,237 @@ const FAQ = [
     a: "Yes. Tell us your equipment (none, dumbbells, bands, full home gym, etc.) during onboarding and the plan adapts.",
   },
   {
-    q: "Can I use the app if I'm vegan or vegetarian?",
+    q: "Do you support vegan or vegetarian diets?",
     a: "Yes. During onboarding pick your food preference — vegan, vegetarian, eggetarian, or non-vegetarian — and every meal plan respects it.",
   },
   {
     q: "Can I cancel anytime?",
-    a: "Yes. Cancel from Settings — you keep Pro features until the period ends.",
+    a: "Yes. Manage your plan from Settings — you keep Pro features until the period ends.",
   },
 ];
 
 export default async function LandingPage() {
   const user = await getCurrentUser();
+  const isAuthed = Boolean(user);
+
+  const profile = user ? await getProfile(user.id).catch(() => null) : null;
+  const userName = profile?.name ?? user?.name ?? null;
+  const goalLabel = profile?.goal ? (GOAL_LABELS[profile.goal] ?? null) : null;
+
+  const primary = isAuthed
+    ? { label: "Open my dashboard", href: "/home" }
+    : { label: "Start free — analyze my physique", href: "/login" };
 
   return (
     <div className="min-h-dvh bg-background">
-      {/* Top nav */}
-      <header className="sticky top-0 z-30 border-b border-border/40 bg-background/70 backdrop-blur-xl">
-        <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
-              <Flame className="h-5 w-5" />
-            </div>
-            <span className="text-lg font-bold tracking-tight">FitCoach</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link
-              href="#pricing"
-              className="hidden text-sm text-muted-foreground hover:text-foreground sm:block"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#faq"
-              className="hidden text-sm text-muted-foreground hover:text-foreground sm:block"
-            >
-              FAQ
-            </Link>
-            <Button asChild size="sm" variant={user ? "secondary" : "default"}>
-              <Link href={user ? "/dashboard" : "/login"}>
-                {user ? "Dashboard" : "Sign in"}
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Navbar isAuthed={isAuthed} userName={userName} />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-hero-glow">
-        <div className="container relative pb-24 pt-16 md:pb-32 md:pt-24">
-          <Badge variant="success" className="mb-6">
-            <Sparkles className="mr-1 h-3 w-3" /> AI fitness, done right
-          </Badge>
-          <h1 className="max-w-3xl text-balance text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-            Your AI personal trainer,{" "}
-            <span className="gradient-text">diet coach</span> &amp; progress
-            tracker in one app
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Upload your physique → get an instant AI body analysis → unlock a
-            workout &amp; diet plan built for your goal, gear, and budget → check
-            in weekly and watch your plan adapt.
-          </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="xl" className="w-full sm:w-auto">
-              <Link href={user ? "/dashboard" : "/login"}>
-                {user ? "Go to Dashboard" : "Start free — analyze my physique"}
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="xl"
-              variant="outline"
-              className="w-full sm:w-auto"
-            >
-              <Link href="#how">See how it works</Link>
-            </Button>
-          </div>
-          <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            AI visual estimate — not a medical diagnosis. For fitness guidance
-            only.
-          </div>
+      <Hero
+        primaryLabel={primary.label}
+        primaryHref={primary.href}
+        userName={userName}
+        goalLabel={goalLabel}
+      />
+
+      {/* Stats strip */}
+      <section className="border-y border-border/40 bg-card/30">
+        <div className="container grid grid-cols-2 gap-6 py-10 md:grid-cols-4">
+          {STATS.map((s) => (
+            <Reveal key={s.label} className="text-center">
+              <div className="text-3xl font-bold tracking-tight md:text-4xl">
+                <AnimatedCounter
+                  value={s.value}
+                  suffix={s.suffix}
+                  className="gradient-text-animated"
+                />
+              </div>
+              <div className="mt-1 text-xs text-muted-foreground md:text-sm">
+                {s.label}
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
       {/* How it works */}
-      <section id="how" className="container py-20">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-          The loop that actually works
-        </h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          Most fitness apps stop at a calorie tracker. FitCoach closes the loop:
-          analyze → plan → train → check in → adapt.
-        </p>
-        <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s) => (
-            <li key={s.n}>
-              <Card className="h-full">
-                <CardContent className="p-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-lg font-bold text-primary">
-                    {s.n}
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold">{s.t}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{s.d}</p>
-                </CardContent>
-              </Card>
-            </li>
-          ))}
-        </ol>
+      <section id="how" className="container py-20 md:py-28">
+        <Reveal>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            The loop that actually works
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Most fitness apps stop at a calorie tracker. {APP_NAME} closes the
+            loop: sign in → upload photos → AI analysis → personalized plan →
+            weekly check-ins.
+          </p>
+        </Reveal>
+
+        <div className="relative mt-12">
+          {/* Connecting line behind the cards (desktop) */}
+          <div
+            aria-hidden
+            className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent lg:block"
+          />
+          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {STEPS.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <li key={s.n}>
+                  <Reveal delay={i * 0.06}>
+                    <div className="group relative rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40">
+                      <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/30 bg-background text-primary shadow-sm transition-colors group-hover:bg-primary/10">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div className="mt-4 text-xs font-bold uppercase tracking-wide text-primary">
+                        Step {s.n}
+                      </div>
+                      <h3 className="mt-1 text-lg font-semibold">{s.t}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {s.d}
+                      </p>
+                    </div>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </section>
 
-      {/* Features */}
-      <section className="container py-20">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {FEATURES.map((f) => {
+      {/* Features — bento */}
+      <section id="features" className="container py-20 md:py-28">
+        <Reveal>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            Everything you need to keep going
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Built around the science of adherence — clear targets, real meals,
+            and a plan that evolves with you.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {FEATURES.map((f, i) => {
             const Icon = f.icon;
             return (
-              <Card key={f.title} className="card-glow">
-                <CardContent className="p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="mt-5 text-xl font-semibold">{f.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {f.body}
-                  </p>
-                </CardContent>
-              </Card>
+              <Reveal key={f.title} delay={i * 0.05} className={f.span}>
+                <Card className="group card-glow relative h-full overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                  {/* hover glow */}
+                  <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+                  <CardContent className="relative p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mt-5 text-xl font-semibold">{f.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {f.body}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Reveal>
             );
           })}
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="container py-20">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Simple pricing
-        </h2>
-        <p className="mt-3 text-muted-foreground">
-          Start free. Upgrade when you want unlimited AI coaching and weekly
-          plan updates.
-        </p>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {PRICING.map((p) => (
-            <Card
-              key={p.name}
-              className={
-                p.highlight
-                  ? "border-primary/40 bg-gradient-to-b from-primary/10 to-card card-glow"
-                  : undefined
-              }
-            >
-              <CardContent className="p-6">
-                {p.highlight && (
-                  <Badge variant="success" className="mb-3">
-                    Most popular
-                  </Badge>
-                )}
-                <h3 className="text-lg font-semibold">{p.name}</h3>
-                <div className="mt-2 flex items-baseline gap-1">
-                  <span className="text-4xl font-bold tracking-tight">
-                    {p.price}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {p.cadence}
-                  </span>
-                </div>
-                <ul className="mt-6 space-y-2">
-                  {p.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  asChild
-                  className="mt-8 w-full"
-                  variant={p.highlight ? "default" : "outline"}
-                  size="lg"
-                >
-                  <Link href={p.href}>{p.cta}</Link>
-                </Button>
-              </CardContent>
-            </Card>
+      {/* Social proof */}
+      <section className="container py-20 md:py-28">
+        <Reveal>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            People who closed the loop
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Early members using {APP_NAME} to train smarter, eat better, and
+            actually see the change.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {TESTIMONIALS.map((t, i) => (
+            <Reveal key={t.quote} delay={i * 0.05}>
+              <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
+                <CardContent className="flex h-full flex-col p-6">
+                  <div className="flex gap-0.5 text-amber-400">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <Star key={idx} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">
+                    “{t.quote}”
+                  </p>
+                  <div className="mt-4 text-sm">
+                    <div className="font-semibold">{t.name}</div>
+                    <div className="text-muted-foreground">{t.role}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="container py-20">
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Honest answers
-        </h2>
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {FAQ.map((f) => (
-            <Card key={f.q}>
-              <CardContent className="p-6">
-                <h3 className="font-semibold">{f.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {f.a}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+      <section id="faq" className="container py-20 md:py-28">
+        <Reveal>
+          <h2 className="text-center text-3xl font-bold tracking-tight md:text-4xl">
+            Honest answers
+          </h2>
+        </Reveal>
+        <Faq items={FAQ} />
       </section>
 
       {/* CTA */}
       <section className="container pb-24">
-        <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-primary/15 via-card to-card card-glow">
-          <CardContent className="p-10 text-center md:p-16">
-            <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
-              See your physique through AI eyes.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              60 seconds to your first AI body analysis. No credit card.
-            </p>
-            <Button asChild size="xl" className="mt-8">
-              <Link href="/login">
-                Get started free <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
+        <Reveal>
+          <Card className="card-glow relative overflow-hidden border-primary/30">
+            {/* animated gradient wash */}
+            <div
+              aria-hidden
+              className="absolute inset-0 animate-gradient-pan bg-[linear-gradient(110deg,hsl(var(--card)),rgba(16,185,129,0.18),hsl(var(--card)))] bg-[length:220%_100%]"
+            />
+            <CardContent className="relative p-10 text-center md:p-16">
+              <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
+                See your physique through{" "}
+                <span className="gradient-text-animated">AI eyes</span>.
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+                60 seconds to your first AI body analysis. No credit card.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button asChild size="xl">
+                  <Link href={primary.href}>
+                    {primary.label} <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button asChild size="xl" variant="outline">
+                  <Link href="/pricing">View plans</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Reveal>
       </section>
 
       <footer className="border-t border-border/40 py-8">
         <div className="container flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
-          <div>© {new Date().getFullYear()} FitCoach. For fitness only — not medical advice.</div>
-          <div className="flex gap-4">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
+          <div>
+            © {new Date().getFullYear()} {APP_NAME}. For fitness only — not
+            medical advice.
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href="/pricing" className="hover:text-foreground">
+              Pricing
+            </Link>
+            <Link href="/privacy" className="hover:text-foreground">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-foreground">
+              Terms
+            </Link>
+            <a
+              href="mailto:contact@geekbotai.com"
+              className="inline-flex items-center gap-1 hover:text-foreground"
+            >
+              <Mail className="h-3.5 w-3.5" /> contact@geekbotai.com
+            </a>
           </div>
         </div>
       </footer>

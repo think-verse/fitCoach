@@ -14,7 +14,7 @@ import {
   signOut,
   updateProfile,
 } from "@/app/actions/account";
-import type { UserProfile, Subscription } from "@/lib/db/schema";
+import type { UserProfile, Subscription } from "@/lib/firestore/types";
 
 export function SettingsForm({
   profile,

@@ -2,15 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS } from "./nav-config";
+import { MOBILE_NAV_ITEMS } from "./nav-config";
 import { cn } from "@/lib/utils";
 
 export function BottomNav() {
   const pathname = usePathname();
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/80 backdrop-blur-xl md:hidden">
-      <ul className="mx-auto grid max-w-md grid-cols-6">
-        {NAV_ITEMS.map((item) => {
+      <ul
+        className="mx-auto grid max-w-md"
+        style={{
+          gridTemplateColumns: `repeat(${MOBILE_NAV_ITEMS.length}, minmax(0, 1fr))`,
+        }}
+      >
+        {MOBILE_NAV_ITEMS.map((item) => {
           const active = pathname.startsWith(item.href);
           const Icon = item.icon;
           return (

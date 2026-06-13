@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame } from "lucide-react";
+import { Flame, LogOut } from "lucide-react";
 import { NAV_ITEMS } from "./nav-config";
+import { signOut } from "@/app/actions/account";
 import { cn } from "@/lib/utils";
 
 export function Sidebar({ userName }: { userName?: string | null }) {
@@ -42,12 +43,31 @@ export function Sidebar({ userName }: { userName?: string | null }) {
         </ul>
       </nav>
 
-      {userName && (
-        <div className="border-t border-border p-4">
-          <div className="text-xs text-muted-foreground">Signed in as</div>
-          <div className="truncate text-sm font-medium">{userName}</div>
-        </div>
-      )}
+      <div className="space-y-1 border-t border-border p-3">
+        {userName && (
+          <Link
+            href="/profile"
+            className="flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-accent"
+          >
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-sm font-semibold uppercase text-primary">
+              {userName.trim().charAt(0) || "?"}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="truncate text-sm font-medium">{userName}</div>
+              <div className="text-xs text-muted-foreground">View profile</div>
+            </div>
+          </Link>
+        )}
+        <form action={signOut}>
+          <button
+            type="submit"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+            Sign out
+          </button>
+        </form>
+      </div>
     </aside>
   );
 }

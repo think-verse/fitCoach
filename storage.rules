@@ -1,0 +1,17 @@
+rules_version = '2';
+
+// FitCoach Storage security rules.
+// Physique photos live under users/{uid}/photos/**. A signed-in user can only
+// read/write their own folder. Server reads bytes via the Admin SDK (bypasses
+// these). 8 MB cap + images only, matching the client uploader.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /users/{uid}/{allPaths=**} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}

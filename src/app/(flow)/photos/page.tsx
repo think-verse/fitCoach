@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/firebase/auth";
 import { PhotoUpload } from "@/components/onboarding/photo-upload";
 
 export const metadata = { title: "Upload your physique" };
