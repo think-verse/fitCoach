@@ -14,7 +14,6 @@ import "server-only";
  *     meta/profile, meta/subscription, meta/settings   (single docs)
  *   config/pricing
  */
-import sharp from "sharp";
 import { adminDb, adminBucket } from "@/lib/firebase/admin";
 import type {
   UserProfile,
@@ -195,6 +194,10 @@ export async function downloadPhotoBase64(
 ): Promise<{ base64: string; mediaType: string }> {
   const file = adminBucket().file(storagePath);
   const [raw] = await file.download();
+
+  // Lazy-load sharp so it's only required on the image path — keeps a broken
+  // native binary from crashing every route that imports this module (e.g. /).
+  const sharp = (await import("sharp")).default;
 
   // Safety net: ensure Claude never receives an oversized image (10 MB cap on
   // base64). Re-encode to a bounded JPEG even for photos stored before upload
