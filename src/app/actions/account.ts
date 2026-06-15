@@ -24,6 +24,9 @@ export async function updateProfile(input: UpdateProfileInput) {
   const data = UpdateProfileSchema.parse(input);
   await upsertProfile(user.id, {
     goal: data.goal,
+    experience: data.experience,
+    trainingLocation: data.trainingLocation,
+    equipment: data.equipment,
     trainingDaysPerWeek: data.trainingDaysPerWeek,
     foodPref: data.foodPref,
     dietStyle: data.dietStyle,
@@ -32,6 +35,7 @@ export async function updateProfile(input: UpdateProfileInput) {
   });
   revalidatePath("/dashboard");
   revalidatePath("/settings");
+  revalidatePath("/profile");
 }
 
 /**

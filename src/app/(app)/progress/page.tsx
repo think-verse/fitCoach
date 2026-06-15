@@ -9,11 +9,13 @@ import {
   getSettings,
   getPhotoSetsByWeek,
   getSignedPhotoUrl,
+  getRecentAnalyses,
 } from "@/lib/firestore/repo";
+import { getGenerationUsage } from "@/lib/limits/limits";
 import { healthyWeightRange } from "@/lib/insights";
-import type { WeeklyUpdate } from "@/lib/ai/schemas";
+import type { BodyAnalysis } from "@/lib/ai/schemas";
 import type { PhotoAngle } from "@/lib/firestore/types";
-import { WeekComparison } from "@/components/progress/week-comparison";
+import { WeekComparison, type Trend } from "@/components/progress/week-comparison";
 import {
   formatWeight,
   toDisplayWeight,
@@ -34,13 +36,37 @@ export default async function ProgressPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const [weights, checkins, nextWeek, profile, settings] = await Promise.all([
-    getWeightHistory(user.id, 30),
-    getCheckins(user.id),
-    getNextWeekNumber().catch(() => 1),
-    getProfile(user.id).catch(() => null),
-    getSettings(user.id).catch(() => null),
-  ]);
+  const [weights, checkins, nextWeek, profile, settings, genUsage, recentAnalyses] =
+    await Promise.all([
+      getWeightHistory(user.id, 30),
+      getCheckins(user.id),
+      getNextWeekNumber().catch(() => 1),
+      getProfile(user.id).catch(() => null),
+      getSettings(user.id).catch(() => null),
+      getGenerationUsage(user.id).catch(() => null),
+      getRecentAnalyses(user.id, 2).catch(() => []),
+    ]);
+
+  // Fat/muscle trends come from comparing the two most recent AI photo analyses
+  // (the gated, limited flow) — not the free check-in. We return the raw
+  // direction the SCORE moved; WeekComparison decides whether up/down is good
+  // per metric (fat-down = good, muscle-up = good).
+  function scoreTrend(latest: number | undefined, prev: number | undefined): Trend {
+    if (latest == null || prev == null) return "unclear";
+    const diff = latest - prev;
+    if (Math.abs(diff) < 2) return "flat";
+    return diff > 0 ? "up" : "down";
+  }
+  const latestReport = recentAnalyses[0]?.report as BodyAnalysis | undefined;
+  const prevReport = recentAnalyses[1]?.report as BodyAnalysis | undefined;
+  const fatTrend: Trend = scoreTrend(
+    latestReport?.scores?.body_fat?.value,
+    prevReport?.scores?.body_fat?.value,
+  );
+  const muscleTrend: Trend = scoreTrend(
+    latestReport?.scores?.muscle_development?.value,
+    prevReport?.scores?.muscle_development?.value,
+  );
 
   const units = (settings?.units ?? "metric") as Units;
   const unitLabel = weightUnitLabel(units);
@@ -85,10 +111,12 @@ export default async function ProgressPage() {
       }),
     );
 
-    const latestSummary = (checkins[0]?.summary ?? null) as Partial<WeeklyUpdate> | null;
-    const weightByWeek = new Map(checkins.map((c) => [c.weekNumber, c.weightKg]));
-    const curW = weightByWeek.get(currentSet.weekNumber);
-    const prevW = weightByWeek.get(previousSet.weekNumber);
+    // Weight delta = latest logged weight vs the one before it (from the actual
+    // weight history, not keyed to photo-week numbers — that mismatch was why it
+    // showed "No weight logged" even after a check-in).
+    const logged = weights.filter((w) => w.weightKg != null);
+    const curW = logged[0]?.weightKg;
+    const prevW = logged[1]?.weightKg;
     const weightDelta =
       curW != null && prevW != null
         ? +(
@@ -101,8 +129,8 @@ export default async function ProgressPage() {
       previousWeek: previousSet.weekNumber,
       currentWeek: currentSet.weekNumber,
       pairs,
-      fatTrend: latestSummary?.estimated_fat_trend ?? null,
-      muscleTrend: latestSummary?.estimated_muscle_trend ?? null,
+      fatTrend,
+      muscleTrend,
       weightDelta,
     };
   }
@@ -153,12 +181,24 @@ export default async function ProgressPage() {
       </Card>
 
       <div className="space-y-2">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Camera className="h-4 w-4 text-primary" />
-          <h2 className="text-lg font-semibold">This week's photos</h2>
+          <h2 className="text-lg font-semibold">This week's photos &amp; AI analysis</h2>
+          {genUsage && (
+            <div className="ml-auto flex items-center gap-1.5">
+              <Badge variant={genUsage.week.remaining > 0 ? "muted" : "default"}>
+                {genUsage.week.remaining}/{genUsage.week.limit} left this week
+              </Badge>
+              <Badge variant="muted">
+                {genUsage.month.remaining}/{genUsage.month.limit} this month
+              </Badge>
+            </div>
+          )}
         </div>
         <p className="text-xs text-muted-foreground">
-          Same lighting, same pose — upload before submitting the form below.
+          Same lighting, same pose. Uploading photos runs your AI body analysis —
+          that&apos;s the part that uses a generation from your plan limit. The
+          check-in below is free and unlimited.
         </p>
         <PhotoUpload userId={user.id} weekNumber={nextWeek} />
       </div>
@@ -168,7 +208,7 @@ export default async function ProgressPage() {
           <CalendarCheck className="h-4 w-4 text-primary" />
           <h2 className="text-lg font-semibold">Submit your week</h2>
         </div>
-        <CheckinForm defaultWeek={nextWeek} />
+        <CheckinForm defaultWeek={nextWeek} weightUnit={unitLabel} />
       </div>
 
       {checkins.length > 0 && (

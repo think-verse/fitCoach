@@ -101,12 +101,12 @@ export default function ThankYouPage() {
           <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
         </div>
 
-        {/* DOM order: explainer first, form second.
-            Mobile (flex-col): explainer on top, form at the bottom.
-            Desktop (flex-row-reverse): form pinned LEFT, explainer RIGHT. */}
-        <div className="flex flex-col gap-8 lg:flex-row-reverse lg:items-start">
+        {/* order utilities: the form (aside) is order-1 → it sits on TOP on
+            mobile and on the LEFT on desktop; the explainer is order-2 → below
+            on mobile, right on desktop. */}
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           {/* ===== Explainer ===== */}
-          <main className="flex-1 space-y-14">
+          <main className="order-2 flex-1 space-y-14">
             {/* Hero */}
             <section>
               <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-emerald-300">
@@ -119,7 +119,7 @@ export default function ThankYouPage() {
               <p className="mt-3 max-w-2xl text-muted-foreground">
                 {APP_NAME} is your AI personal trainer, nutritionist, and coach in
                 one. Generate your access on the {""}
-                <span className="lg:hidden">form below</span>
+                <span className="lg:hidden">form above</span>
                 <span className="hidden lg:inline">form on the left</span>, sign
                 in, and your full experience unlocks instantly. Here&apos;s what
                 you can do.
@@ -220,8 +220,8 @@ export default function ThankYouPage() {
             </section>
           </main>
 
-          {/* ===== Access form (left on desktop, bottom on mobile) ===== */}
-          <aside className="w-full lg:w-[380px] lg:shrink-0">
+          {/* ===== Access form (top on mobile, left on desktop) ===== */}
+          <aside className="order-1 w-full lg:w-[380px] lg:shrink-0">
             <div className="space-y-4 lg:sticky lg:top-8">
               <div>
                 <h2 className="text-xl font-bold tracking-tight">

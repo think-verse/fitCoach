@@ -255,6 +255,20 @@ export async function getLatestAnalysis(
   return { id: snap.docs[0].id, ...snap.docs[0].data() } as BodyAnalysisReport;
 }
 
+/** Most recent analyses, newest first — used to derive fat/muscle trends by
+ *  comparing the two latest body scans. */
+export async function getRecentAnalyses(
+  uid: string,
+  max = 2,
+): Promise<BodyAnalysisReport[]> {
+  const snap = await userRef(uid)
+    .collection("analyses")
+    .orderBy("createdAt", "desc")
+    .limit(max)
+    .get();
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as BodyAnalysisReport);
+}
+
 export async function saveAnalysis(
   uid: string,
   data: Omit<BodyAnalysisReport, "id" | "createdAt">,
