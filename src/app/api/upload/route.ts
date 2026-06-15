@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from "next/server";
-import sharp from "sharp";
 import { requireUser } from "@/lib/firebase/auth";
 import { adminBucket } from "@/lib/firebase/admin";
 
@@ -45,6 +44,10 @@ export async function POST(req: NextRequest) {
   // Keeps Storage small and guarantees Claude stays under its 10 MB image cap.
   let compressed: Buffer;
   try {
+    // Lazy-load sharp so a broken native binary can't crash the function at
+    // module load (FUNCTION_INVOCATION_FAILED) — keep it on the image path,
+    // matching downloadPhotoBase64 in firestore/repo.ts.
+    const sharp = (await import("sharp")).default;
     const input = Buffer.from(await file.arrayBuffer());
     compressed = await sharp(input)
       .rotate() // honor EXIF orientation
