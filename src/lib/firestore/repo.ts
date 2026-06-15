@@ -522,6 +522,28 @@ export async function listErrorLogs(max = 200): Promise<ErrorLogEntry[]> {
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as ErrorLogEntry);
 }
 
+/** Delete a single error log by id (admin only — error logs are disposable). */
+export async function deleteErrorLog(id: string): Promise<void> {
+  await db().collection("errorLogs").doc(id).delete();
+}
+
+/** Delete ALL error logs. Returns how many were removed. Batched at the
+ *  Firestore 500-ops-per-commit limit so it scales past one batch. */
+export async function clearErrorLogs(): Promise<number> {
+  const coll = db().collection("errorLogs");
+  let deleted = 0;
+  for (;;) {
+    const snap = await coll.limit(500).get();
+    if (snap.empty) break;
+    const batch = db().batch();
+    snap.docs.forEach((d) => batch.delete(d.ref));
+    await batch.commit();
+    deleted += snap.size;
+    if (snap.size < 500) break;
+  }
+  return deleted;
+}
+
 /* ---------------------------- paid members ---------------------------- */
 
 export interface PaidMember {
