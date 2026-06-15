@@ -103,6 +103,28 @@ export async function checkGenerationAllowed(
   return { allowed: true };
 }
 
+export interface CoachUsage {
+  /** Coach messages the user has sent in the rolling 24h window. */
+  used: number;
+  /** The effective per-day cap for this user. */
+  limit: number;
+  /** Messages still available right now (never negative). */
+  remaining: number;
+}
+
+/**
+ * Current coach-message usage for the live "messages left" counter. Single
+ * source of truth — both the chat page (initial value) and /api/coach (the
+ * value returned after each send) call this, so the UI and the server can
+ * never disagree about the count.
+ */
+export async function getCoachUsage(uid: string): Promise<CoachUsage> {
+  const { effective } = await getEffectiveLimits(uid);
+  const used = await countCoachMessagesSince(uid, sinceIso(1));
+  const limit = effective.coachMessagesPerDay;
+  return { used, limit, remaining: Math.max(0, limit - used) };
+}
+
 /** Can this user send another coach message in the last 24h? */
 export async function checkCoachAllowed(uid: string): Promise<LimitCheck> {
   const { effective } = await getEffectiveLimits(uid);
