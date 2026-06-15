@@ -166,14 +166,6 @@ export function Hero({
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
-            <Button
-              asChild
-              size="xl"
-              variant="outline"
-              className="w-full sm:w-auto"
-            >
-              <Link href="/pricing">See pricing</Link>
-            </Button>
           </motion.div>
 
           <motion.div

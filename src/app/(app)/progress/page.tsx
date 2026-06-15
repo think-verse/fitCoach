@@ -5,8 +5,15 @@ import {
   getProfile,
   getWeightHistory,
 } from "@/lib/data/user-state";
-import { getSettings } from "@/lib/firestore/repo";
+import {
+  getSettings,
+  getPhotoSetsByWeek,
+  getSignedPhotoUrl,
+} from "@/lib/firestore/repo";
 import { healthyWeightRange } from "@/lib/insights";
+import type { WeeklyUpdate } from "@/lib/ai/schemas";
+import type { PhotoAngle } from "@/lib/firestore/types";
+import { WeekComparison } from "@/components/progress/week-comparison";
 import {
   formatWeight,
   toDisplayWeight,
@@ -54,12 +61,81 @@ export default async function ProgressPage() {
       weight: +toDisplayWeight(Number(w.weightKg), units).toFixed(1),
     }));
 
+  // Week-over-week comparison: the two most recent weeks that have a full
+  // photo set (front/side/back). Needs at least two to be meaningful.
+  const photoSets = await getPhotoSetsByWeek(user.id).catch(() => []);
+  const completeSets = photoSets.filter((s) => s.complete);
+  const currentSet = completeSets[0];
+  const previousSet = completeSets[1];
+  const completePhotoWeeks = completeSets.length;
+
+  let comparison: Awaited<ReturnType<typeof buildComparison>> = null;
+  async function buildComparison() {
+    if (!currentSet || !previousSet) return null;
+    const angles: PhotoAngle[] = ["front", "side", "back"];
+    const pairs = await Promise.all(
+      angles.map(async (angle) => {
+        const prev = previousSet.byAngle[angle];
+        const curr = currentSet.byAngle[angle];
+        const [previousUrl, currentUrl] = await Promise.all([
+          prev ? getSignedPhotoUrl(prev.storagePath) : Promise.resolve(null),
+          curr ? getSignedPhotoUrl(curr.storagePath) : Promise.resolve(null),
+        ]);
+        return { angle, previousUrl, currentUrl };
+      }),
+    );
+
+    const latestSummary = (checkins[0]?.summary ?? null) as Partial<WeeklyUpdate> | null;
+    const weightByWeek = new Map(checkins.map((c) => [c.weekNumber, c.weightKg]));
+    const curW = weightByWeek.get(currentSet.weekNumber);
+    const prevW = weightByWeek.get(previousSet.weekNumber);
+    const weightDelta =
+      curW != null && prevW != null
+        ? +(
+            toDisplayWeight(Number(curW), units) -
+            toDisplayWeight(Number(prevW), units)
+          ).toFixed(1)
+        : null;
+
+    return {
+      previousWeek: previousSet.weekNumber,
+      currentWeek: currentSet.weekNumber,
+      pairs,
+      fatTrend: latestSummary?.estimated_fat_trend ?? null,
+      muscleTrend: latestSummary?.estimated_muscle_trend ?? null,
+      weightDelta,
+    };
+  }
+  comparison = await buildComparison();
+
   return (
     <div className="space-y-6">
       <header>
         <p className="text-sm text-muted-foreground">Weekly check-in</p>
         <h1 className="text-3xl font-bold tracking-tight">Progress</h1>
       </header>
+
+      {comparison ? (
+        <WeekComparison
+          previousWeek={comparison.previousWeek}
+          currentWeek={comparison.currentWeek}
+          pairs={comparison.pairs}
+          fatTrend={comparison.fatTrend}
+          muscleTrend={comparison.muscleTrend}
+          weightDelta={comparison.weightDelta}
+          weightUnit={unitLabel}
+        />
+      ) : completePhotoWeeks === 1 ? (
+        <Card className="border-dashed">
+          <CardContent className="flex items-center gap-3 p-5 text-sm text-muted-foreground">
+            <Camera className="h-5 w-5 shrink-0 text-primary" />
+            <span>
+              Upload a full photo set (front, side &amp; back) for a second week
+              to unlock your side-by-side transformation comparison.
+            </span>
+          </CardContent>
+        </Card>
+      ) : null}
 
       <Card>
         <CardContent className="p-6">

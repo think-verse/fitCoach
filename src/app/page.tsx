@@ -308,9 +308,6 @@ export default async function LandingPage() {
                     {primary.label} <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button asChild size="xl" variant="outline">
-                  <Link href="/pricing">View plans</Link>
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -324,9 +321,6 @@ export default async function LandingPage() {
             medical advice.
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <Link href="/pricing" className="hover:text-foreground">
-              Pricing
-            </Link>
             <Link href="/privacy" className="hover:text-foreground">
               Privacy
             </Link>

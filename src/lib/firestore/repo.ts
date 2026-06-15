@@ -19,6 +19,7 @@ import type {
   UserProfile,
   BodyMeasurement,
   ProgressPhoto,
+  PhotoAngle,
   BodyAnalysisReport,
   WorkoutPlan,
   WorkoutDay,
@@ -410,6 +411,62 @@ export async function getProgressPhotos(
   }
   const snap = await col.orderBy("uploadedAt", "desc").get();
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as ProgressPhoto);
+}
+
+const PHOTO_ANGLES: PhotoAngle[] = ["front", "side", "back"];
+
+export interface WeekPhotoSet {
+  weekNumber: number;
+  /** Latest photo for each angle in this week (most-recently uploaded wins). */
+  byAngle: Partial<Record<PhotoAngle, ProgressPhoto>>;
+  /** True when all three angles (front/side/back) are present. */
+  complete: boolean;
+}
+
+/**
+ * Group a user's progress photos by week, keeping the latest photo per angle.
+ * Returned newest-week-first. Powers the week-over-week comparison (UI) and the
+ * "previous vs current" pairing in /api/checkin — one source of truth so both
+ * agree on which weeks are being compared.
+ */
+export async function getPhotoSetsByWeek(uid: string): Promise<WeekPhotoSet[]> {
+  // getProgressPhotos (no week) returns newest-uploaded first, so the first
+  // photo we see for an (week, angle) pair is the one to keep.
+  const all = await getProgressPhotos(uid);
+  const byWeek = new Map<number, WeekPhotoSet>();
+  for (const p of all) {
+    const wk = p.weekNumber ?? 0;
+    let set = byWeek.get(wk);
+    if (!set) {
+      set = { weekNumber: wk, byAngle: {}, complete: false };
+      byWeek.set(wk, set);
+    }
+    if (!set.byAngle[p.angle]) set.byAngle[p.angle] = p;
+  }
+  const sets = [...byWeek.values()];
+  for (const s of sets) {
+    s.complete = PHOTO_ANGLES.every((a) => Boolean(s.byAngle[a]));
+  }
+  return sets.sort((a, b) => b.weekNumber - a.weekNumber);
+}
+
+/**
+ * Signed, time-limited read URL for a private Storage object, so the browser
+ * can display a progress photo without making the bucket public. Returns null
+ * if signing fails (missing object / credentials) — callers render a fallback.
+ */
+export async function getSignedPhotoUrl(
+  storagePath: string,
+  expiresInMs = 60 * 60 * 1000,
+): Promise<string | null> {
+  try {
+    const [url] = await adminBucket()
+      .file(storagePath)
+      .getSignedUrl({ action: "read", expires: Date.now() + expiresInMs });
+    return url;
+  } catch {
+    return null;
+  }
 }
 
 /* ----------------------------- pricing -------------------------------- */

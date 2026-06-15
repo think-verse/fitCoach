@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Flame, Lock, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -67,11 +66,7 @@ export default async function UpgradePage() {
               ))}
             </ul>
 
-            <Button asChild size="lg" className="mt-7 w-full">
-              <Link href="/pricing">See plans &amp; pricing</Link>
-            </Button>
-
-            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+            <div className="mt-7 flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               Already purchased? Sign in with the email &amp; password we sent.
             </div>

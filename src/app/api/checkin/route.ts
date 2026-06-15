@@ -4,7 +4,7 @@ import {
   getProfile,
   getLatestAnalysis,
   getCheckinByWeek,
-  getProgressPhotos,
+  getPhotoSetsByWeek,
   getWeightHistory,
   downloadPhotoBase64,
   updateCheckinSummary,
@@ -50,25 +50,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Save your check-in first." }, { status: 400 });
   }
 
-  // Photo pairs: baseline week 0 vs current week, when both complete sets exist.
-  const baselinePhotos = await getProgressPhotos(user.id, 0);
-  const currentPhotos = await getProgressPhotos(user.id, weekNumber);
-  const baselineByAngle = new Map<string, (typeof baselinePhotos)[number]>();
-  const currentByAngle = new Map<string, (typeof currentPhotos)[number]>();
-  for (const p of baselinePhotos)
-    if (!baselineByAngle.has(p.angle)) baselineByAngle.set(p.angle, p);
-  for (const p of currentPhotos)
-    if (!currentByAngle.has(p.angle)) currentByAngle.set(p.angle, p);
+  // Photo pairs: the most recent PRIOR week with a full set vs the current
+  // week (falling back to the week-0 baseline if there's no earlier week). This
+  // is a true "previous vs current" comparison, matching the UI on /progress.
+  const sets = await getPhotoSetsByWeek(user.id);
+  const currentSet = sets.find((s) => s.weekNumber === weekNumber);
+  const previousSet =
+    sets.find((s) => s.weekNumber < weekNumber && s.complete) ??
+    sets.find((s) => s.weekNumber === 0 && s.weekNumber !== weekNumber);
 
   const photoPairs: Array<{ label: string; base64: string; mediaType: string }> = [];
-  if (currentByAngle.size === baselineByAngle.size && currentByAngle.size > 0) {
+  if (currentSet?.complete && previousSet?.complete) {
     for (const angle of ["front", "side", "back"] as const) {
-      const prev = baselineByAngle.get(angle);
-      const curr = currentByAngle.get(angle);
+      const prev = previousSet.byAngle[angle];
+      const curr = currentSet.byAngle[angle];
       if (!prev || !curr) continue;
       for (const [label, row] of [
-        [`Previous ${angle}`, prev],
-        [`Current ${angle}`, curr],
+        [`Week ${previousSet.weekNumber} ${angle}`, prev],
+        [`Week ${currentSet.weekNumber} ${angle}`, curr],
       ] as const) {
         try {
           const { base64, mediaType } = await downloadPhotoBase64(row.storagePath);

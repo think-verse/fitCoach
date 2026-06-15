@@ -27,6 +27,10 @@ export interface GrantResult {
   ok: boolean;
   error?: string;
   returning?: boolean;
+  /** Credentials returned so the user can see them on-screen (also emailed). */
+  email?: string;
+  password?: string;
+  loginUrl?: string;
 }
 
 /** Generate a readable, strong temporary password. */
@@ -93,5 +97,5 @@ export async function grantAccess(input: GrantInput): Promise<GrantResult> {
     }),
   ]);
 
-  return { ok: true, returning };
+  return { ok: true, returning, email, password, loginUrl };
 }
