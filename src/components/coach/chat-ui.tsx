@@ -100,7 +100,7 @@ export function ChatUI({
   }
 
   return (
-    <Card className="card-glow relative flex h-[calc(100dvh-12rem)] flex-col overflow-hidden border-border/60 md:h-[calc(100dvh-10rem)]">
+    <Card className="card-glow relative flex h-[calc(100dvh-14rem)] flex-col overflow-hidden border-border/60 md:h-[calc(100dvh-10rem)]">
       {/* Ambient glow bleeding from the top of the panel. */}
       <div
         aria-hidden
@@ -248,7 +248,7 @@ export function ChatUI({
               placeholder="Ask your coach anything…"
               rows={1}
               disabled={sending}
-              className="min-h-[40px] resize-none border-0 bg-transparent px-0 py-2 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="min-h-[40px] min-w-0 flex-1 resize-none border-0 bg-transparent px-0 py-2 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
             />
             <Button
               onClick={() => send()}
@@ -378,7 +378,10 @@ function Bubble({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -6 }}
       transition={{ type: "spring", stiffness: 260, damping: 24 }}
-      className={cn("flex items-end gap-2.5", isUser ? "justify-end" : "justify-start")}
+      className={cn(
+        "flex w-full items-end gap-2.5",
+        isUser ? "justify-end" : "justify-start",
+      )}
     >
       {!isUser && (
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400/25 to-indigo-400/20 text-primary ring-1 ring-emerald-400/25">
@@ -387,7 +390,7 @@ function Bubble({
       )}
       <div
         className={cn(
-          "max-w-[80%] whitespace-pre-wrap px-4 py-2.5 text-sm leading-relaxed shadow-sm",
+          "max-w-[80%] min-w-0 overflow-hidden whitespace-pre-wrap break-words px-4 py-2.5 text-sm leading-relaxed shadow-sm",
           isUser
             ? "rounded-2xl rounded-br-md bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-primary/20"
             : "rounded-2xl rounded-bl-md border border-border bg-card/80 backdrop-blur",
