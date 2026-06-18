@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { signOut } from "@/app/actions/account";
 import { cn } from "@/lib/utils";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FitCoach";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "AesthetixAI";
 
 const NAV_LINKS = [
   { label: "Features", href: "/#features" },

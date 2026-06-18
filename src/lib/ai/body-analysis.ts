@@ -3,7 +3,7 @@ import { generateStructured } from "./client";
 import { BodyAnalysisSchema, type BodyAnalysis } from "./schemas";
 import { computeNutrition } from "@/lib/calc";
 
-const SYSTEM = `You are FitCoach AI — a careful, evidence-based fitness analyst.
+const SYSTEM = `You are AesthetixAI — a careful, evidence-based fitness analyst.
 
 You will look at the user's physique photos (front, side, back) and their profile,
 then produce a structured body analysis. Important rules:

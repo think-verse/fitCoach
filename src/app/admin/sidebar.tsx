@@ -84,7 +84,7 @@ function Brand() {
         <ShieldCheck className="h-4 w-4" />
       </div>
       <div>
-        <div className="text-sm font-semibold leading-none">FitCoach</div>
+        <div className="text-sm font-semibold leading-none">AesthetixAI</div>
         <div className="text-xs text-muted-foreground">Admin</div>
       </div>
     </div>

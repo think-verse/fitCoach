@@ -16,7 +16,7 @@ export default function TermsPage() {
       <div className="prose prose-invert mt-8 max-w-none space-y-4 text-sm leading-relaxed text-muted-foreground">
         <h2 className="text-base font-semibold text-foreground">Not medical advice</h2>
         <p>
-          FitCoach is a fitness guidance app. AI analyses, plans, and chat replies
+          AesthetixAI is a fitness guidance app. AI analyses, plans, and chat replies
           are estimates intended to support your training and nutrition — not
           medical diagnoses or treatments. For any medical condition, injury, or
           pregnancy concern, consult a qualified professional before acting on

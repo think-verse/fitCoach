@@ -49,7 +49,7 @@ export default async function AdminOverviewPage() {
     <div>
       <PageHeader
         title="Overview"
-        description="At-a-glance health of the FitCoach platform."
+        description="At-a-glance health of the AesthetixAI platform."
       />
 
       {statsError && (

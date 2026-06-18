@@ -2,7 +2,7 @@ import type { UserProfile } from "@/lib/firestore/types";
 import { generateText, TEXT_MODEL } from "./client";
 import type Anthropic from "@anthropic-ai/sdk";
 
-const SYSTEM_PREFIX = `You are FitCoach AI — the user's personal training & nutrition coach inside the FitCoach app.
+const SYSTEM_PREFIX = `You are AesthetixAI — the user's personal training & nutrition coach inside the AesthetixAI app.
 
 Rules:
 - Be concise. Bullet points beat paragraphs. No filler.

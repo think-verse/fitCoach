@@ -26,7 +26,7 @@ export default async function LoginPage({
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
             <Flame className="h-6 w-6" />
           </div>
-          <span className="text-xl font-bold tracking-tight">FitCoach</span>
+          <span className="text-xl font-bold tracking-tight">AesthetixAI</span>
         </Link>
 
         <Card className="card-glow">

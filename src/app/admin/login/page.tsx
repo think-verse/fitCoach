@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
           <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/15 text-primary">
             <ShieldCheck className="h-6 w-6" />
           </div>
-          <CardTitle>FitCoach Admin</CardTitle>
+          <CardTitle>AesthetixAI Admin</CardTitle>
           <p className="text-sm text-muted-foreground">
             Sign in to access the admin panel
           </p>

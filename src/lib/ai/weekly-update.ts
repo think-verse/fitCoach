@@ -6,7 +6,7 @@ import {
   type BodyAnalysis,
 } from "./schemas";
 
-const SYSTEM = `You are FitCoach AI comparing the user's progress between two check-ins.
+const SYSTEM = `You are AesthetixAI comparing the user's progress between two check-ins.
 
 Rules:
 - Visual changes from photos are estimates. Weight/measurement deltas are real.

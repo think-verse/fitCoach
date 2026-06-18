@@ -87,7 +87,7 @@ export async function grantAccess(input: GrantInput): Promise<GrantResult> {
   await Promise.allSettled([
     sendEmail({
       to: email,
-      subject: "Your FitCoach access is confirmed 🎉",
+      subject: "Your AesthetixAI access is confirmed 🎉",
       html: credentialEmailHtml({ name, email, password, loginUrl }),
     }),
     sendEmail({

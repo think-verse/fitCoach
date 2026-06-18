@@ -112,7 +112,7 @@ export function ChatUI({
         <CoachAvatar speaking={sending} />
         <div className="min-w-0 flex-1">
           <h2 className="gradient-text-animated text-base font-bold leading-tight">
-            FitCoach AI
+            AesthetixAI
           </h2>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <span className="relative flex h-1.5 w-1.5">

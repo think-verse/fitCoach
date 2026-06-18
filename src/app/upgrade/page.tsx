@@ -7,7 +7,7 @@ import { getSubscription } from "@/lib/firestore/repo";
 import { hasPaidAccess } from "@/lib/access";
 import { signOut } from "@/app/actions/account";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FitCoach";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "AesthetixAI";
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "contact@geekbotai.com";
 
 export const metadata = { title: `Unlock ${APP_NAME}` };

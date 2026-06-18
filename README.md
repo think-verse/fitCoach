@@ -1,4 +1,4 @@
-# FitCoach
+# AesthetixAI
 
 > Your AI personal trainer, diet coach, and progress tracker — in one app.
 

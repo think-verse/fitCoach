@@ -2,7 +2,7 @@ import { isAdminAuthed } from "@/lib/admin/session";
 import { AdminSidebar } from "./sidebar";
 
 export const metadata = {
-  title: { default: "Admin", template: "%s · FitCoach Admin" },
+  title: { default: "Admin", template: "%s · AesthetixAI Admin" },
 };
 
 /**
