@@ -21,7 +21,7 @@ import { Reveal } from "@/components/marketing/reveal";
 import { Hero } from "@/components/marketing/hero";
 import { AnimatedCounter } from "@/components/marketing/animated-counter";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "AesthetixAI";
+const APP_NAME = "AesthetixAI";
 
 const STATS = [
   { value: 60, suffix: "s", label: "To your first AI analysis" },

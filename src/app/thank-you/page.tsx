@@ -15,7 +15,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { ThankYouForm } from "@/components/thank-you/thank-you-form";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "AesthetixAI";
+const APP_NAME = "AesthetixAI";
 
 export const metadata = {
   title: `Thank you — ${APP_NAME}`,
