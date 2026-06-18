@@ -2,21 +2,16 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Flame } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { GoogleSignInButton } from "./google-signin-button";
-import { PasswordSignInForm } from "@/components/auth/password-signin-form";
+import { SignUpForm } from "@/components/auth/signup-form";
 import { getCurrentUser } from "@/lib/firebase/auth";
 
-export const metadata = { title: "Sign in" };
+export const metadata = { title: "Sign up" };
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: { error?: string; from?: string };
-}) {
+export default async function SignUpPage() {
   const user = await getCurrentUser();
 
   if (user) {
-    redirect(searchParams.from || "/home");
+    redirect("/home");
   }
 
   return (
@@ -31,35 +26,21 @@ export default async function LoginPage({
 
         <Card className="card-glow">
           <CardContent className="p-8">
-            <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Members: sign in with the email &amp; password we sent you.
+              Sign up in seconds — no email verification needed.
             </p>
 
             <div className="mt-8">
-              <PasswordSignInForm from={searchParams.from} />
+              <SignUpForm />
             </div>
-
-            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-              <div className="h-px flex-1 bg-border" />
-              <span>or</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            <GoogleSignInButton from={searchParams.from} />
 
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              New here?{" "}
-              <Link href="/signup" className="font-medium text-primary underline">
-                Create a free account
+              Already have an account?{" "}
+              <Link href="/login" className="font-medium text-primary underline">
+                Sign in
               </Link>
             </p>
-
-            {searchParams.error && (
-              <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-                Sign-in failed. Please try again.
-              </p>
-            )}
 
             <p className="mt-8 text-center text-xs text-muted-foreground">
               By continuing you agree to our{" "}
@@ -70,10 +51,8 @@ export default async function LoginPage({
         </Card>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          <span className="text-foreground">Email &amp; password</span> is for
-          members who purchased access.{" "}
-          <span className="text-foreground">Google</span> creates a free account
-          — purchase to unlock the app.
+          New accounts are <span className="text-foreground">free</span> — purchase
+          access to unlock the full app.
         </p>
       </div>
     </div>
