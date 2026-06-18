@@ -160,10 +160,14 @@ export function Hero({
             variants={rise}
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
-            <Button asChild size="lg" className="w-full sm:w-auto">
+            <Button
+              asChild
+              size="lg"
+              className="h-auto min-h-[3.5rem] w-full whitespace-normal py-3 text-center leading-snug sm:w-auto"
+            >
               <Link href={primaryHref}>
                 {primaryLabel}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5 shrink-0" />
               </Link>
             </Button>
           </motion.div>

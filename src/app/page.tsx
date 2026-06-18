@@ -303,9 +303,14 @@ export default async function LandingPage() {
                 60 seconds to your first AI body analysis. No credit card.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button asChild size="xl">
+                <Button
+                  asChild
+                  size="xl"
+                  className="h-auto min-h-[4rem] w-full whitespace-normal py-4 text-center leading-snug sm:w-auto"
+                >
                   <Link href={primary.href}>
-                    {primary.label} <ArrowRight className="h-5 w-5" />
+                    {primary.label}{" "}
+                    <ArrowRight className="h-5 w-5 shrink-0" />
                   </Link>
                 </Button>
               </div>

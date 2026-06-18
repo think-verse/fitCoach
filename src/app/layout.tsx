@@ -26,7 +26,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-dvh bg-background font-sans">{children}</body>
+      <body className="min-h-dvh overflow-x-clip bg-background font-sans">
+        {children}
+      </body>
     </html>
   );
 }
