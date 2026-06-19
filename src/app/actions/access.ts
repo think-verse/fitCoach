@@ -18,7 +18,7 @@ import {
 const GrantSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(120),
   email: z.string().trim().email("Enter a valid email"),
-  mobile: z.string().trim().min(5, "Enter a valid mobile number").max(30),
+  mobile: z.string().trim().max(30).optional().default(""),
 });
 
 export type GrantInput = z.infer<typeof GrantSchema>;

@@ -371,16 +371,6 @@ export default async function DashboardPage() {
         </CardContent>
       </Card>
 
-      {/* Contact / support */}
-      <p className="pt-2 text-center text-xs text-muted-foreground">
-        Need help? Contact us at{" "}
-        <a
-          href="mailto:contact@geekbotai.com"
-          className="text-primary hover:underline"
-        >
-          contact@geekbotai.com
-        </a>
-      </p>
     </div>
   );
 }

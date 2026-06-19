@@ -5,7 +5,6 @@ import {
   ChartBar,
   Dumbbell,
   LogIn,
-  Mail,
   RefreshCw,
   Salad,
   Sparkles,
@@ -31,7 +30,7 @@ const STATS = [
 ];
 
 const STEPS = [
-  { icon: LogIn, n: "1", t: "Sign in", d: "Free account in seconds — no card." },
+  { icon: LogIn, n: "1", t: "Sign in", d: "Account ready in seconds — no card." },
   { icon: Camera, n: "2", t: "Upload photos", d: "Front, side, back — same lighting." },
   { icon: Sparkles, n: "3", t: "AI analysis", d: "Body type, weak points, BMI/TDEE." },
   { icon: Dumbbell, n: "4", t: "Get your plan", d: "Workout + diet for your gear." },
@@ -127,7 +126,7 @@ export default async function LandingPage() {
 
   const primary = isAuthed
     ? { label: "Open my dashboard", href: "/home" }
-    : { label: "Start free — analyze my physique", href: "/login" };
+    : { label: "Analyze my physique", href: "/login" };
 
   return (
     <div className="min-h-dvh bg-background">
@@ -332,12 +331,6 @@ export default async function LandingPage() {
             <Link href="/terms" className="hover:text-foreground">
               Terms
             </Link>
-            <a
-              href="mailto:contact@geekbotai.com"
-              className="inline-flex items-center gap-1 hover:text-foreground"
-            >
-              <Mail className="h-3.5 w-3.5" /> contact@geekbotai.com
-            </a>
           </div>
         </div>
       </footer>

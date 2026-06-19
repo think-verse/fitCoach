@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Flame, Lock, Mail, ShieldCheck, Sparkles } from "lucide-react";
+import { Flame, Lock, ShieldCheck, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/firebase/auth";
@@ -8,7 +8,6 @@ import { hasPaidAccess } from "@/lib/access";
 import { signOut } from "@/app/actions/account";
 
 const APP_NAME = "AesthetixAI";
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "contact@geekbotai.com";
 
 export const metadata = { title: `Unlock ${APP_NAME}` };
 
@@ -70,14 +69,6 @@ export default async function UpgradePage() {
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               Already purchased? Sign in with the email &amp; password we sent.
             </div>
-
-            <p className="mt-6 flex items-center justify-center gap-1 text-xs text-muted-foreground">
-              <Mail className="h-3.5 w-3.5" />
-              Need help?{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">
-                {CONTACT_EMAIL}
-              </a>
-            </p>
 
             <form action={signOut} className="mt-6">
               <Button type="submit" variant="ghost" size="sm">

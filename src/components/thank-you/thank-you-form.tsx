@@ -18,9 +18,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { COUNTRIES, DEFAULT_COUNTRY } from "@/lib/countries";
 import { grantAccess } from "@/app/actions/access";
-
-const CONTACT_EMAIL = "contact@geekbotai.com";
 
 interface Creds {
   email: string;
@@ -36,12 +36,15 @@ export function ThankYouForm() {
   const [returning, setReturning] = React.useState(false);
   const [creds, setCreds] = React.useState<Creds | null>(null);
   const [form, setForm] = React.useState({ name: "", email: "", mobile: "" });
+  const [dialCode, setDialCode] = React.useState(DEFAULT_COUNTRY.dial);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
-    const res = await grantAccess(form);
+    const number = form.mobile.trim();
+    const mobile = number ? `${dialCode} ${number}` : "";
+    const res = await grantAccess({ ...form, mobile });
     if (res.ok) {
       setReturning(!!res.returning);
       if (res.email && res.password) {
@@ -83,13 +86,6 @@ export function ThankYouForm() {
           <Mail className="h-3.5 w-3.5" />
           A copy was emailed to you (check spam too).
         </p>
-
-        <p className="mt-4 text-xs text-muted-foreground">
-          Need help? Email{" "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">
-            {CONTACT_EMAIL}
-          </a>
-        </p>
       </div>
     );
   }
@@ -121,15 +117,31 @@ export function ThankYouForm() {
         </p>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="mobile">Mobile number</Label>
-        <Input
-          id="mobile"
-          type="tel"
-          required
-          value={form.mobile}
-          onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value }))}
-          placeholder="+91 90000 00000"
-        />
+        <Label htmlFor="mobile">
+          Mobile number{" "}
+          <span className="font-normal text-muted-foreground">(optional)</span>
+        </Label>
+        <div className="flex gap-2">
+          <Select
+            aria-label="Country code"
+            value={dialCode}
+            onChange={(e) => setDialCode(e.target.value)}
+            className="w-[7.5rem] shrink-0 px-3"
+          >
+            {COUNTRIES.map((c) => (
+              <option key={c.iso} value={c.dial}>
+                {c.flag} {c.dial}
+              </option>
+            ))}
+          </Select>
+          <Input
+            id="mobile"
+            type="tel"
+            value={form.mobile}
+            onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value }))}
+            placeholder="90000 00000"
+          />
+        </div>
       </div>
 
       {status === "error" && <p className="text-sm text-destructive">{error}</p>}

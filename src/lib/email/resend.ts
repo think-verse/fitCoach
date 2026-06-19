@@ -6,8 +6,7 @@ import "server-only";
  * access flow still works in dev. Set the key in .env.local to enable real mail.
  */
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM || "AesthetixAI <onboarding@resend.dev>";
-export const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "contact@geekbotai.com";
+const EMAIL_FROM = process.env.EMAIL_FROM || "AesthetixAI <daya@aesthetixai.fit>";
 export const ADMIN_NOTIFY_EMAIL =
   process.env.ADMIN_NOTIFY_EMAIL || "dhruvsangal1999@gmail.com";
 
@@ -71,7 +70,6 @@ function shell(inner: string): string {
         ${inner}
       </td></tr>
       <tr><td style="padding:20px 8px;color:${MUTED};font-size:12px;line-height:1.6;">
-        Need help? Contact us at <a href="mailto:${CONTACT_EMAIL}" style="color:${BRAND};">${CONTACT_EMAIL}</a>.<br/>
         For fitness guidance only — not medical advice.
       </td></tr>
     </table>
@@ -87,8 +85,7 @@ export function credentialEmailHtml(opts: {
   return shell(`
     <h1 style="margin:0 0 8px;color:${TEXT};font-size:24px;">Your access is confirmed 🎉</h1>
     <p style="margin:0 0 20px;color:${MUTED};font-size:15px;line-height:1.6;">
-      Hi ${escapeHtml(opts.name)}, your AesthetixAI access is now active. Use the
-      credentials below to sign in — no OTP needed.
+      Your AesthetixAI access is now active. Use the credentials below to sign in.
     </p>
     <div style="background:${BG};border:1px solid #232327;border-radius:12px;padding:18px;margin-bottom:22px;">
       <div style="color:${MUTED};font-size:12px;text-transform:uppercase;letter-spacing:.05em;">Login email</div>
@@ -119,7 +116,7 @@ export function adminNotifyHtml(opts: {
     <table role="presentation" width="100%" style="color:${TEXT};font-size:15px;">
       <tr><td style="color:${MUTED};padding:6px 0;width:120px;">Name</td><td style="padding:6px 0;">${escapeHtml(opts.name)}</td></tr>
       <tr><td style="color:${MUTED};padding:6px 0;">Email</td><td style="padding:6px 0;">${escapeHtml(opts.email)}</td></tr>
-      <tr><td style="color:${MUTED};padding:6px 0;">Mobile</td><td style="padding:6px 0;">${escapeHtml(opts.mobile)}</td></tr>
+      <tr><td style="color:${MUTED};padding:6px 0;">Mobile</td><td style="padding:6px 0;">${opts.mobile ? escapeHtml(opts.mobile) : "—"}</td></tr>
     </table>
   `);
 }

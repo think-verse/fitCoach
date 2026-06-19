@@ -325,7 +325,7 @@ function EmptyCard({ reduce }: { reduce: boolean }) {
       <Button asChild size="sm" className="mt-5">
         <Link href="/login">
           <Sparkles className="h-4 w-4" />
-          Get started free
+          Get started
         </Link>
       </Button>
     </div>
