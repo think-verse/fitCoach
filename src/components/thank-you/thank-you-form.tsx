@@ -36,13 +36,17 @@ export function ThankYouForm() {
   const [returning, setReturning] = React.useState(false);
   const [creds, setCreds] = React.useState<Creds | null>(null);
   const [form, setForm] = React.useState({ name: "", email: "", mobile: "" });
-  const [dialCode, setDialCode] = React.useState(DEFAULT_COUNTRY.dial);
+  // Track the country by its unique ISO code — US and Canada share "+1", so the
+  // dial code alone can't identify the selected option.
+  const [countryIso, setCountryIso] = React.useState(DEFAULT_COUNTRY.iso);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
     const number = form.mobile.trim();
+    const dialCode =
+      COUNTRIES.find((c) => c.iso === countryIso)?.dial ?? DEFAULT_COUNTRY.dial;
     const mobile = number ? `${dialCode} ${number}` : "";
     const res = await grantAccess({ ...form, mobile });
     if (res.ok) {
@@ -124,12 +128,12 @@ export function ThankYouForm() {
         <div className="flex gap-2">
           <Select
             aria-label="Country code"
-            value={dialCode}
-            onChange={(e) => setDialCode(e.target.value)}
+            value={countryIso}
+            onChange={(e) => setCountryIso(e.target.value)}
             className="w-[7.5rem] shrink-0 px-3"
           >
             {COUNTRIES.map((c) => (
-              <option key={c.iso} value={c.dial}>
+              <option key={c.iso} value={c.iso}>
                 {c.flag} {c.dial}
               </option>
             ))}
