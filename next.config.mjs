@@ -17,6 +17,8 @@ const nextConfig = {
         "./node_modules/@img/sharp-linux-x64/**/*",
         "./node_modules/@img/sharp-libvips-linux-x64/**/*",
       ],
+      // The /info route reads its HTML template from disk at build time.
+      "/info": ["./src/app/info/template.html"],
     },
   },
   images: {

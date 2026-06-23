@@ -121,10 +121,7 @@ export function ThankYouForm() {
         </p>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="mobile">
-          Mobile number{" "}
-          <span className="font-normal text-muted-foreground">(optional)</span>
-        </Label>
+        <Label htmlFor="mobile">Mobile number</Label>
         <div className="flex gap-2">
           <Select
             aria-label="Country code"

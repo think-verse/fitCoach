@@ -40,6 +40,15 @@ export default async function LoginPage({
               <PasswordSignInForm from={searchParams.from} />
             </div>
 
+            <div className="mt-3 text-right">
+              <Link
+                href="/forgot-password"
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
             <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
               <div className="h-px flex-1 bg-border" />
               <span>or</span>

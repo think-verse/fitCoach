@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AesthetixAI — Your AI Personal Trainer & Diet Coach</title>
+<meta name="description" content="Upload three photos and get an AI physique scan, a workout plan built for your gear, and a macro-matched diet that adapts every week. Founding-member lifetime access.">
+<!-- Open Graph / social share -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AesthetixAI — Your AI Personal Trainer & Diet Coach">
+<meta property="og:description" content="Stop guessing. Get an AI coach that sees your physique, builds your plan, and adapts it every week. Founding-member lifetime access — limited spots.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B;
+    --bg-soft:#0E1311;
+    --card:#101513;
+    --card-2:#0D1210;
+    --line:rgba(255,255,255,.07);
+    --line-green:rgba(52,211,153,.28);
+    --txt:#E9EFEC;
+    --txt-dim:#94A29C;
+    --txt-faint:#5E6B65;
+    --green:#22C55E;
+    --green-bright:#34D399;
+    --green-deep:#16A34A;
+    --amber:#F5A524;
+    --amber-soft:#FBBF24;
+    --red:#EF4444;
+    --glow:0 0 40px rgba(34,197,94,.18);
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* scroll-padding keeps anchor jumps (e.g. #offer) clear of the sticky top bar */
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  #offer{scroll-margin-top:96px}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+  .narrow{max-width:720px;margin:0 auto;padding:0 20px}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.12;letter-spacing:-.02em}
+  .g{color:var(--green-bright)}
+  .strike{color:var(--txt-faint);text-decoration:line-through;text-decoration-thickness:2px}
+  .amber{color:var(--amber-soft)}
+
+  /* ===== TOP WARNING BAR ===== */
+  .warnbar{
+    background:linear-gradient(90deg,rgba(245,165,36,.14),rgba(239,68,68,.12),rgba(245,165,36,.14));
+    border-bottom:1px solid rgba(245,165,36,.3);
+    text-align:center;
+    padding:11px 16px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--amber-soft);
+    letter-spacing:.01em;
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(8px);
+  }
+  .warnbar b{color:#fff}
+  .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green-bright);margin:0 5px -1px 10px;box-shadow:0 0 8px var(--green-bright);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .viewers{color:var(--txt-dim);font-weight:500;font-size:12.5px}
+  .viewers b{color:var(--green-bright)}
+
+  /* ===== COUNTDOWN STRIP ===== */
+  .cdstrip{
+    background:#0c0d0d;border-bottom:1px solid var(--line);
+    padding:14px 16px;text-align:center;
+  }
+  .cdlabel{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-soft);font-weight:700;margin-bottom:8px}
+  .cd{display:inline-flex;gap:8px;align-items:center;justify-content:center}
+  .cd .unit{
+    background:linear-gradient(180deg,#15110a,#0e0c08);
+    border:1px solid rgba(245,165,36,.28);
+    border-radius:10px;padding:7px 0;min-width:62px;
+  }
+  .cd .num{font-family:var(--display);font-size:24px;font-weight:700;color:#fff;line-height:1;display:block}
+  .cd .lab{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-faint);margin-top:3px}
+  .cd .colon{font-family:var(--display);font-size:22px;color:var(--amber);font-weight:700}
+
+  /* ===== NAV ===== */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(180deg,#14271d,#0c1611);border:1px solid var(--line-green);display:grid;place-items:center;box-shadow:var(--glow)}
+  .logo svg{width:18px;height:18px}
+  .nav-cta{font-size:13px;font-weight:600;color:var(--green-bright);border:1px solid var(--line-green);padding:8px 16px;border-radius:8px;text-decoration:none;transition:.2s}
+  .nav-cta:hover{background:rgba(52,211,153,.08)}
+
+  /* ===== SECTION RHYTHM ===== */
+  section{padding:54px 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-bright);border:1px solid var(--line-green);background:rgba(52,211,153,.06);padding:6px 13px;border-radius:100px;margin-bottom:22px}
+
+  /* ===== HERO ===== */
+  .hero{padding:48px 0 30px;text-align:center}
+  .hero h1{font-size:clamp(34px,6.4vw,58px);margin-bottom:20px}
+  .hero h1 .sub{display:block;font-size:clamp(20px,3.6vw,30px);font-weight:500;color:var(--txt-dim);margin-top:14px;letter-spacing:-.01em}
+  .hero p.lede{font-size:clamp(16px,2.4vw,19px);color:var(--txt-dim);max-width:600px;margin:0 auto 30px;line-height:1.65}
+  .enroll-card{
+    max-width:560px;margin:0 auto 26px;
+    background:radial-gradient(120% 100% at 50% 0%,rgba(239,68,68,.06),transparent 70%),var(--card);
+    border:1px solid rgba(239,68,68,.35);border-radius:18px;padding:26px 22px;
+    box-shadow:0 0 50px rgba(239,68,68,.1);
+  }
+  .enroll-card .et{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ff6b6b;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:16px}
+  .dots{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:340px;margin:0 auto 14px}
+  .dot{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .dot.on{background:var(--red);box-shadow:0 0 9px rgba(239,68,68,.7)}
+  .enroll-card .count{font-family:var(--display);font-size:30px;font-weight:700;margin-bottom:8px}
+  .enroll-card .count .taken{color:var(--txt-dim)}
+  .enroll-card .count .left{color:var(--red)}
+  .enroll-card .warn-sm{font-size:13px;color:#ff8a8a;display:flex;align-items:center;justify-content:center;gap:6px}
+
+  /* ===== BUTTONS ===== */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--display);font-weight:700;font-size:clamp(16px,2.6vw,19px);
+    color:#04150c;text-decoration:none;cursor:pointer;border:none;
+    background:linear-gradient(180deg,var(--green-bright),var(--green-deep));
+    padding:18px 34px;border-radius:13px;letter-spacing:.01em;
+    box-shadow:0 0 0 1px rgba(52,211,153,.4),0 14px 40px rgba(34,197,94,.35);
+    transition:transform .15s,box-shadow .2s;width:100%;max-width:520px;text-align:center;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(52,211,153,.6),0 18px 50px rgba(34,197,94,.5)}
+  .btn:active{transform:translateY(0)}
+  .btn.pulse{animation:btnpulse 2.4s infinite}
+  @keyframes btnpulse{0%,100%{box-shadow:0 0 0 1px rgba(52,211,153,.4),0 14px 40px rgba(34,197,94,.3)}50%{box-shadow:0 0 0 1px rgba(52,211,153,.7),0 14px 55px rgba(34,197,94,.6)}}
+  .btn-sub{font-size:13px;color:var(--txt-dim);margin-top:12px;text-align:center}
+  .scrollhint{font-size:14px;color:var(--txt-dim);margin-top:22px}
+
+  /* ===== VIDEO ===== */
+  .video-wrap{
+    position:relative;max-width:760px;margin:30px auto 0;
+    aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+    border:1px solid var(--line-green);box-shadow:var(--glow);background:#000;
+  }
+  .video-wrap iframe,.video-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
+  .video-cap{text-align:center;color:var(--txt-faint);font-size:12.5px;margin-top:14px}
+
+  /* ===== SCREENSHOT FRAMES / WALKTHROUGH (single-column, large) ===== */
+  .walk{display:flex;flex-direction:column;gap:46px;margin-top:38px;max-width:840px;margin-left:auto;margin-right:auto}
+  .wstep .whead{display:flex;gap:13px;align-items:center;margin-bottom:10px}
+  .wstep .wn{flex:none;width:34px;height:34px;border-radius:9px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright);font-size:14px}
+  .wstep .wt{font-family:var(--display);font-weight:700;font-size:clamp(19px,3vw,23px);letter-spacing:-.01em}
+  .wstep .wd{color:var(--txt-dim);font-size:15.5px;line-height:1.65;margin:0 0 20px 47px}
+  @media(max-width:560px){.wstep .wd{margin-left:0}}
+  /* Each screenshot stacks one-per-row, full width, so it reads big. */
+  .shot-row{display:flex;flex-direction:column;gap:24px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);transition:.25s;margin:0;box-shadow:0 18px 50px -28px rgba(0,0,0,.7)}
+  .frame:hover{border-color:var(--line-green);box-shadow:var(--glow);transform:translateY(-3px)}
+  .frame img{width:100%;height:auto;display:block}
+  .frame figcaption{font-size:13.5px;color:var(--txt-dim);padding:13px 16px;text-align:center;border-top:1px solid var(--line)}
+  .frame figcaption b{color:var(--green-bright);font-weight:600}
+  /* Small numbered tag shown above each individual screenshot in a multi-shot step */
+  .shot-tag{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright);margin:0 0 -14px 2px}
+
+  /* ===== INLINE CTA BANDS (mid-page "I want 50% off" buttons) ===== */
+  .cta-band{text-align:center;padding:30px 0}
+  .cta-band .disc-badge{
+    display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
+    background:linear-gradient(90deg,rgba(245,165,36,.16),rgba(239,68,68,.16));
+    border:1px solid rgba(245,165,36,.45);border-radius:100px;padding:7px 16px;
+    font-family:var(--display);font-weight:700;font-size:13px;color:#fff;letter-spacing:.02em;
+    animation:badgepop 2.2s infinite;
+  }
+  @keyframes badgepop{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .cta-band .nudge{font-size:13px;color:var(--txt-dim);margin-top:12px}
+
+  /* ===== UNLOCK-THE-OFFER REVEAL ===== */
+  .locked-stage{text-align:center}
+  .locked-price{font-family:var(--display);font-size:clamp(56px,13vw,90px);font-weight:700;line-height:1;color:#fff;filter:blur(13px);opacity:.55;user-select:none;margin-bottom:8px}
+  .locked-hint{font-size:13.5px;color:var(--txt-dim);margin:6px auto 20px;max-width:360px;line-height:1.5}
+  #revealed{animation:reveal .6s cubic-bezier(.2,.9,.3,1)}
+  @keyframes reveal{0%{opacity:0;transform:scale(.92) translateY(10px)}60%{transform:scale(1.02)}100%{opacity:1;transform:scale(1) translateY(0)}}
+  .save-burst{
+    display:inline-block;margin-bottom:6px;font-family:var(--display);font-weight:700;font-size:13px;
+    color:#04150c;background:linear-gradient(90deg,var(--amber-soft),#ffd47a);
+    border-radius:100px;padding:5px 14px;letter-spacing:.04em;
+  }
+
+  /* ===== PROBLEM ===== */
+  .lead-q{font-size:clamp(22px,3.8vw,30px);font-weight:700;font-family:var(--display);line-height:1.3;margin-bottom:22px}
+  .prose p{color:var(--txt-dim);font-size:16.5px;margin-bottom:18px;line-height:1.72}
+  .prose strong{color:var(--txt)}
+  .prose .hl{color:var(--green-bright);font-weight:600}
+
+  /* ===== FEATURE CARDS ===== */
+  .feat-grid{display:grid;gap:16px;margin-top:30px}
+  @media(min-width:640px){.feat-grid{grid-template-columns:1fr 1fr}}
+  .feat{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;
+    transition:.25s;position:relative;overflow:hidden;
+  }
+  .feat:hover{border-color:var(--line-green);box-shadow:var(--glow);transform:translateY(-3px)}
+  .feat .ico{width:42px;height:42px;border-radius:11px;background:rgba(52,211,153,.1);border:1px solid var(--line-green);display:grid;place-items:center;margin-bottom:15px}
+  .feat .ico svg{width:20px;height:20px;stroke:var(--green-bright)}
+  .feat h3{font-size:18px;margin-bottom:8px}
+  .feat p{color:var(--txt-dim);font-size:14.5px;line-height:1.6}
+
+  /* ===== STACK ===== */
+  .stack-head{text-align:center;margin-bottom:14px}
+  .stack-head h2{font-size:clamp(26px,4.6vw,40px);margin-bottom:14px}
+  .stack-head p{color:var(--txt-dim);font-size:16px;max-width:520px;margin:0 auto}
+  .stack{margin:34px auto 0;max-width:680px;display:flex;flex-direction:column;gap:12px}
+  .si{
+    display:flex;gap:16px;align-items:flex-start;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+    transition:.2s;
+  }
+  .si:hover{border-color:var(--line-green)}
+  .si .chk{flex:none;width:26px;height:26px;border-radius:7px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;margin-top:2px}
+  .si .chk svg{width:14px;height:14px;stroke:var(--green-bright)}
+  .si .body{flex:1}
+  .si .body h4{font-size:16px;font-weight:600;font-family:var(--body);margin-bottom:3px}
+  .si .body p{color:var(--txt-dim);font-size:13.5px;line-height:1.5}
+  .si .val{flex:none;text-align:right;font-family:var(--display);font-weight:700;font-size:16px;color:var(--green-bright);white-space:nowrap;align-self:center}
+  .stack-total{
+    margin:18px auto 0;max-width:680px;
+    background:radial-gradient(140% 120% at 50% 0%,rgba(52,211,153,.12),transparent 70%),var(--card);
+    border:1px solid var(--line-green);border-radius:16px;padding:26px;text-align:center;box-shadow:var(--glow);
+  }
+  .stack-total .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-dim);font-weight:700;margin-bottom:8px}
+  .stack-total .big{font-family:var(--display);font-size:clamp(40px,8vw,62px);font-weight:700;color:#fff;line-height:1}
+
+  /* ===== PRICE TEASE ===== */
+  .tease{text-align:center}
+  .tease h2{font-size:clamp(26px,4.6vw,38px);margin-bottom:26px}
+  .tease .line{font-size:clamp(18px,3vw,23px);font-weight:600;font-family:var(--display);margin-bottom:14px;color:var(--txt)}
+  .tease .line .strike{font-weight:700}
+  .tease p{color:var(--txt-dim);font-size:16px;max-width:560px;margin:0 auto 14px;line-height:1.7}
+  .crazy{
+    margin:34px auto;max-width:620px;
+    background:radial-gradient(130% 110% at 50% 0%,rgba(245,165,36,.1),transparent 70%),var(--card);
+    border:1px solid rgba(245,165,36,.3);border-radius:18px;padding:30px 24px;
+  }
+  .crazy .tag{font-family:var(--display);font-weight:700;font-size:clamp(18px,3.4vw,24px);color:var(--amber-soft);margin-bottom:8px}
+  .crazy .small{font-size:13px;color:var(--txt-faint);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:18px}
+  .flash{
+    display:inline-flex;align-items:center;gap:9px;
+    background:linear-gradient(90deg,rgba(239,68,68,.16),rgba(245,165,36,.16));
+    border:1px solid rgba(245,165,36,.4);border-radius:100px;
+    padding:9px 20px;font-family:var(--display);font-weight:700;font-size:15px;color:#fff;margin:8px 0 22px;
+  }
+
+  /* ===== OFFER BOX ===== */
+  .offer{
+    margin:0 auto;max-width:600px;
+    background:radial-gradient(130% 110% at 50% 0%,rgba(52,211,153,.16),transparent 65%),linear-gradient(180deg,#0e1512,#0a0f0d);
+    border:1.5px solid var(--line-green);border-radius:22px;padding:34px 26px;text-align:center;
+    box-shadow:0 0 60px rgba(34,197,94,.2);
+  }
+  .offer .invest{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-dim);font-weight:700;margin-bottom:10px}
+  .offer .price{font-family:var(--display);font-size:clamp(70px,16vw,110px);font-weight:700;line-height:.95;color:#fff;letter-spacing:-.03em}
+  .offer .price span{font-size:.4em;color:var(--green-bright);vertical-align:super}
+  .offer .terms{color:var(--txt-dim);font-size:14.5px;margin:14px auto 18px;max-width:420px;line-height:1.6}
+  .offer .save{
+    display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
+    background:rgba(52,211,153,.1);border:1px solid var(--line-green);border-radius:12px;
+    padding:14px 22px;margin-bottom:26px;
+  }
+  .offer .save .you{font-size:13px;color:var(--txt-dim);font-weight:600}
+  .offer .save .amt{font-family:var(--display);font-size:26px;font-weight:700;color:var(--green-bright)}
+  .offer .save .pct{font-size:13px;color:var(--amber-soft);font-weight:700}
+
+  /* ===== GUARANTEE ===== */
+  .guarantee{
+    margin:0 auto;max-width:620px;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;
+    display:flex;gap:22px;align-items:flex-start;
+  }
+  .guarantee .seal{flex:none;width:74px;height:74px;border-radius:50%;background:radial-gradient(circle,rgba(52,211,153,.18),transparent);border:2px solid var(--line-green);display:grid;place-items:center;box-shadow:var(--glow)}
+  .guarantee .seal svg{width:34px;height:34px;stroke:var(--green-bright)}
+  .guarantee h3{font-size:21px;margin-bottom:8px}
+  .guarantee p{color:var(--txt-dim);font-size:14.5px;line-height:1.65}
+  .guarantee a{color:var(--green-bright);text-decoration:none;font-weight:600}
+  @media(max-width:520px){.guarantee{flex-direction:column;align-items:center;text-align:center}}
+
+  /* ===== TESTIMONIALS ===== */
+  .tg{display:grid;gap:16px;margin-top:30px}
+  @media(min-width:640px){.tg{grid-template-columns:1fr 1fr}}
+  .testi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.2s}
+  .testi:hover{border-color:var(--line-green)}
+  .testi .stars{color:var(--amber-soft);font-size:15px;letter-spacing:2px;margin-bottom:12px}
+  .testi p{color:var(--txt);font-size:15px;line-height:1.65;margin-bottom:16px}
+  .testi .who{display:flex;align-items:center;gap:12px}
+  .testi .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1b3a2b,#0e1f17);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright);font-size:15px}
+  .testi .nm{font-weight:600;font-size:14.5px}
+  .testi .meta{font-size:12.5px;color:var(--txt-faint)}
+  .placeholder-note{max-width:680px;margin:18px auto 0;font-size:12.5px;color:var(--txt-faint);text-align:center;line-height:1.6;border:1px dashed var(--line);border-radius:10px;padding:12px 16px}
+
+  /* ===== AFTER CLICK ===== */
+  .steps{max-width:620px;margin:30px auto 0;display:flex;flex-direction:column;gap:14px}
+  .step{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .step .n{flex:none;width:34px;height:34px;border-radius:9px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright)}
+  .step h4{font-size:16px;margin-bottom:4px;font-family:var(--body);font-weight:600}
+  .step p{color:var(--txt-dim);font-size:14px;line-height:1.55}
+
+  /* ===== FAQ ===== */
+  .faq{max-width:680px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s}
+  .qa[open]{border-color:var(--line-green)}
+  .qa summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:600;font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary .pl{flex:none;color:var(--green-bright);font-size:20px;transition:.2s;font-family:var(--display)}
+  .qa[open] summary .pl{transform:rotate(45deg)}
+  .qa .ans{padding:0 20px 20px;color:var(--txt-dim);font-size:14.5px;line-height:1.7}
+  .qa .ans a{color:var(--green-bright);text-decoration:none}
+
+  /* ===== FINAL CTA ===== */
+  .final{
+    text-align:center;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(34,197,94,.1),transparent 70%);
+    border-top:1px solid var(--line);
+  }
+  .final h2{font-size:clamp(28px,5vw,44px);margin-bottom:18px}
+  .final .recap{max-width:560px;margin:0 auto 24px;color:var(--txt-dim);font-size:16px;line-height:1.7}
+  .recap-list{max-width:440px;margin:0 auto 28px;text-align:left;display:flex;flex-direction:column;gap:9px}
+  .recap-list .r{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--txt)}
+  .recap-list .r svg{flex:none;width:18px;height:18px;stroke:var(--green-bright);margin-top:3px}
+  .final-price{font-family:var(--display);margin:6px 0 4px;font-size:18px;color:var(--txt-dim)}
+  .final-price b{color:#fff;font-size:30px}
+  .micro{font-size:12.5px;color:var(--txt-faint);margin-top:16px;line-height:1.6}
+  .micro .lock{color:var(--green-bright)}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center}
+  footer p{font-size:12px;color:var(--txt-faint);line-height:1.6;max-width:680px;margin:0 auto 10px}
+  footer a{color:var(--txt-dim);text-decoration:none}
+
+  /* ===== SOCIAL PROOF POPUP ===== */
+  .pop{
+    position:fixed;left:20px;bottom:20px;z-index:60;max-width:300px;
+    background:rgba(13,18,16,.96);border:1px solid var(--line-green);border-radius:14px;
+    padding:14px 16px;box-shadow:0 14px 40px rgba(0,0,0,.5),var(--glow);
+    backdrop-filter:blur(10px);
+    transform:translateY(140%);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s;
+  }
+  .pop.show{transform:translateY(0);opacity:1}
+  .pop .top{font-size:14px;font-weight:600;margin-bottom:3px}
+  .pop .top .fire{margin-right:5px}
+  .pop .top b{color:var(--green-bright)}
+  .pop .sub2{font-size:12px;color:var(--txt-faint)}
+  @media(max-width:480px){.pop{left:12px;right:12px;max-width:none;bottom:12px}}
+
+  /* ===== STICKY MOBILE CTA ===== */
+  .sticky{
+    position:fixed;left:0;right:0;bottom:0;z-index:55;
+    background:rgba(10,10,11,.94);border-top:1px solid var(--line-green);
+    padding:10px 14px;display:none;backdrop-filter:blur(10px);
+    transform:translateY(110%);transition:transform .3s;
+  }
+  .sticky.show{transform:translateY(0)}
+  .sticky a{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,var(--green-bright),var(--green-deep));color:#04150c;font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;padding:14px;border-radius:11px}
+  .sticky .st-price{font-size:12px;color:#04150c;opacity:.8;font-weight:600}
+  @media(max-width:760px){.sticky{display:block}body{padding-bottom:74px}}
+
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);max-width:680px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<!-- WARNING BAR -->
+<div class="warnbar">
+  ⚠️ Only <b>20 SPOTS LEFT</b> — this founding-member page comes down for good when they're gone
+  <span class="live-dot"></span><span class="viewers"><b id="viewers">214</b> people viewing right now</span>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="cdstrip">
+  <div class="cdlabel">🔥 Founding-member discount expires in</div>
+  <div class="cd" id="countdown">
+    <div class="unit"><span class="num" id="cd-h">11</span><span class="lab">Hrs</span></div>
+    <span class="colon">:</span>
+    <div class="unit"><span class="num" id="cd-m">59</span><span class="lab">Min</span></div>
+    <span class="colon">:</span>
+    <div class="unit"><span class="num" id="cd-s">31</span><span class="lab">Sec</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="brand">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 7 7 7 13a5 5 0 0 0 10 0c0-2-1-3.5-1-3.5s-2 1.5-2 3a3 3 0 0 1-3-3c0-3 4-5 4-8" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      AesthetixAI
+    </div>
+    <a href="#offer" class="nav-cta">Get access</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="narrow">
+    <span class="eyebrow"><span class="live-dot" style="margin:0"></span> Live enrollment · only 20 spots left</span>
+    <h1>Stop guessing what your body needs.
+      <span class="sub">Get an AI personal trainer &amp; diet coach that actually <span class="g">sees</span> your progress — and adapts to it every week.</span>
+    </h1>
+    <p class="lede">Upload three photos. Get an instant AI physique analysis, a workout split built for your exact equipment, and a macro-matched meal plan you can swap with one click. Then check in weekly and watch your plan rebuild itself around your real results.</p>
+
+    <!-- ENROLLMENT CARD -->
+    <div class="enroll-card">
+      <div class="et">⚡ Live enrollment status</div>
+      <div class="dots" id="dots"></div>
+      <div class="count"><span class="taken">80 taken</span> — <span class="left">20 left</span></div>
+      <div class="warn-sm">⚠️ When these fill, this founding price is gone forever</div>
+    </div>
+
+    <a href="#offer" class="btn pulse">Show me the system →</a>
+    <div class="scrollhint">👇 Scroll down to see everything you're getting</div>
+  </div>
+</section>
+
+<!-- ===== INTRO VIDEO ===== -->
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">▶ Watch first</span>
+      <h2>See AesthetixAI <span class="g">in 60 seconds</span></h2>
+      <p>The fastest way to understand how the Scan → Customize → Verify → Adapt loop actually works.</p>
+    </div>
+
+    <!--
+      VIDEO SOURCE — Google Drive embed (file must be shared "Anyone with the link").
+      File: AesthetixAI_Intro_with_Music.webm  ·  ID: 1Bm9blhrQm9u1K20Kd7hmeXFuasDKMrdr
+
+      ► If you'd rather self-host (faster, no Google branding): download the .webm to
+        /public/video/intro.webm and replace the <iframe> below with:
+        <video controls playsinline preload="metadata" poster="/video/intro-poster.jpg">
+          <source src="/video/intro.webm" type="video/webm">
+        </video>
+    -->
+    <div class="video-wrap">
+      <iframe
+        src="https://drive.google.com/file/d/1Bm9blhrQm9u1K20Kd7hmeXFuasDKMrdr/preview"
+        title="AesthetixAI intro video"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        loading="lazy"></iframe>
+    </div>
+    <div class="video-cap">▲ If the video doesn't load, make sure the Drive file sharing is set to “Anyone with the link.”</div>
+
+    <!-- INLINE CTA #1 -->
+    <div class="cta-band">
+      <div class="disc-badge">🔥 50% FOUNDING DISCOUNT — ACTIVE NOW</div>
+      <a href="#offer" class="btn pulse">👉 Yes — I want my 50% discount</a>
+      <div class="nudge">Takes you to your founding-member price · only 20 spots left</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section>
+  <div class="narrow prose">
+    <p class="lead-q">Here's the real reason you're not seeing the body you want — and it's not your effort.</p>
+    <p>You've tried the apps. The calorie trackers. The free YouTube programs. Maybe even a coach who sent you a PDF and disappeared.</p>
+    <p>And you still feel like you're <strong>guessing</strong>. Guessing if your form is right. Guessing if you're eating enough protein. Guessing whether the program you downloaded is even built for <em>your</em> body, your gear, your weak points.</p>
+    <p>The problem was never your discipline. <span class="hl">The problem is the gap between raw data and real transformation.</span> A number on a scale doesn't tell you your shoulders are lagging. A generic meal plan doesn't care that you're vegetarian and on a budget. A static PDF can't see that you've changed and adjust before you plateau.</p>
+    <p><strong>AesthetixAI closes that gap.</strong> It looks at your actual physique, builds a plan around what it sees, and rebuilds that plan every single week as your body responds. It's the closing of the loop that every other app skips: <span class="hl">Scan → Customize → Verify → Adapt.</span></p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">What's inside</span>
+      <h2>A coach that <span class="g">sees</span>, <span class="g">builds</span>, and <span class="g">adapts</span></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>See your physique through AI eyes</h3>
+        <p>Upload front, side &amp; back photos. Computer-vision models estimate your visual body fat, read your posture, and flag muscular asymmetries — then target your splits around your real weak points.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M6.5 6.5 17.5 17.5M4 9l2-2M18 16l2 2M9 4l-2 2M16 18l2-2M2 12l3 3M19 6l3 3"/></svg></div>
+        <h3>Workouts built for your exact gear</h3>
+        <p>Commercial gym, a squat rack in the garage, or just resistance bands at home — AesthetixAI tailors exercise selection, volume, sets, reps, tempo and RPE to what you actually own.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 7h18M3 12h18M3 17h18"/><circle cx="8" cy="7" r="2" fill="#0A0A0B"/><circle cx="15" cy="12" r="2" fill="#0A0A0B"/><circle cx="10" cy="17" r="2" fill="#0A0A0B"/></svg></div>
+        <h3>Smart diets with one-click swaps</h3>
+        <p>Hit your exact macros without eating bland repeats. Swap any meal for a macro-equivalent option matched to your budget and your diet — vegan, vegetarian, eggetarian or non-veg.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></div>
+        <h3>The weekly optimization loop</h3>
+        <p>Progress isn't linear. Upload check-in photos weekly — the AI detects change, recalculates your BMR/TDEE, and auto-adjusts your training to break plateaus before they start.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 3a7 7 0 0 0-7 7c0 3 2 4 2 6h10c0-2 2-3 2-6a7 7 0 0 0-7-7Z"/><path d="M9 21h6"/></svg></div>
+        <h3>Your AI coach, on call 24/7</h3>
+        <p>Tuned to your plan. Ask it to swap an exercise, fix a missed workout, adjust for a shoulder tweak, or rebalance calories after a big dinner — and get an instant answer that knows your numbers.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <h3>Progress you can actually watch</h3>
+        <p>Weight trends, side-by-side photo comparisons, circumference logs and a 30/90-day roadmap — so you see momentum building instead of wondering if anything's working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISUAL WALKTHROUGH (real screenshots) ===== -->
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">See every screen</span>
+      <h2>This isn't a promise. <span class="g">It's already built.</span></h2>
+      <p>Walk through the exact app you get the moment you join — from your first scan to your weekly check-in.</p>
+    </div>
+
+    <div class="walk">
+
+      <!-- 1. LANDING -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">1</span><span class="wt">It starts the second you land</span></div>
+        <div class="wd">A clean, dark, distraction-free home that does one thing: turn your physique into a plan. No clutter, no 40-tab dashboard you'll never use — just the five-step loop that actually moves the needle.</div>
+        <div class="shot-row">
+          <figure class="frame"><img src="/info/landing.png" alt="AesthetixAI landing page" loading="lazy"><figcaption><b>Your AI personal trainer &amp; diet coach</b> — in one place</figcaption></figure>
+        </div>
+      </div>
+
+      <!-- 2. SIGN UP / SIGN IN -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">2</span><span class="wt">Sign up in seconds — no friction</span></div>
+        <div class="wd">Create an account with email &amp; password, or sign in with Google in one tap. No email verification, no waiting, no “check your inbox” dead-ends. You're in and moving in under a minute.</div>
+        <div class="shot-row">
+          <div class="shot-tag">2A · Create account</div>
+          <figure class="frame"><img src="/info/signup.png" alt="Create your AesthetixAI account" loading="lazy"><figcaption>Name, email, password — that's it</figcaption></figure>
+          <div class="shot-tag">2B · Sign in</div>
+          <figure class="frame"><img src="/info/signin.png" alt="Sign in to AesthetixAI" loading="lazy"><figcaption>Returning members sign back in — or continue with Google</figcaption></figure>
+          <div class="shot-tag">2C · Your home</div>
+          <figure class="frame"><img src="/info/home-hub.png" alt="AesthetixAI signed-in home" loading="lazy"><figcaption><b>One button to build your plan</b> — plus quick links to every tool</figcaption></figure>
+        </div>
+      </div>
+
+      <!-- 3. ONBOARDING (6 steps, one image each) -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">3</span><span class="wt">A 2-minute setup that tunes your coach to you</span></div>
+        <div class="wd">Six quick steps teach the AI exactly who it's coaching — your body, your goal, your equipment, and how you eat. This is the difference between a generic PDF and a plan built around <em>your</em> life.</div>
+        <div class="shot-row">
+          <div class="shot-tag">Step 1 of 6 · About you</div>
+          <figure class="frame"><img src="/info/onboarding-1.png" alt="Onboarding step 1 — about you" loading="lazy"><figcaption>Name, age and gender to personalize the basics</figcaption></figure>
+          <div class="shot-tag">Step 2 of 6 · Your body</div>
+          <figure class="frame"><img src="/info/onboarding-2.png" alt="Onboarding step 2 — your body" loading="lazy"><figcaption>Height, weight &amp; activity → your true BMR and TDEE</figcaption></figure>
+          <div class="shot-tag">Step 3 of 6 · Your goal</div>
+          <figure class="frame"><img src="/info/onboarding-3.png" alt="Onboarding step 3 — your goal" loading="lazy"><figcaption>Fat loss, muscle gain, recomposition, strength or general fitness</figcaption></figure>
+          <div class="shot-tag">Step 4 of 6 · Training</div>
+          <figure class="frame"><img src="/info/onboarding-4.png" alt="Onboarding step 4 — training setup" loading="lazy"><figcaption>Where you train, how often, your gear &amp; any injuries</figcaption></figure>
+          <div class="shot-tag">Step 5 of 6 · Diet</div>
+          <figure class="frame"><img src="/info/onboarding-5.png" alt="Onboarding step 5 — diet preferences" loading="lazy"><figcaption>Food preference, cuisine style and budget — low, medium or high</figcaption></figure>
+          <div class="shot-tag">Step 6 of 6 · Measurements</div>
+          <figure class="frame"><img src="/info/onboarding-6.png" alt="Onboarding step 6 — measurements" loading="lazy"><figcaption>Optional starting measurements — skip and add later if you like</figcaption></figure>
+        </div>
+      </div>
+
+      <!-- 4. UPLOAD -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">4</span><span class="wt">Upload three photos to launch the scan</span></div>
+        <div class="wd">Front, side and back, in consistent lighting. Your photos are stored privately in your own folder — used only for your analysis, never shared, and deletable anytime. Same pose each week is what makes the comparison meaningful.</div>
+        <div class="shot-row">
+          <figure class="frame"><img src="/info/upload.png" alt="Upload your physique photos" loading="lazy"><figcaption><b>Front · side · back</b> — then tap “Upload &amp; analyze”</figcaption></figure>
+        </div>
+      </div>
+
+      <!-- 5. SCAN REPORT -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">5</span><span class="wt">Your AI body analysis — the part no other app gives you</span></div>
+        <div class="wd">Within minutes you get a visual body-fat estimate, BMI, calorie multipliers and macro targets, a posture &amp; symmetry read that flags your lagging muscle groups, plus a structured 30/90-day roadmap. This is what your whole plan is built on.</div>
+        <div class="shot-row">
+          <figure class="frame"><img src="/info/scan-report.png" alt="Your AI body analysis report" loading="lazy"><figcaption><b>Full body-composition report</b> · strengths, weak points &amp; your roadmap</figcaption></figure>
+        </div>
+      </div>
+
+      <!-- 6. THE UNLOCKED PLATFORM (one image each) -->
+      <div class="wstep">
+        <div class="whead"><span class="wn">6</span><span class="wt">Your fully unlocked coaching platform</span></div>
+        <div class="wd">From here, everything runs off your scan — and adapts every week. Here's each screen you'll live in:</div>
+        <div class="shot-row">
+          <div class="shot-tag">Dashboard</div>
+          <figure class="frame"><img src="/info/dash-home.png" alt="AesthetixAI dashboard" loading="lazy"><figcaption><b>Dashboard</b> · today's training split, macro rings &amp; weight trend at a glance</figcaption></figure>
+          <div class="shot-tag">Workout plan</div>
+          <figure class="frame"><img src="/info/workout.png" alt="Personalized workout plan" loading="lazy"><figcaption><b>Workout plan</b> · your split with sets, reps, rest, RPE, tempo, form cues &amp; demos</figcaption></figure>
+          <div class="shot-tag">Diet plan</div>
+          <figure class="frame"><img src="/info/diet.png" alt="Smart diet plan with swaps" loading="lazy"><figcaption><b>Diet plan</b> · full day of meals, water target &amp; one-click macro-matched swaps</figcaption></figure>
+          <div class="shot-tag">AI coach</div>
+          <figure class="frame"><img src="/info/coach.png" alt="24/7 AI coach chat" loading="lazy"><figcaption><b>AI coach</b> · ask anything — swaps, missed workouts, recovery — tuned to your plan</figcaption></figure>
+          <div class="shot-tag">Weekly check-in</div>
+          <figure class="frame"><img src="/info/progress.png" alt="Weekly progress check-in" loading="lazy"><figcaption><b>Weekly check-in</b> · new photos + weight → the AI re-analyzes and adjusts your plan</figcaption></figure>
+          <div class="shot-tag">Profile</div>
+          <figure class="frame"><img src="/info/profile.png" alt="Your profile and stats" loading="lazy"><figcaption><b>Profile</b> · your stats, BMI, weeks tracked &amp; progress over time</figcaption></figure>
+          <div class="shot-tag">Settings</div>
+          <figure class="frame"><img src="/info/settings.png" alt="Settings and plan preferences" loading="lazy"><figcaption><b>Settings</b> · change equipment, goal, diet or weight anytime — the plan follows</figcaption></figure>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INLINE CTA #2 -->
+    <div class="cta-band">
+      <div class="disc-badge">⚡ LOCK IN 50% OFF BEFORE THE SPOTS GO</div>
+      <a href="#offer" class="btn pulse">🔓 Claim my 50% founding discount</a>
+      <div class="nudge">Everything above — yours for life, one payment</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VALUE STACK -->
+<section>
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">The math</span>
+      <h2>Now let's talk about what this is <span class="g">worth</span></h2>
+      <p>I want you to really understand what you're getting here. Pay close attention — because if you bought every piece of this separately, here's what you'd actually be writing checks for.</p>
+    </div>
+
+    <div class="stack" id="stack">
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>AI Physique Scan Engine</h4><p>Visual body-fat estimate, posture read &amp; asymmetry detection from your photos</p></div>
+        <div class="val">$297</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>Custom Workout Programming</h4><p>Equipment-matched splits with sets, reps, tempo, RPE, form cues &amp; video demos</p></div>
+        <div class="val">$397</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>Smart Diet &amp; Macro Planner</h4><p>Budget- and preference-matched meal plans with instant one-click macro swaps</p></div>
+        <div class="val">$297</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>Weekly Auto-Adjusting Coach</h4><p>The optimization loop that recalculates TDEE &amp; rebuilds your plan every week</p></div>
+        <div class="val">$397</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>24/7 AI Coach Chat</h4><p>A personal coach tuned to your exact plan, answering in seconds, any time</p></div>
+        <div class="val">$297</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>Progress &amp; Transformation Tracking</h4><p>Weight trends, photo comparisons, circumference logs &amp; your 30/90-day roadmap</p></div>
+        <div class="val">$197</div>
+      </div>
+      <div class="si">
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
+        <div class="body"><h4>Lifetime Updates &amp; New Features</h4><p>Every model improvement and feature we ship — yours, forever, at no extra cost</p></div>
+        <div class="val">$115</div>
+      </div>
+    </div>
+
+    <div class="stack-total">
+      <div class="lbl">Total real value</div>
+      <div class="big">$1,997</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE TEASE -->
+<section class="tease">
+  <div class="narrow">
+    <h2>So what's the <span class="g">investment</span>?</h2>
+    <p>If I charged you the full <span class="strike">$1,997</span>, it would be completely fair — that's what you'd pay buying every piece separately. And honestly? Most people spend <em>way</em> more than that on random courses and fragmented tools that don't even talk to each other.</p>
+    <p style="margin-top:24px;font-weight:600;color:var(--txt)">But you're not going to pay $1,997.</p>
+    <div style="margin:22px 0;display:flex;flex-direction:column;gap:10px">
+      <div class="line">You're not even going to pay <span class="strike">$997</span></div>
+      <div class="line">You're not even going to pay <span class="strike">$497</span></div>
+      <div class="line">You're not even going to pay the regular price of <span class="strike">$197</span></div>
+    </div>
+
+    <div class="crazy">
+      <div class="tag">🚨 I'm about to do something a little crazy 🚨</div>
+      <div class="small">For the next few hours only</div>
+      <p>I've never run this price before, and my team thinks I've lost it. But I'd rather remove every excuse standing between you and a body you're proud of than protect a margin.</p>
+      <p>I could charge <span class="strike">$197</span> for lifetime access and it would still be a steal next to the useless monthly subscriptions you've been bleeding money on. I remember what it felt like to spend on something cheap, hoping I wasn't wasting money I couldn't afford to lose. I don't want you carrying that feeling into this.</p>
+      <p>So for the first 100 founding members — and we're down to the final <strong>20 spots</strong> — I'm doing something that makes zero sense on a spreadsheet, and total sense if the goal is a community of people who actually <em>get results.</em></p>
+      <div class="flash">⚡ Founding-member price: locked at the lowest it will ever be</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER (locked → unlock reveal) -->
+<section id="offer" style="padding-top:10px">
+  <div class="wrap">
+    <div class="offer">
+      <div class="invest">Your founding-member price</div>
+
+      <!-- LOCKED STAGE -->
+      <div class="locked-stage" id="locked">
+        <div class="locked-price">$00</div>
+        <div class="locked-hint">Your 50% founding discount is reserved. Tap below to reveal the exact price — locked at the lowest it will ever be.</div>
+        <button type="button" class="btn pulse" id="unlock-btn">🔓 Unlock the offer</button>
+        <div class="btn-sub">⚠️ Only <b style="color:#ff8a8a">20 spots</b> left at this price · then it's <b>$50/month</b></div>
+      </div>
+
+      <!-- REVEALED STAGE -->
+      <div id="revealed" style="display:none">
+        <div class="save-burst">🎉 50% FOUNDING DISCOUNT UNLOCKED</div>
+        <div class="price"><span>$</span>97</div>
+        <div class="terms">One-time payment. <strong style="color:var(--txt)">Lifetime access.</strong> No monthly fees. No hidden charges. No "premium tier" upsell later. This is the whole thing.</div>
+        <div class="save">
+          <span class="you">You're saving</span>
+          <span class="amt">$1,900</span>
+          <span class="pct">(95% off real value)</span>
+        </div>
+        <a href="__PAYPAL_CHECKOUT_URL__" class="btn pulse" id="offer-cta" target="_blank" rel="noopener">✅ Yes — claim my $97 lifetime deal</a>
+        <div class="btn-sub">⚠️ Only <b style="color:#ff8a8a">20 spots</b> at $97. After that it's <b>$50/month</b> — the backend genuinely costs that to run.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GUARANTEE -->
+<section>
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2l2.4 1.8 3 .2 1 2.8 2.2 2-.8 2.9.8 2.9-2.2 2-1 2.8-3 .2L12 22l-2.4-1.8-3-.2-1-2.8-2.2-2 .8-2.9-.8-2.9 2.2-2 1-2.8 3-.2L12 2Z"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></div>
+      <div>
+        <h3>14-day, no-questions-asked money-back guarantee</h3>
+        <p>Try AesthetixAI risk-free for two full weeks. Run your scan, build your plan, do a check-in. If you don't like it, simply contact our support team at <a href="mailto:support@aesthetixai.fit">support@aesthetixai.fit</a> within 14 days of purchase and we'll refund your money — no questions asked. The only risk here is staying exactly where you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">Real members</span>
+      <h2>People who stopped <span class="g">guessing</span></h2>
+    </div>
+    <div class="tg">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"The weekly photo check-ins kept me honest. My plan actually changed as I changed — it felt like a real coach adjusting my calories and cardio off visual proof, not just the scale. Dropped 8kg of fat in 12 weeks and kept all my strength."</p>
+        <div class="who"><span class="av">A</span><div><div class="nm">Alex M.</div><div class="meta">Fat loss focus · 12 weeks</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Finally a plan that fit my home setup and my wallet. I train with just dumbbells and bands in my garage, and it built a killer routine around exactly what I have. The macro-matched swaps made eating clean simple without breaking the bank."</p>
+        <div class="who"><span class="av">S</span><div><div class="nm">Sarah T.</div><div class="meta">Body recomposition</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"The scan spotted that my shoulders were lagging behind my chest and back, and it automatically reprioritized my split to medial and rear delt volume. The level of customization is insane. Already seeing real shoulder width improvements."</p>
+        <div class="who"><span class="av">D</span><div><div class="nm">David K.</div><div class="meta">Muscle gain focus · 8 weeks</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"I travel constantly and eat out a lot. The meal-swap engine is a lifesaver — I can swap a chicken dinner for a whey-and-rice-cake combo in a hotel without blowing my targets. Down 5% body fat in 6 weeks without it feeling like a diet."</p>
+        <div class="who"><span class="av">J</span><div><div class="nm">James L.</div><div class="meta">General fitness · 6 weeks</div></div></div>
+      </div>
+    </div>
+    <div class="placeholder-note">
+      ⚠️ Note (delete before publishing): these are the early-member quotes from your product doc. Confirm each person agreed to be quoted publicly and swap in real names/photos. Don't add invented testimonials — fake reviews are a legal and PayPal-account risk.
+    </div>
+
+    <!-- INLINE CTA #3 -->
+    <div class="cta-band">
+      <div class="disc-badge">🚀 JOIN THEM — 50% OFF ENDS WITH THE LAST SPOT</div>
+      <a href="#offer" class="btn pulse">🔓 Unlock my founding price</a>
+      <div class="nudge">14-day money-back guarantee · zero risk</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AFTER CLICK -->
+<section>
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">Zero friction</span>
+      <h2>What happens after you click <span class="g">"Get instant access"</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><h4>You're taken to secure PayPal checkout</h4><p>One simple, secure payment through PayPal. No subscription traps, no fine print — a single $97 charge.</p></div></div>
+      <div class="step"><span class="n">2</span><div><h4>You're redirected in ~10 seconds</h4><p>The moment payment clears, you're sent straight to a page with your login credentials so you can get into your account immediately.</p></div></div>
+      <div class="step"><span class="n">3</span><div><h4>Your credentials also hit your inbox</h4><p>A backup email lands with your login details — so even if you close the tab, you're covered. Check spam/promotions just in case.</p></div></div>
+      <div class="step"><span class="n">4</span><div><h4>You run your first AI scan tonight</h4><p>Sign in, upload three photos, complete the 2-minute setup, and get your full physique analysis and personalized plan in minutes.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="stack-head">
+      <span class="eyebrow">Before you decide</span>
+      <h2>Questions, <span class="g">answered straight</span></h2>
+    </div>
+    <div class="faq">
+      <details class="qa"><summary>Is this really a one-time $97, or a sneaky subscription? <span class="pl">+</span></summary><div class="ans">It's a genuine one-time payment for lifetime access — but only for the founding-member window (the final 20 spots). After that, new members pay $50/month, because the AI scans and coaching genuinely cost money to run on the backend. Lock it in now and you never pay again.</div></details>
+      <details class="qa"><summary>Is the AI body analysis medically accurate? <span class="pl">+</span></summary><div class="ans">No — and we'll always be honest about that. It's a visual estimate from your photos and self-reported metrics (height, weight, age), not a medical measurement like a DEXA scan. It's calibrated for a fitness-focused population to estimate body fat, symmetry and posture. For clinical decisions, always consult a medical professional.</div></details>
+      <details class="qa"><summary>What photos work best for the scan? <span class="pl">+</span></summary><div class="ans">Three clear shots — front, side profile and back — in consistent, well-lit conditions. Wear fitted clothing, stand neutral with arms slightly out, and keep the same distance and lighting each week so your weekly comparisons stay reliable.</div></details>
+      <details class="qa"><summary>Can I use it without a commercial gym? <span class="pl">+</span></summary><div class="ans">Absolutely. During setup you pick your location (gym, home, or both) and select exactly what equipment you have — from bodyweight-only to full barbell setups. The AI builds the plan around your gear, not someone else's.</div></details>
+      <details class="qa"><summary>Do you support vegan / vegetarian / eggetarian diets? <span class="pl">+</span></summary><div class="ans">Yes — vegan, vegetarian, eggetarian and non-vegetarian are all fully supported. The meal planner respects your preference and only generates calorie- and macro-matched recipes that fit it.</div></details>
+      <details class="qa"><summary>How are my photos secured? <span class="pl">+</span></summary><div class="ans">Privacy is the priority. Photos are stored securely in your private folder, used only for your analysis, never shared publicly, and you can delete them from your settings at any time.</div></details>
+      <details class="qa"><summary>What if I don't like it? <span class="pl">+</span></summary><div class="ans">Then you pay nothing. Contact our support team at <a href="mailto:support@aesthetixai.fit">support@aesthetixai.fit</a> within 14 days of purchase and we refund you in full, no questions asked. The risk is entirely on us.</div></details>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="narrow">
+    <span class="eyebrow">Last thing</span>
+    <h2>You can keep <span class="amber">guessing</span>… or start <span class="g">knowing</span></h2>
+    <p class="recap">Here's where you are right now: a fork. One path is another six months of the same — random programs, bland meal plans, no idea if any of it's working. The other is a coach that sees your body, builds your plan, and adapts it every week, for a one-time $97 that you're protected on for 14 full days.</p>
+
+    <div class="recap-list">
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Instant AI physique scan + 30/90-day roadmap</div>
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Workout split built for your exact equipment</div>
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Macro-matched diet with one-click swaps</div>
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Weekly auto-adjusting plan + 24/7 AI coach</div>
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Lifetime access + every future update</div>
+      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> 14-day no-questions-asked guarantee</div>
+    </div>
+
+    <div class="final-price"><span class="strike">$1,997 value</span> &nbsp;→&nbsp; <b>$97</b> one-time</div>
+    <div style="margin:18px 0 6px">
+      <a href="__PAYPAL_CHECKOUT_URL__" class="btn pulse" target="_blank" rel="noopener">✅ Yes — I want the 70% founding discount now</a>
+    </div>
+    <div class="micro"><span class="lock">🔒</span> Secure PayPal checkout · instant access · 14-day money-back guarantee<br>Price reverts to $50/month once the final 20 founding spots are gone.</div>
+  </div>
+</section>
+
+<footer>
+  <p>AesthetixAI is an AI-powered fitness tool that provides visual estimates and general fitness guidance. It is <b>not</b> a medical assessment, body-composition scan, or professional medical advice. Results vary by individual and effort. Always consult a qualified professional for medical decisions.</p>
+  <p>© 2026 AesthetixAI · <a href="mailto:daya@aesthetixai.fit">daya@aesthetixai.fit</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a> · <a href="/refund">Refund Policy</a></p>
+</footer>
+
+<!-- SOCIAL PROOF POPUP -->
+<div class="pop" id="pop">
+  <div class="top"><span class="fire">🔥</span><b id="pop-name">Mike from Berlin</b> just joined AesthetixAI</div>
+  <div class="sub2" id="pop-sub">Only 20 spots remaining…</div>
+</div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky" id="sticky">
+  <a href="__PAYPAL_CHECKOUT_URL__" target="_blank" rel="noopener">Get instant access — $97 <span class="st-price">(lifetime)</span></a>
+</div>
+
+<script>
+/* ---- COUNTDOWN (persists to a real deadline in localStorage-free way via sessionStorage fallback) ---- */
+(function(){
+  var KEY='aesthetix_deadline';
+  var deadline;
+  try{ deadline = sessionStorage.getItem(KEY); }catch(e){}
+  if(!deadline){
+    deadline = Date.now() + (11*3600 + 59*60 + 31)*1000;
+    try{ sessionStorage.setItem(KEY, deadline); }catch(e){}
+  }
+  deadline = parseInt(deadline,10);
+  var h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var diff=Math.max(0,deadline-Date.now());
+    var hr=Math.floor(diff/3600000), mn=Math.floor(diff%3600000/60000), sc=Math.floor(diff%60000/1000);
+    h.textContent=pad(hr);m.textContent=pad(mn);s.textContent=pad(sc);
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* ---- ENROLLMENT DOTS (80 taken / 20 left) ---- */
+(function(){
+  var box=document.getElementById('dots');
+  for(var i=0;i<25;i++){
+    var d=document.createElement('span');
+    d.className='dot'+(i<20?' on':'');
+    box.appendChild(d);
+  }
+})();
+
+/* ---- VIEWER COUNT JITTER (cosmetic, hovers around a base) ---- */
+(function(){
+  var el=document.getElementById('viewers'), base=214;
+  setInterval(function(){
+    base += Math.floor(Math.random()*7)-3;
+    if(base<198)base=198; if(base>231)base=231;
+    el.textContent=base;
+  },4000);
+})();
+
+/* ---- SOCIAL PROOF POPUP every 60s ---- */
+(function(){
+  var pop=document.getElementById('pop'), nm=document.getElementById('pop-name');
+  var names=[
+    'Mike from Berlin','Sofia from Madrid','Raj from Mumbai','Chris from Austin',
+    'Emma from London','Luca from Milan','Noah from Toronto','Aisha from Dubai',
+    'Daniel from Sydney','Priya from Bangalore','Tom from Manchester','Yuki from Osaka'
+  ];
+  var i=0;
+  function show(){
+    nm.textContent=names[i%names.length]; i++;
+    pop.classList.add('show');
+    setTimeout(function(){pop.classList.remove('show')},5200);
+  }
+  setTimeout(show,6000);
+  setInterval(show,60000);
+})();
+
+/* ---- STICKY CTA appears after scrolling past hero ---- */
+(function(){
+  var st=document.getElementById('sticky');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>700){st.classList.add('show')}else{st.classList.remove('show')}
+  });
+})();
+
+/* ---- UNLOCK-THE-OFFER REVEAL + reliable scroll-to-pricing ---- */
+(function(){
+  var btn=document.getElementById('unlock-btn'),
+      offer=document.getElementById('offer'),
+      locked=document.getElementById('locked'),
+      revealed=document.getElementById('revealed');
+  function unlock(){
+    if(!revealed || revealed.style.display!=='none') return;
+    locked.style.display='none';
+    revealed.style.display='block';
+  }
+  if(btn) btn.addEventListener('click',function(){
+    unlock();
+    if(revealed) revealed.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  // Every "Get access / I want 50% off / unlock" button (href="#offer") jumps to the
+  // pricing block AND pops the price open — explicit JS so it always works.
+  document.querySelectorAll('a[href="#offer"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      if(offer) offer.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(unlock,600);
+    });
+  });
+})();
+</script>
+</body>
+</html>
