@@ -199,6 +199,9 @@ h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
   align-items:center;
   justify-content:space-between;
 }
+/* Nav spans wider than the 680px reading column so the logo hugs the
+   top-left corner and the CTA hugs the top-right corner. */
+.top-bar .top-bar-inner { width: min(1120px, 94vw); }
 .logo {
   display:flex;
   align-items:center;
@@ -228,6 +231,7 @@ h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
   text-transform:uppercase;
   letter-spacing:0.05em;
   color:#fff;
+  white-space: nowrap;
   background: rgba(16, 185, 129, 0.25);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -911,22 +915,20 @@ h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
   .cta-flipper-container { min-width: 120px; }
   .cta-btn { width:100%; justify-content:center; font-size:0.9375rem; padding:1rem 1.5rem; }
   .cta-sub { flex-direction:column; align-items:center; }
-  /* Walkthrough Mobile - Premium Overlapping Glass */
+  /* Walkthrough Mobile - clean vertical stack (phone on top, cards below,
+     no overlapping). Avoids the text scrolling on top of the mockup. */
   .walk-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
   .walk-visual-col {
-    grid-area: 1 / 1;
-    position: sticky;
-    top: 80px;
-    height: 500px;
+    position: static;
     width: 100%;
-    align-self: start;
+    height: auto;
     display: flex;
     justify-content: center;
-    z-index: 1;
     margin-bottom: 0;
   }
   .phone-notch {
@@ -935,35 +937,32 @@ h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
   }
   .phone-frame {
     transform: none !important;
-    width: 240px;
-    height: 500px;
+    width: 230px;
+    height: 470px;
   }
   .phone-frame:hover { transform: none !important; }
   .walk-text-col {
-    grid-area: 1 / 1;
-    padding: 550px 0 150px;
-    z-index: 2;
-    position: relative;
-    pointer-events: none;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
   .walk-step {
-    min-height: 80vh;
-    opacity: 0.3;
-    background: rgba(10,10,11,0.85);
-    backdrop-filter: blur(12px);
+    min-height: auto;
+    opacity: 1;
+    transform: none;
+    background: rgba(17,17,19,0.7);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
     padding: 1.5rem;
     border-radius: 1.25rem;
-    margin-bottom: 2rem;
-    transform: translateY(20px);
     pointer-events: auto;
   }
   .walk-step.active {
-    opacity: 1;
-    transform: translateY(0);
     border-color: rgba(16, 185, 129, 0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   }
   .walk-step h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
   .walk-step p { font-size: 0.95rem; }
