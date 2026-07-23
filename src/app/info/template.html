@@ -1,960 +1,1741 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AesthetixAI — Your AI Personal Trainer & Diet Coach</title>
-<meta name="description" content="Upload three photos and get an AI physique scan, a workout plan built for your gear, and a macro-matched diet that adapts every week. Founding-member lifetime access.">
-<!-- Open Graph / social share -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="AesthetixAI — Your AI Personal Trainer & Diet Coach">
-<meta property="og:description" content="Stop guessing. Get an AI coach that sees your physique, builds your plan, and adapts it every week. Founding-member lifetime access — limited spots.">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0A0A0B;
-    --bg-soft:#0E1311;
-    --card:#101513;
-    --card-2:#0D1210;
-    --line:rgba(255,255,255,.07);
-    --line-green:rgba(52,211,153,.28);
-    --txt:#E9EFEC;
-    --txt-dim:#94A29C;
-    --txt-faint:#5E6B65;
-    --green:#22C55E;
-    --green-bright:#34D399;
-    --green-deep:#16A34A;
-    --amber:#F5A524;
-    --amber-soft:#FBBF24;
-    --red:#EF4444;
-    --glow:0 0 40px rgba(34,197,94,.18);
-    --display:'Space Grotesk',sans-serif;
-    --body:'Inter',sans-serif;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <title>AesthetixAI - Get An AI Coach That Actually Looks At You</title>
+  <meta name="description" content="Upload your photos. Get a brutally honest AI physique scan. Receive a custom workout and diet plan that adapts to your body every week. $97 lifetime. No subscriptions." />
+  <style>
+/* ============================================
+   AesthetixAI – Long-Form Sales Letter
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+/* ---- Variables ---- */
+:root {
+  --emerald-300: #6ee7b7;
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --amber-400: #fbbf24;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+
+  --bg: #0a0a0b;
+  --bg-card: #111113;
+  --bg-elevated: #161618;
+  --bg-highlight: #1a1a1e;
+
+  --text: #f0f0f2;
+  --text-dim: #a1a1aa;
+  --text-muted: #71717a;
+  --text-faint: #52525b;
+
+  --border: rgba(255,255,255,0.07);
+  --border-em: rgba(16,185,129,0.25);
+
+  --col-width: min(680px, 92vw);
+  --section-gap: clamp(4rem, 8vw, 6rem);
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img { max-width:100%; height:auto; display:block; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+/* ---- Layout ---- */
+.col {
+  width:var(--col-width);
+  margin:0 auto;
+  padding:0 1rem;
+}
+
+.section-gap { padding: var(--section-gap) 0; }
+
+/* ---- Typography ---- */
+.serif { font-family:'Playfair Display',Georgia,serif; }
+
+h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
+
+/* ---- Gradient Text ---- */
+.gradient {
+  background:linear-gradient(135deg,var(--emerald-400),var(--teal-300),var(--emerald-300));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.gradient-animated {
+  background:linear-gradient(90deg,var(--emerald-400),var(--teal-300),var(--emerald-300),var(--emerald-400));
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradShift 4s ease-in-out infinite;
+}
+@keyframes gradShift { 0%,100%{background-position:0 50%} 50%{background-position:100% 50%} }
+
+/* ---- Dividers ---- */
+.divider {
+  width:80px;
+  height:3px;
+  margin:2.5rem auto;
+  background:linear-gradient(90deg,var(--emerald-500),var(--teal-400));
+  border-radius:9999px;
+  opacity:0.6;
+}
+
+.divider-full {
+  width:100%;
+  height:1px;
+  margin:var(--section-gap) 0;
+  background:var(--border);
+}
+
+/* ---- CTA Button ---- */
+.cta-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.625rem;
+  padding:1.125rem 2.5rem;
+  border-radius:1.25rem;
+  font-weight:700;
+  font-size:1.0625rem;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+  color:#fff;
+  background:rgba(16,185,129,0.15);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+.cta-btn::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(45,212,191,0.3));
+  opacity:0;
+  transition:opacity 0.6s;
+}
+.cta-btn:hover {
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 14px 44px rgba(16,185,129,0.3), inset 0 1px 1px rgba(255,255,255,0.3);
+  background:rgba(16,185,129,0.25);
+  border-color:rgba(255,255,255,0.25);
+}
+.cta-btn:hover::before { opacity:1; }
+.cta-btn:active { transform:scale(0.98); }
+.cta-btn span, .cta-btn svg { position:relative; z-index:1; }
+.cta-btn svg {
+  width:20px;
+  height:20px;
+  transition:transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cta-btn:hover svg { transform:translateX(6px); }
+
+/* Keep scroll-to-CTA targets clear of the fixed header */
+#main-cta, #final-cta { scroll-margin-top: 90px; }
+
+.cta-wrap {
+  text-align:center;
+  margin:2.5rem 0;
+}
+
+.cta-sub {
+  margin-top:1rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:0.75rem 1.25rem;
+  font-size:0.8125rem;
+  color:var(--text-dim);
+}
+.cta-sub span {
+  display:inline-flex;
+  align-items:center;
+  gap:0.375rem;
+}
+.cta-sub svg {
+  width:15px;
+  height:15px;
+  color:var(--emerald-400);
+  flex-shrink:0;
+}
+
+/* ---- Header (fixed, minimal) ---- */
+.top-bar {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  background:rgba(10,10,11,0.6);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:0.625rem 0;
+}
+.top-bar-inner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  font-weight:700;
+  font-size:1rem;
+  letter-spacing:-0.02em;
+}
+.logo-icon {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:0.5rem;
+  background:rgba(16,185,129,0.12);
+  color:var(--emerald-400);
+}
+.top-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding:0.6rem 1.25rem;
+  border-radius:0.75rem;
+  font-size:0.875rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:#fff;
+  background: rgba(16, 185, 129, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.top-cta:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Dynamic Flipper inside CTA */
+.cta-flipper-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 1.2em;
+  overflow: hidden;
+  position: relative;
+  min-width: 155px;
+  text-align: center;
+  color: #a7f3d0; /* subtle emerald-200 to match brand */
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+.cta-flipper {
+  display: flex;
+  flex-direction: column;
+  animation: flipWords 10s infinite;
+}
+.cta-flipper span {
+  height: 1.2em;
+  line-height: 1.2em;
+}
+@keyframes flipWords {
+  0%, 15% { transform: translateY(0); }
+  20%, 40% { transform: translateY(-1.2em); }
+  45%, 65% { transform: translateY(-2.4em); }
+  70%, 90% { transform: translateY(-3.6em); }
+  95%, 100% { transform: translateY(-4.8em); }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding:7rem 0 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.hero-bg .orb {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+}
+.hero-bg .orb-1 {
+  width:500px; height:500px;
+  background:rgba(16,185,129,0.12);
+  top:-15%; left:-10%;
+}
+.hero-bg .orb-2 {
+  width:400px; height:400px;
+  background:rgba(99,102,241,0.08);
+  top:0; right:-8%;
+}
+
+.hero-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.375rem 0.875rem;
+  border-radius:9999px;
+  font-size:0.75rem;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  border:1px solid var(--border-em);
+  background:rgba(16,185,129,0.08);
+  color:var(--emerald-300);
+  margin-bottom:1.5rem;
+}
+.hero-badge .dot {
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--emerald-400);
+  animation:pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%,100% { box-shadow:0 0 0 0 rgba(52,211,153,0.4); }
+  50% { box-shadow:0 0 0 8px rgba(52,211,153,0); }
+}
+
+.hero h1 {
+  font-size:clamp(2rem,5.5vw,3.5rem);
+  font-weight:800;
+  line-height:1.1;
+  max-width:760px;
+  margin:0 auto;
+}
+
+.hero-sub {
+  margin:1.5rem auto 0;
+  max-width:620px;
+  font-size:clamp(1rem,1.8vw,1.1875rem);
+  color:var(--text-dim);
+  line-height:1.7;
+}
+
+.hero-img {
+  margin:3rem auto 0;
+  max-width:640px;
+  border-radius:1rem;
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  position:relative;
+}
+.hero-img img {
+  width:100%;
+}
+.hero-img .scanline {
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--emerald-400),transparent);
+  box-shadow:0 0 18px 3px rgba(52,211,153,0.5);
+  animation:scan 3.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes scan { 0%,100%{top:8%;opacity:.5} 50%{top:88%;opacity:1} }
+
+/* ============================================
+   LONG-FORM BODY
+   ============================================ */
+.letter {
+  position:relative;
+  z-index:1;
+}
+
+.letter p {
+  font-size:clamp(0.95rem,1.4vw,1.0625rem);
+  color:var(--text-dim);
+  margin-bottom:1.5rem;
+}
+
+.letter p strong {
+  color:var(--text);
+  font-weight:600;
+}
+
+.letter h2 {
+  font-size:clamp(1.6rem,3.5vw,2.25rem);
+  font-weight:800;
+  margin-bottom:1.25rem;
+  color:var(--text);
+  text-align:center;
+}
+
+.letter h3 {
+  font-size:clamp(1.2rem,2.5vw,1.5rem);
+  font-weight:700;
+  margin-bottom:0.75rem;
+  color:var(--text);
+}
+
+/* Pain quote cards */
+.pain-block {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.5rem 0;
+  transition:border-color .3s;
+}
+.pain-block:hover { border-color:var(--border-em); }
+
+.pain-emoji {
+  font-size:1.5rem;
+  margin-bottom:0.5rem;
+}
+.pain-quote {
+  font-size:1.0625rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:0.625rem;
+  line-height:1.4;
+}
+.pain-text {
+  font-size:0.9375rem;
+  color:var(--text-dim);
+  line-height:1.65;
+  margin:0;
+}
+
+/* Steps */
+.step-block {
+  display:flex;
+  gap:1.25rem;
+  align-items:flex-start;
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.25rem 0;
+  transition:border-color .3s;
+}
+.step-block:hover { border-color:var(--border-em); }
+
+.step-num {
+  flex-shrink:0;
+  width:48px; height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:0.875rem;
+  background:rgba(16,185,129,0.1);
+  border:1px solid var(--border-em);
+  color:var(--emerald-400);
+  font-size:1.125rem;
+  font-weight:800;
+}
+.step-body h3 { margin-bottom:0.375rem; }
+.step-body p { margin:0; font-size:0.9375rem; color:var(--text-dim); line-height:1.65; }
+
+/* Value stack */
+.value-row {
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--border);
+}
+.value-row:last-child { border-bottom:none; }
+
+.value-icon {
+  flex-shrink:0;
+  width:44px; height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:0.75rem;
+  background:rgba(16,185,129,0.08);
+  color:var(--emerald-400);
+}
+.value-icon svg { width:22px; height:22px; }
+.value-body { flex:1; }
+.value-body h4 {
+  font-size:1rem;
+  font-weight:700;
+  margin-bottom:0.25rem;
+}
+.value-body p {
+  font-size:0.875rem;
+  color:var(--text-dim);
+  margin:0;
+  line-height:1.6;
+}
+.value-price {
+  font-size:0.8125rem;
+  color:var(--text-muted);
+  text-decoration:line-through;
+  margin-top:0.25rem;
+}
+
+.value-total {
+  text-align:center;
+  padding:1.5rem 0;
+}
+.value-total .old-price {
+  font-size:1.5rem;
+  color:var(--red-400);
+  text-decoration:line-through;
+  font-weight:600;
+}
+.value-total .new-price {
+  font-size:2.75rem;
+  font-weight:900;
+  letter-spacing:-0.03em;
+}
+.value-total .lifetime {
+  font-size:1rem;
+  color:var(--emerald-300);
+  font-weight:600;
+  margin-top:0.25rem;
+}
+
+/* Testimonial */
+.testimonial {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.5rem 0;
+}
+.testimonial .stars {
+  display:flex;
+  gap:2px;
+  color:var(--amber-400);
+  margin-bottom:0.75rem;
+}
+.testimonial .stars svg {
+  width:16px; height:16px;
+  fill:currentColor;
+}
+.testimonial blockquote {
+  font-size:1rem;
+  line-height:1.7;
+  color:rgba(240,240,242,0.9);
+  font-style:italic;
+  margin-bottom:0.75rem;
+}
+.testimonial cite {
+  font-size:0.8125rem;
+  color:var(--text-muted);
+  font-style:normal;
+  font-weight:600;
+}
+
+/* FAQ */
+.faq-item {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  margin:0.625rem 0;
+  overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item.active { border-color:var(--border-em); }
+
+.faq-q {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  width:100%;
+  padding:1.125rem 1.5rem;
+  text-align:left;
+  font-weight:600;
+  font-size:0.9375rem;
+  cursor:pointer;
+}
+.faq-chevron {
+  width:18px; height:18px;
+  flex-shrink:0;
+  color:var(--text-muted);
+  transition:transform .3s;
+}
+.faq-item.active .faq-chevron { transform:rotate(180deg); }
+
+.faq-a {
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .35s ease;
+}
+.faq-item.active .faq-a { grid-template-rows:1fr; }
+.faq-a-inner { overflow:hidden; }
+.faq-a p {
+  padding:0 1.5rem 1.25rem;
+  font-size:0.9rem;
+  color:var(--text-dim);
+  line-height:1.65;
+  margin:0;
+}
+
+/* Guarantee badge */
+.guarantee {
+  text-align:center;
+  padding:2.5rem;
+  border:2px dashed var(--border-em);
+  border-radius:1.25rem;
+  background:rgba(16,185,129,0.04);
+  margin:2.5rem 0;
+}
+.guarantee-icon {
+  width:64px; height:64px;
+  margin:0 auto 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(16,185,129,0.12);
+  color:var(--emerald-400);
+}
+.guarantee-icon svg { width:32px; height:32px; }
+.guarantee h3 {
+  font-size:1.25rem;
+  font-weight:700;
+  margin-bottom:0.5rem;
+}
+.guarantee p {
+  max-width:480px;
+  margin:0 auto;
+  font-size:0.9375rem;
+  color:var(--text-dim);
+}
+
+/* PS section */
+.ps {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:1rem;
+  padding:1.75rem 2rem;
+  margin:2rem 0;
+  font-size:0.9375rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.ps strong { color:var(--text); }
+
+/* Footer */
+.footer {
+  border-top:1px solid var(--border);
+  padding:1.5rem 0;
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--text-faint);
+}
+.footer a { color:var(--text-muted); transition:color .2s; }
+.footer a:hover { color:var(--text); }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity:0;
+  transform:translateY(30px) scale(0.98);
+  transition:opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal.vis { opacity:1; transform:translateY(0) scale(1); }
+.reveal-d1 { transition-delay:.1s; }
+.reveal-d2 { transition-delay:.2s; }
+.reveal-d3 { transition-delay:.3s; }
+
+/* Highlight text */
+.highlight {
+  background:linear-gradient(transparent 60%,rgba(16,185,129,0.15) 60%);
+  padding:0 0.125rem;
+}
+
+/* Strike price animation */
+.strike { text-decoration:line-through; color:var(--red-400); }
+
+/* ---- APPLE MOCKUP WALKTHROUGH ---- */
+.walk-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  position: relative;
+}
+.walk-visual-col {
+  flex: 1;
+  position: sticky;
+  top: 120px;
+  display: flex;
+  justify-content: center;
+}
+.phone-frame {
+  width: 310px;
+  height: 630px;
+  border-radius: 46px;
+  background: #000;
+  box-shadow:
+    0 0 0 2px #444,
+    0 0 0 5px #222,
+    0 30px 60px rgba(16, 185, 129, 0.2),
+    inset 0 0 0 1px rgba(255,255,255,0.1);
+  position: relative;
+  transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.phone-frame:hover {
+  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.02);
+}
+
+/* Hardware Buttons */
+.phone-btn {
+  position: absolute;
+  background: #444;
+  width: 3px;
+  border-radius: 2px 0 0 2px;
+}
+.mute-btn { top: 100px; left: -8px; height: 26px; }
+.vol-up { top: 150px; left: -8px; height: 55px; }
+.vol-down { top: 220px; left: -8px; height: 55px; }
+.power-btn {
+  top: 170px; right: -8px; left: auto;
+  height: 80px; width: 3px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Notch & Camera */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 30px;
+  background: #000;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.notch-speaker {
+  width: 45px;
+  height: 6px;
+  border-radius: 4px;
+  background: #222;
+}
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #111;
+  box-shadow: inset 0 0 4px rgba(255,255,255,0.1);
+  position: relative;
+}
+.notch-camera::after {
+  content:'';
+  position: absolute;
+  top: 4px; left: 4px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #0f1847;
+}
+
+/* Screen */
+.phone-screen {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #0a0a0b;
+}
+/* Mockup Fixed Navs */
+.mockup-top-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+}
+.mockup-bottom-nav {
+  position: absolute;
+  bottom: -2px; /* Slight overlap to ensure it covers the bottom curve completely */
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.mockup-bottom-nav.active {
+  opacity: 1;
+}
+
+/* Screen Content */
+.screen-img {
+  position: absolute;
+  top: 0; /* Starts under top nav */
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.screen-img.active {
+  opacity: 1;
+}
+
+/* Only animate Workout (screen-2) and Diet (screen-3) */
+#screen-2.active, #screen-3.active {
+  animation: panTranslate 22s ease-in-out forwards;
+}
+
+@keyframes panTranslate {
+  0%   { transform: translateY(0); }
+  5%   { transform: translateY(0); }
+  90%  { transform: translateY(-400px); }
+  100% { transform: translateY(-400px); }
+}
+
+/* Home Indicator */
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 4px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 4px;
+  z-index: 5;
+}
+
+/* Screen Glare */
+.screen-glare {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%);
+  transform: rotate(30deg);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.walk-text-col {
+  flex: 1;
+  padding: 10vh 0 20vh;
+}
+.walk-step {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.2;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateX(20px);
+}
+.walk-step.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.walk-step h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.walk-step p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width:600px) {
+  :root { --section-gap: 3.5rem; }
+  .logo-text { display: none; }
+  .hero { padding: 5.5rem 0 2rem; }
+  .hero h1 { font-size: 2.25rem; }
+  .pain-block, .step-block, .testimonial { padding: 1.25rem; }
+  .step-block { flex-direction:column; gap:0.75rem; }
+  .faq-q { padding: 1rem; }
+  .faq-a p { padding: 0 1rem 1rem; }
+  .value-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .top-cta { padding: 0.5rem 0.75rem; font-size: 0.75rem; gap: 0.25rem; }
+  .cta-flipper-container { min-width: 120px; }
+  .cta-btn { width:100%; justify-content:center; font-size:0.9375rem; padding:1rem 1.5rem; }
+  .cta-sub { flex-direction:column; align-items:center; }
+  /* Walkthrough Mobile - Premium Overlapping Glass */
+  .walk-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  /* scroll-padding keeps anchor jumps (e.g. #offer) clear of the sticky top bar */
-  html{scroll-behavior:smooth;scroll-padding-top:96px}
-  #offer{scroll-margin-top:96px}
-  body{
-    background:var(--bg);
-    color:var(--txt);
-    font-family:var(--body);
-    line-height:1.6;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
+  .walk-visual-col {
+    grid-area: 1 / 1;
+    position: sticky;
+    top: 80px;
+    height: 500px;
+    width: 100%;
+    align-self: start;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    margin-bottom: 0;
   }
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-  .narrow{max-width:720px;margin:0 auto;padding:0 20px}
-  h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.12;letter-spacing:-.02em}
-  .g{color:var(--green-bright)}
-  .strike{color:var(--txt-faint);text-decoration:line-through;text-decoration-thickness:2px}
-  .amber{color:var(--amber-soft)}
-
-  /* ===== TOP WARNING BAR ===== */
-  .warnbar{
-    background:linear-gradient(90deg,rgba(245,165,36,.14),rgba(239,68,68,.12),rgba(245,165,36,.14));
-    border-bottom:1px solid rgba(245,165,36,.3);
-    text-align:center;
-    padding:11px 16px;
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--amber-soft);
-    letter-spacing:.01em;
-    position:sticky;top:0;z-index:50;
-    backdrop-filter:blur(8px);
+  .phone-notch {
+    width: 110px;
+    height: 25px;
   }
-  .warnbar b{color:#fff}
-  .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green-bright);margin:0 5px -1px 10px;box-shadow:0 0 8px var(--green-bright);animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .viewers{color:var(--txt-dim);font-weight:500;font-size:12.5px}
-  .viewers b{color:var(--green-bright)}
-
-  /* ===== COUNTDOWN STRIP ===== */
-  .cdstrip{
-    background:#0c0d0d;border-bottom:1px solid var(--line);
-    padding:14px 16px;text-align:center;
+  .phone-frame {
+    transform: none !important;
+    width: 240px;
+    height: 500px;
   }
-  .cdlabel{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-soft);font-weight:700;margin-bottom:8px}
-  .cd{display:inline-flex;gap:8px;align-items:center;justify-content:center}
-  .cd .unit{
-    background:linear-gradient(180deg,#15110a,#0e0c08);
-    border:1px solid rgba(245,165,36,.28);
-    border-radius:10px;padding:7px 0;min-width:62px;
+  .phone-frame:hover { transform: none !important; }
+  .walk-text-col {
+    grid-area: 1 / 1;
+    padding: 550px 0 150px;
+    z-index: 2;
+    position: relative;
+    pointer-events: none;
   }
-  .cd .num{font-family:var(--display);font-size:24px;font-weight:700;color:#fff;line-height:1;display:block}
-  .cd .lab{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-faint);margin-top:3px}
-  .cd .colon{font-family:var(--display);font-size:22px;color:var(--amber);font-weight:700}
-
-  /* ===== NAV ===== */
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
-  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px}
-  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(180deg,#14271d,#0c1611);border:1px solid var(--line-green);display:grid;place-items:center;box-shadow:var(--glow)}
-  .logo svg{width:18px;height:18px}
-  .nav-cta{font-size:13px;font-weight:600;color:var(--green-bright);border:1px solid var(--line-green);padding:8px 16px;border-radius:8px;text-decoration:none;transition:.2s}
-  .nav-cta:hover{background:rgba(52,211,153,.08)}
-
-  /* ===== SECTION RHYTHM ===== */
-  section{padding:54px 0}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-bright);border:1px solid var(--line-green);background:rgba(52,211,153,.06);padding:6px 13px;border-radius:100px;margin-bottom:22px}
-
-  /* ===== HERO ===== */
-  .hero{padding:48px 0 30px;text-align:center}
-  .hero h1{font-size:clamp(34px,6.4vw,58px);margin-bottom:20px}
-  .hero h1 .sub{display:block;font-size:clamp(20px,3.6vw,30px);font-weight:500;color:var(--txt-dim);margin-top:14px;letter-spacing:-.01em}
-  .hero p.lede{font-size:clamp(16px,2.4vw,19px);color:var(--txt-dim);max-width:600px;margin:0 auto 30px;line-height:1.65}
-  .enroll-card{
-    max-width:560px;margin:0 auto 26px;
-    background:radial-gradient(120% 100% at 50% 0%,rgba(239,68,68,.06),transparent 70%),var(--card);
-    border:1px solid rgba(239,68,68,.35);border-radius:18px;padding:26px 22px;
-    box-shadow:0 0 50px rgba(239,68,68,.1);
+  .walk-step {
+    min-height: 80vh;
+    opacity: 0.3;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    margin-bottom: 2rem;
+    transform: translateY(20px);
+    pointer-events: auto;
   }
-  .enroll-card .et{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ff6b6b;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:16px}
-  .dots{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:340px;margin:0 auto 14px}
-  .dot{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.08)}
-  .dot.on{background:var(--red);box-shadow:0 0 9px rgba(239,68,68,.7)}
-  .enroll-card .count{font-family:var(--display);font-size:30px;font-weight:700;margin-bottom:8px}
-  .enroll-card .count .taken{color:var(--txt-dim)}
-  .enroll-card .count .left{color:var(--red)}
-  .enroll-card .warn-sm{font-size:13px;color:#ff8a8a;display:flex;align-items:center;justify-content:center;gap:6px}
-
-  /* ===== BUTTONS ===== */
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    font-family:var(--display);font-weight:700;font-size:clamp(16px,2.6vw,19px);
-    color:#04150c;text-decoration:none;cursor:pointer;border:none;
-    background:linear-gradient(180deg,var(--green-bright),var(--green-deep));
-    padding:18px 34px;border-radius:13px;letter-spacing:.01em;
-    box-shadow:0 0 0 1px rgba(52,211,153,.4),0 14px 40px rgba(34,197,94,.35);
-    transition:transform .15s,box-shadow .2s;width:100%;max-width:520px;text-align:center;
+  .walk-step.active {
+    opacity: 1;
+    transform: translateY(0);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
-  .btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(52,211,153,.6),0 18px 50px rgba(34,197,94,.5)}
-  .btn:active{transform:translateY(0)}
-  .btn.pulse{animation:btnpulse 2.4s infinite}
-  @keyframes btnpulse{0%,100%{box-shadow:0 0 0 1px rgba(52,211,153,.4),0 14px 40px rgba(34,197,94,.3)}50%{box-shadow:0 0 0 1px rgba(52,211,153,.7),0 14px 55px rgba(34,197,94,.6)}}
-  .btn-sub{font-size:13px;color:var(--txt-dim);margin-top:12px;text-align:center}
-  .scrollhint{font-size:14px;color:var(--txt-dim);margin-top:22px}
+  .walk-step h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .walk-step p { font-size: 0.95rem; }
+}
 
-  /* ===== VIDEO ===== */
-  .video-wrap{
-    position:relative;max-width:760px;margin:30px auto 0;
-    aspect-ratio:16/9;border-radius:18px;overflow:hidden;
-    border:1px solid var(--line-green);box-shadow:var(--glow);background:#000;
+/* ============================================
+   URGENCY & ANIMATED ICONS
+   ============================================ */
+.urgency-banner {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+  background:rgba(239,68,68,0.1);
+  border:1px solid rgba(239,68,68,0.2);
+  color:var(--red-400);
+  padding:0.375rem 0.875rem;
+  border-radius:2rem;
+  font-size:0.75rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:1.5rem;
+}
+.pulse-dot {
+  width:8px; height:8px;
+  background:var(--red-400);
+  border-radius:50%;
+  animation:urgencyPulse 1.5s infinite;
+}
+@keyframes urgencyPulse {
+  0% { box-shadow:0 0 0 0 rgba(239,68,68,0.7); }
+  70% { box-shadow:0 0 0 8px rgba(239,68,68,0); }
+  100% { box-shadow:0 0 0 0 rgba(239,68,68,0); }
+}
+
+/* SVG Step Icons Animations */
+.step-icon-svg {
+  width:24px; height:24px;
+  stroke:var(--emerald-400);
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.anim-scan-line {
+  animation:scanMove 2s infinite ease-in-out;
+}
+@keyframes scanMove {
+  0%, 100% { transform:translateY(-4px); }
+  50% { transform:translateY(8px); }
+}
+.anim-spin-gear {
+  transform-origin:center;
+  animation:spinGear 4s linear infinite;
+}
+@keyframes spinGear {
+  100% { transform:rotate(360deg); }
+}
+.anim-loop-arrow {
+  animation:loopArrow 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes loopArrow {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+
+/* ============================================
+   PURCHASE TOAST NOTIFICATION (APPLE LIQUID STYLE)
+   ============================================ */
+.purchase-toast {
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  background:rgba(20, 20, 22, 0.65);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius:24px;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  transform:translateY(80px) scale(0.9);
+  opacity:0;
+  transition:transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  z-index:9999;
+  max-width:320px;
+  pointer-events:none;
+}
+.purchase-toast.show {
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+.toast-icon {
+  width:40px; height:40px;
+  background:linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(16,185,129,0.05) 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.2);
+  border:1px solid rgba(16,185,129,0.2);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--emerald-400);
+  flex-shrink:0;
+}
+.toast-icon svg { width:22px; height:22px; }
+.toast-text {
+  font-size:0.875rem;
+  line-height:1.4;
+  color:rgba(255, 255, 255, 0.8);
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.toast-text strong {
+  color:#ffffff;
+  font-weight:600;
+  letter-spacing:-0.2px;
+}
+.toast-time {
+  font-size:0.75rem;
+  color:rgba(255, 255, 255, 0.5);
+  display:block;
+  margin-top:2px;
+}
+@media (max-width:600px) {
+  .purchase-toast {
+    left:16px; right:16px; bottom:16px; max-width:none;
   }
-  .video-wrap iframe,.video-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
-  .video-cap{text-align:center;color:var(--txt-faint);font-size:12.5px;margin-top:14px}
-
-  /* ===== SCREENSHOT FRAMES / WALKTHROUGH (single-column, large) ===== */
-  .walk{display:flex;flex-direction:column;gap:46px;margin-top:38px;max-width:840px;margin-left:auto;margin-right:auto}
-  .wstep .whead{display:flex;gap:13px;align-items:center;margin-bottom:10px}
-  .wstep .wn{flex:none;width:34px;height:34px;border-radius:9px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright);font-size:14px}
-  .wstep .wt{font-family:var(--display);font-weight:700;font-size:clamp(19px,3vw,23px);letter-spacing:-.01em}
-  .wstep .wd{color:var(--txt-dim);font-size:15.5px;line-height:1.65;margin:0 0 20px 47px}
-  @media(max-width:560px){.wstep .wd{margin-left:0}}
-  /* Each screenshot stacks one-per-row, full width, so it reads big. */
-  .shot-row{display:flex;flex-direction:column;gap:24px}
-  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);transition:.25s;margin:0;box-shadow:0 18px 50px -28px rgba(0,0,0,.7)}
-  .frame:hover{border-color:var(--line-green);box-shadow:var(--glow);transform:translateY(-3px)}
-  .frame img{width:100%;height:auto;display:block}
-  .frame figcaption{font-size:13.5px;color:var(--txt-dim);padding:13px 16px;text-align:center;border-top:1px solid var(--line)}
-  .frame figcaption b{color:var(--green-bright);font-weight:600}
-  /* Small numbered tag shown above each individual screenshot in a multi-shot step */
-  .shot-tag{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright);margin:0 0 -14px 2px}
-
-  /* ===== INLINE CTA BANDS (mid-page "I want 50% off" buttons) ===== */
-  .cta-band{text-align:center;padding:30px 0}
-  .cta-band .disc-badge{
-    display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
-    background:linear-gradient(90deg,rgba(245,165,36,.16),rgba(239,68,68,.16));
-    border:1px solid rgba(245,165,36,.45);border-radius:100px;padding:7px 16px;
-    font-family:var(--display);font-weight:700;font-size:13px;color:#fff;letter-spacing:.02em;
-    animation:badgepop 2.2s infinite;
-  }
-  @keyframes badgepop{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-  .cta-band .nudge{font-size:13px;color:var(--txt-dim);margin-top:12px}
-
-  /* ===== UNLOCK-THE-OFFER REVEAL ===== */
-  .locked-stage{text-align:center}
-  .locked-price{font-family:var(--display);font-size:clamp(56px,13vw,90px);font-weight:700;line-height:1;color:#fff;filter:blur(13px);opacity:.55;user-select:none;margin-bottom:8px}
-  .locked-hint{font-size:13.5px;color:var(--txt-dim);margin:6px auto 20px;max-width:360px;line-height:1.5}
-  #revealed{animation:reveal .6s cubic-bezier(.2,.9,.3,1)}
-  @keyframes reveal{0%{opacity:0;transform:scale(.92) translateY(10px)}60%{transform:scale(1.02)}100%{opacity:1;transform:scale(1) translateY(0)}}
-  .save-burst{
-    display:inline-block;margin-bottom:6px;font-family:var(--display);font-weight:700;font-size:13px;
-    color:#04150c;background:linear-gradient(90deg,var(--amber-soft),#ffd47a);
-    border-radius:100px;padding:5px 14px;letter-spacing:.04em;
-  }
-
-  /* ===== PROBLEM ===== */
-  .lead-q{font-size:clamp(22px,3.8vw,30px);font-weight:700;font-family:var(--display);line-height:1.3;margin-bottom:22px}
-  .prose p{color:var(--txt-dim);font-size:16.5px;margin-bottom:18px;line-height:1.72}
-  .prose strong{color:var(--txt)}
-  .prose .hl{color:var(--green-bright);font-weight:600}
-
-  /* ===== FEATURE CARDS ===== */
-  .feat-grid{display:grid;gap:16px;margin-top:30px}
-  @media(min-width:640px){.feat-grid{grid-template-columns:1fr 1fr}}
-  .feat{
-    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;
-    transition:.25s;position:relative;overflow:hidden;
-  }
-  .feat:hover{border-color:var(--line-green);box-shadow:var(--glow);transform:translateY(-3px)}
-  .feat .ico{width:42px;height:42px;border-radius:11px;background:rgba(52,211,153,.1);border:1px solid var(--line-green);display:grid;place-items:center;margin-bottom:15px}
-  .feat .ico svg{width:20px;height:20px;stroke:var(--green-bright)}
-  .feat h3{font-size:18px;margin-bottom:8px}
-  .feat p{color:var(--txt-dim);font-size:14.5px;line-height:1.6}
-
-  /* ===== STACK ===== */
-  .stack-head{text-align:center;margin-bottom:14px}
-  .stack-head h2{font-size:clamp(26px,4.6vw,40px);margin-bottom:14px}
-  .stack-head p{color:var(--txt-dim);font-size:16px;max-width:520px;margin:0 auto}
-  .stack{margin:34px auto 0;max-width:680px;display:flex;flex-direction:column;gap:12px}
-  .si{
-    display:flex;gap:16px;align-items:flex-start;
-    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
-    transition:.2s;
-  }
-  .si:hover{border-color:var(--line-green)}
-  .si .chk{flex:none;width:26px;height:26px;border-radius:7px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;margin-top:2px}
-  .si .chk svg{width:14px;height:14px;stroke:var(--green-bright)}
-  .si .body{flex:1}
-  .si .body h4{font-size:16px;font-weight:600;font-family:var(--body);margin-bottom:3px}
-  .si .body p{color:var(--txt-dim);font-size:13.5px;line-height:1.5}
-  .si .val{flex:none;text-align:right;font-family:var(--display);font-weight:700;font-size:16px;color:var(--green-bright);white-space:nowrap;align-self:center}
-  .stack-total{
-    margin:18px auto 0;max-width:680px;
-    background:radial-gradient(140% 120% at 50% 0%,rgba(52,211,153,.12),transparent 70%),var(--card);
-    border:1px solid var(--line-green);border-radius:16px;padding:26px;text-align:center;box-shadow:var(--glow);
-  }
-  .stack-total .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-dim);font-weight:700;margin-bottom:8px}
-  .stack-total .big{font-family:var(--display);font-size:clamp(40px,8vw,62px);font-weight:700;color:#fff;line-height:1}
-
-  /* ===== PRICE TEASE ===== */
-  .tease{text-align:center}
-  .tease h2{font-size:clamp(26px,4.6vw,38px);margin-bottom:26px}
-  .tease .line{font-size:clamp(18px,3vw,23px);font-weight:600;font-family:var(--display);margin-bottom:14px;color:var(--txt)}
-  .tease .line .strike{font-weight:700}
-  .tease p{color:var(--txt-dim);font-size:16px;max-width:560px;margin:0 auto 14px;line-height:1.7}
-  .crazy{
-    margin:34px auto;max-width:620px;
-    background:radial-gradient(130% 110% at 50% 0%,rgba(245,165,36,.1),transparent 70%),var(--card);
-    border:1px solid rgba(245,165,36,.3);border-radius:18px;padding:30px 24px;
-  }
-  .crazy .tag{font-family:var(--display);font-weight:700;font-size:clamp(18px,3.4vw,24px);color:var(--amber-soft);margin-bottom:8px}
-  .crazy .small{font-size:13px;color:var(--txt-faint);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:18px}
-  .flash{
-    display:inline-flex;align-items:center;gap:9px;
-    background:linear-gradient(90deg,rgba(239,68,68,.16),rgba(245,165,36,.16));
-    border:1px solid rgba(245,165,36,.4);border-radius:100px;
-    padding:9px 20px;font-family:var(--display);font-weight:700;font-size:15px;color:#fff;margin:8px 0 22px;
-  }
-
-  /* ===== OFFER BOX ===== */
-  .offer{
-    margin:0 auto;max-width:600px;
-    background:radial-gradient(130% 110% at 50% 0%,rgba(52,211,153,.16),transparent 65%),linear-gradient(180deg,#0e1512,#0a0f0d);
-    border:1.5px solid var(--line-green);border-radius:22px;padding:34px 26px;text-align:center;
-    box-shadow:0 0 60px rgba(34,197,94,.2);
-  }
-  .offer .invest{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-dim);font-weight:700;margin-bottom:10px}
-  .offer .price{font-family:var(--display);font-size:clamp(70px,16vw,110px);font-weight:700;line-height:.95;color:#fff;letter-spacing:-.03em}
-  .offer .price span{font-size:.4em;color:var(--green-bright);vertical-align:super}
-  .offer .terms{color:var(--txt-dim);font-size:14.5px;margin:14px auto 18px;max-width:420px;line-height:1.6}
-  .offer .save{
-    display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
-    background:rgba(52,211,153,.1);border:1px solid var(--line-green);border-radius:12px;
-    padding:14px 22px;margin-bottom:26px;
-  }
-  .offer .save .you{font-size:13px;color:var(--txt-dim);font-weight:600}
-  .offer .save .amt{font-family:var(--display);font-size:26px;font-weight:700;color:var(--green-bright)}
-  .offer .save .pct{font-size:13px;color:var(--amber-soft);font-weight:700}
-
-  /* ===== GUARANTEE ===== */
-  .guarantee{
-    margin:0 auto;max-width:620px;
-    background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;
-    display:flex;gap:22px;align-items:flex-start;
-  }
-  .guarantee .seal{flex:none;width:74px;height:74px;border-radius:50%;background:radial-gradient(circle,rgba(52,211,153,.18),transparent);border:2px solid var(--line-green);display:grid;place-items:center;box-shadow:var(--glow)}
-  .guarantee .seal svg{width:34px;height:34px;stroke:var(--green-bright)}
-  .guarantee h3{font-size:21px;margin-bottom:8px}
-  .guarantee p{color:var(--txt-dim);font-size:14.5px;line-height:1.65}
-  .guarantee a{color:var(--green-bright);text-decoration:none;font-weight:600}
-  @media(max-width:520px){.guarantee{flex-direction:column;align-items:center;text-align:center}}
-
-  /* ===== TESTIMONIALS ===== */
-  .tg{display:grid;gap:16px;margin-top:30px}
-  @media(min-width:640px){.tg{grid-template-columns:1fr 1fr}}
-  .testi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.2s}
-  .testi:hover{border-color:var(--line-green)}
-  .testi .stars{color:var(--amber-soft);font-size:15px;letter-spacing:2px;margin-bottom:12px}
-  .testi p{color:var(--txt);font-size:15px;line-height:1.65;margin-bottom:16px}
-  .testi .who{display:flex;align-items:center;gap:12px}
-  .testi .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1b3a2b,#0e1f17);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright);font-size:15px}
-  .testi .nm{font-weight:600;font-size:14.5px}
-  .testi .meta{font-size:12.5px;color:var(--txt-faint)}
-  .placeholder-note{max-width:680px;margin:18px auto 0;font-size:12.5px;color:var(--txt-faint);text-align:center;line-height:1.6;border:1px dashed var(--line);border-radius:10px;padding:12px 16px}
-
-  /* ===== AFTER CLICK ===== */
-  .steps{max-width:620px;margin:30px auto 0;display:flex;flex-direction:column;gap:14px}
-  .step{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-  .step .n{flex:none;width:34px;height:34px;border-radius:9px;background:rgba(52,211,153,.12);border:1px solid var(--line-green);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--green-bright)}
-  .step h4{font-size:16px;margin-bottom:4px;font-family:var(--body);font-weight:600}
-  .step p{color:var(--txt-dim);font-size:14px;line-height:1.55}
-
-  /* ===== FAQ ===== */
-  .faq{max-width:680px;margin:30px auto 0;display:flex;flex-direction:column;gap:10px}
-  .qa{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s}
-  .qa[open]{border-color:var(--line-green)}
-  .qa summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:600;font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:14px}
-  .qa summary::-webkit-details-marker{display:none}
-  .qa summary .pl{flex:none;color:var(--green-bright);font-size:20px;transition:.2s;font-family:var(--display)}
-  .qa[open] summary .pl{transform:rotate(45deg)}
-  .qa .ans{padding:0 20px 20px;color:var(--txt-dim);font-size:14.5px;line-height:1.7}
-  .qa .ans a{color:var(--green-bright);text-decoration:none}
-
-  /* ===== FINAL CTA ===== */
-  .final{
-    text-align:center;
-    background:radial-gradient(120% 90% at 50% 0%,rgba(34,197,94,.1),transparent 70%);
-    border-top:1px solid var(--line);
-  }
-  .final h2{font-size:clamp(28px,5vw,44px);margin-bottom:18px}
-  .final .recap{max-width:560px;margin:0 auto 24px;color:var(--txt-dim);font-size:16px;line-height:1.7}
-  .recap-list{max-width:440px;margin:0 auto 28px;text-align:left;display:flex;flex-direction:column;gap:9px}
-  .recap-list .r{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--txt)}
-  .recap-list .r svg{flex:none;width:18px;height:18px;stroke:var(--green-bright);margin-top:3px}
-  .final-price{font-family:var(--display);margin:6px 0 4px;font-size:18px;color:var(--txt-dim)}
-  .final-price b{color:#fff;font-size:30px}
-  .micro{font-size:12.5px;color:var(--txt-faint);margin-top:16px;line-height:1.6}
-  .micro .lock{color:var(--green-bright)}
-
-  /* ===== FOOTER ===== */
-  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center}
-  footer p{font-size:12px;color:var(--txt-faint);line-height:1.6;max-width:680px;margin:0 auto 10px}
-  footer a{color:var(--txt-dim);text-decoration:none}
-
-  /* ===== SOCIAL PROOF POPUP ===== */
-  .pop{
-    position:fixed;left:20px;bottom:20px;z-index:60;max-width:300px;
-    background:rgba(13,18,16,.96);border:1px solid var(--line-green);border-radius:14px;
-    padding:14px 16px;box-shadow:0 14px 40px rgba(0,0,0,.5),var(--glow);
-    backdrop-filter:blur(10px);
-    transform:translateY(140%);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s;
-  }
-  .pop.show{transform:translateY(0);opacity:1}
-  .pop .top{font-size:14px;font-weight:600;margin-bottom:3px}
-  .pop .top .fire{margin-right:5px}
-  .pop .top b{color:var(--green-bright)}
-  .pop .sub2{font-size:12px;color:var(--txt-faint)}
-  @media(max-width:480px){.pop{left:12px;right:12px;max-width:none;bottom:12px}}
-
-  /* ===== STICKY MOBILE CTA ===== */
-  .sticky{
-    position:fixed;left:0;right:0;bottom:0;z-index:55;
-    background:rgba(10,10,11,.94);border-top:1px solid var(--line-green);
-    padding:10px 14px;display:none;backdrop-filter:blur(10px);
-    transform:translateY(110%);transition:transform .3s;
-  }
-  .sticky.show{transform:translateY(0)}
-  .sticky a{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,var(--green-bright),var(--green-deep));color:#04150c;font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;padding:14px;border-radius:11px}
-  .sticky .st-price{font-size:12px;color:#04150c;opacity:.8;font-weight:600}
-  @media(max-width:760px){.sticky{display:block}body{padding-bottom:74px}}
-
-  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);max-width:680px;margin:0 auto}
-</style>
+}
+  </style>
 </head>
 <body>
 
-<!-- WARNING BAR -->
-<div class="warnbar">
-  ⚠️ Only <b>20 SPOTS LEFT</b> — this founding-member page comes down for good when they're gone
-  <span class="live-dot"></span><span class="viewers"><b id="viewers">214</b> people viewing right now</span>
-</div>
-
-<!-- COUNTDOWN -->
-<div class="cdstrip">
-  <div class="cdlabel">🔥 Founding-member discount expires in</div>
-  <div class="cd" id="countdown">
-    <div class="unit"><span class="num" id="cd-h">11</span><span class="lab">Hrs</span></div>
-    <span class="colon">:</span>
-    <div class="unit"><span class="num" id="cd-m">59</span><span class="lab">Min</span></div>
-    <span class="colon">:</span>
-    <div class="unit"><span class="num" id="cd-s">31</span><span class="lab">Sec</span></div>
+<!-- ========== TOP BAR ========== -->
+<header class="top-bar">
+  <div class="col top-bar-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+      </div>
+      <span class="logo-text">AesthetixAI</span>
+    </a>
+    <a href="#main-cta" class="top-cta">
+      Get
+      <span class="cta-flipper-container">
+        <span class="cta-flipper">
+          <span>Lifetime Access</span>
+          <span>Your AI Coach</span>
+          <span>Custom Workouts</span>
+          <span>Almost Sold Out</span>
+          <span>Lifetime Access</span>
+        </span>
+      </span>
+      - $97
+    </a>
   </div>
-</div>
+</header>
 
-<div class="wrap">
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="brand">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 7 7 7 13a5 5 0 0 0 10 0c0-2-1-3.5-1-3.5s-2 1.5-2 3a3 3 0 0 1-3-3c0-3 4-5 4-8" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      AesthetixAI
-    </div>
-    <a href="#offer" class="nav-cta">Get access</a>
-  </nav>
-</div>
-
-<!-- HERO -->
+<!-- ========== HERO ========== -->
 <section class="hero">
-  <div class="narrow">
-    <span class="eyebrow"><span class="live-dot" style="margin:0"></span> Live enrollment · only 20 spots left</span>
-    <h1>Stop guessing what your body needs.
-      <span class="sub">Get an AI personal trainer &amp; diet coach that actually <span class="g">sees</span> your progress — and adapts to it every week.</span>
+  <div class="hero-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <div class="col" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <span class="hero-badge"><span class="dot"></span> AI-Powered Fitness Coaching</span>
+    </div>
+
+    <div class="urgency-banner reveal"><div class="pulse-dot"></div><span>Limited: <b class="spots-count">98</b> Lifetime Spots Remaining</span></div>
+    <h1 class="reveal reveal-d1">
+      Stop Wasting Time On Generic Workout Apps.<br>
+      <span class="gradient-animated">Get An AI Coach That Actually <em class="serif">Looks</em> At You.</span>
     </h1>
-    <p class="lede">Upload three photos. Get an instant AI physique analysis, a workout split built for your exact equipment, and a macro-matched meal plan you can swap with one click. Then check in weekly and watch your plan rebuild itself around your real results.</p>
 
-    <!-- ENROLLMENT CARD -->
-    <div class="enroll-card">
-      <div class="et">⚡ Live enrollment status</div>
-      <div class="dots" id="dots"></div>
-      <div class="count"><span class="taken">80 taken</span> — <span class="left">20 left</span></div>
-      <div class="warn-sm">⚠️ When these fill, this founding price is gone forever</div>
+    <p class="hero-sub reveal reveal-d2">
+      Upload your photos. Get a brutally honest AI physique scan. Receive a custom, evolving workout and diet protocol that adapts to your body every single week. <strong>All the personalization of a private coach, with zero monthly fees.</strong>
+    </p>
+
+    <div class="cta-wrap reveal reveal-d3">
+      <a href="#main-cta" class="cta-btn" id="hero-cta">
+        <span>Get My Custom Plan - $97 Lifetime</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <div class="cta-sub">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lifetime access</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day money-back guarantee</span>
+      </div>
     </div>
 
-    <a href="#offer" class="btn pulse">Show me the system →</a>
-    <div class="scrollhint">👇 Scroll down to see everything you're getting</div>
-  </div>
-</section>
-
-<!-- ===== INTRO VIDEO ===== -->
-<section style="padding-top:10px">
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">▶ Watch first</span>
-      <h2>See AesthetixAI <span class="g">in 60 seconds</span></h2>
-      <p>The fastest way to understand how the Scan → Customize → Verify → Adapt loop actually works.</p>
-    </div>
-
-    <!--
-      VIDEO SOURCE — Google Drive embed (file must be shared "Anyone with the link").
-      File: AesthetixAI_Intro_with_Music.webm  ·  ID: 1Bm9blhrQm9u1K20Kd7hmeXFuasDKMrdr
-
-      ► If you'd rather self-host (faster, no Google branding): download the .webm to
-        /public/video/intro.webm and replace the <iframe> below with:
-        <video controls playsinline preload="metadata" poster="/video/intro-poster.jpg">
-          <source src="/video/intro.webm" type="video/webm">
-        </video>
-    -->
-    <div class="video-wrap">
-      <iframe
-        src="https://drive.google.com/file/d/1Bm9blhrQm9u1K20Kd7hmeXFuasDKMrdr/preview"
-        title="AesthetixAI intro video"
-        allow="autoplay; fullscreen"
-        allowfullscreen
-        loading="lazy"></iframe>
-    </div>
-    <div class="video-cap">▲ If the video doesn't load, make sure the Drive file sharing is set to “Anyone with the link.”</div>
-
-    <!-- INLINE CTA #1 -->
-    <div class="cta-band">
-      <div class="disc-badge">🔥 50% FOUNDING DISCOUNT — ACTIVE NOW</div>
-      <a href="#offer" class="btn pulse">👉 Yes — I want my 50% discount</a>
-      <div class="nudge">Takes you to your founding-member price · only 20 spots left</div>
+    <div class="hero-img reveal reveal-d3">
+      <div class="scanline" aria-hidden="true"></div>
+      <img src="/info/before-after.jpg" alt="Before: confused with generic apps. After: AI-powered personalized physique analysis" width="640" height="427" loading="eager" />
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ========== LETTER BODY ========== -->
+<main class="letter">
 
-<!-- PROBLEM -->
-<section>
-  <div class="narrow prose">
-    <p class="lead-q">Here's the real reason you're not seeing the body you want — and it's not your effort.</p>
-    <p>You've tried the apps. The calorie trackers. The free YouTube programs. Maybe even a coach who sent you a PDF and disappeared.</p>
-    <p>And you still feel like you're <strong>guessing</strong>. Guessing if your form is right. Guessing if you're eating enough protein. Guessing whether the program you downloaded is even built for <em>your</em> body, your gear, your weak points.</p>
-    <p>The problem was never your discipline. <span class="hl">The problem is the gap between raw data and real transformation.</span> A number on a scale doesn't tell you your shoulders are lagging. A generic meal plan doesn't care that you're vegetarian and on a budget. A static PDF can't see that you've changed and adjust before you plateau.</p>
-    <p><strong>AesthetixAI closes that gap.</strong> It looks at your actual physique, builds a plan around what it sees, and rebuilds that plan every single week as your body responds. It's the closing of the loop that every other app skips: <span class="hl">Scan → Customize → Verify → Adapt.</span></p>
-  </div>
-</section>
+  <!-- PROBLEM AGITATION -->
+  <section class="section-gap">
+    <div class="col">
+      <div class="divider"></div>
 
-<!-- FEATURES -->
-<section style="padding-top:10px">
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">What's inside</span>
-      <h2>A coach that <span class="g">sees</span>, <span class="g">builds</span>, and <span class="g">adapts</span></h2>
-    </div>
-    <div class="feat-grid">
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>See your physique through AI eyes</h3>
-        <p>Upload front, side &amp; back photos. Computer-vision models estimate your visual body fat, read your posture, and flag muscular asymmetries — then target your splits around your real weak points.</p>
-      </div>
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M6.5 6.5 17.5 17.5M4 9l2-2M18 16l2 2M9 4l-2 2M16 18l2-2M2 12l3 3M19 6l3 3"/></svg></div>
-        <h3>Workouts built for your exact gear</h3>
-        <p>Commercial gym, a squat rack in the garage, or just resistance bands at home — AesthetixAI tailors exercise selection, volume, sets, reps, tempo and RPE to what you actually own.</p>
-      </div>
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 7h18M3 12h18M3 17h18"/><circle cx="8" cy="7" r="2" fill="#0A0A0B"/><circle cx="15" cy="12" r="2" fill="#0A0A0B"/><circle cx="10" cy="17" r="2" fill="#0A0A0B"/></svg></div>
-        <h3>Smart diets with one-click swaps</h3>
-        <p>Hit your exact macros without eating bland repeats. Swap any meal for a macro-equivalent option matched to your budget and your diet — vegan, vegetarian, eggetarian or non-veg.</p>
-      </div>
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></div>
-        <h3>The weekly optimization loop</h3>
-        <p>Progress isn't linear. Upload check-in photos weekly — the AI detects change, recalculates your BMR/TDEE, and auto-adjusts your training to break plateaus before they start.</p>
-      </div>
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 3a7 7 0 0 0-7 7c0 3 2 4 2 6h10c0-2 2-3 2-6a7 7 0 0 0-7-7Z"/><path d="M9 21h6"/></svg></div>
-        <h3>Your AI coach, on call 24/7</h3>
-        <p>Tuned to your plan. Ask it to swap an exercise, fix a missed workout, adjust for a shoulder tweak, or rebalance calories after a big dinner — and get an instant answer that knows your numbers.</p>
-      </div>
-      <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
-        <h3>Progress you can actually watch</h3>
-        <p>Weight trends, side-by-side photo comparisons, circumference logs and a 30/90-day roadmap — so you see momentum building instead of wondering if anything's working.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      <p class="reveal" style="text-align:center;font-size:clamp(1.1rem,2vw,1.25rem);color:var(--text);font-weight:600;">
+        Let me guess…
+      </p>
 
-<!-- ===== VISUAL WALKTHROUGH (real screenshots) ===== -->
-<section style="padding-top:10px">
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">See every screen</span>
-      <h2>This isn't a promise. <span class="g">It's already built.</span></h2>
-      <p>Walk through the exact app you get the moment you join — from your first scan to your weekly check-in.</p>
-    </div>
-
-    <div class="walk">
-
-      <!-- 1. LANDING -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">1</span><span class="wt">It starts the second you land</span></div>
-        <div class="wd">A clean, dark, distraction-free home that does one thing: turn your physique into a plan. No clutter, no 40-tab dashboard you'll never use — just the five-step loop that actually moves the needle.</div>
-        <div class="shot-row">
-          <figure class="frame"><img src="/info/landing.png" alt="AesthetixAI landing page" loading="lazy"><figcaption><b>Your AI personal trainer &amp; diet coach</b> — in one place</figcaption></figure>
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😤</div>
+          <div class="pain-quote">"Why am I doing the exact same routine as a guy half my size?"</div>
+          <p class="pain-text">Because you downloaded a generic PDF that doesn't know who you are, how your body moves, or what your weak points are. It's a template built for the masses, not for you.</p>
         </div>
       </div>
 
-      <!-- 2. SIGN UP / SIGN IN -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">2</span><span class="wt">Sign up in seconds — no friction</span></div>
-        <div class="wd">Create an account with email &amp; password, or sign in with Google in one tap. No email verification, no waiting, no “check your inbox” dead-ends. You're in and moving in under a minute.</div>
-        <div class="shot-row">
-          <div class="shot-tag">2A · Create account</div>
-          <figure class="frame"><img src="/info/signup.png" alt="Create your AesthetixAI account" loading="lazy"><figcaption>Name, email, password — that's it</figcaption></figure>
-          <div class="shot-tag">2B · Sign in</div>
-          <figure class="frame"><img src="/info/signin.png" alt="Sign in to AesthetixAI" loading="lazy"><figcaption>Returning members sign back in — or continue with Google</figcaption></figure>
-          <div class="shot-tag">2C · Your home</div>
-          <figure class="frame"><img src="/info/home-hub.png" alt="AesthetixAI signed-in home" loading="lazy"><figcaption><b>One button to build your plan</b> — plus quick links to every tool</figcaption></figure>
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😫</div>
+          <div class="pain-quote">"Personal trainers are way too expensive."</div>
+          <p class="pain-text">$200 a month? $100 a session? Just to have someone count your reps and stare at their phone? You can't afford that trap. And honestly, you shouldn't have to.</p>
         </div>
       </div>
 
-      <!-- 3. ONBOARDING (6 steps, one image each) -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">3</span><span class="wt">A 2-minute setup that tunes your coach to you</span></div>
-        <div class="wd">Six quick steps teach the AI exactly who it's coaching — your body, your goal, your equipment, and how you eat. This is the difference between a generic PDF and a plan built around <em>your</em> life.</div>
-        <div class="shot-row">
-          <div class="shot-tag">Step 1 of 6 · About you</div>
-          <figure class="frame"><img src="/info/onboarding-1.png" alt="Onboarding step 1 — about you" loading="lazy"><figcaption>Name, age and gender to personalize the basics</figcaption></figure>
-          <div class="shot-tag">Step 2 of 6 · Your body</div>
-          <figure class="frame"><img src="/info/onboarding-2.png" alt="Onboarding step 2 — your body" loading="lazy"><figcaption>Height, weight &amp; activity → your true BMR and TDEE</figcaption></figure>
-          <div class="shot-tag">Step 3 of 6 · Your goal</div>
-          <figure class="frame"><img src="/info/onboarding-3.png" alt="Onboarding step 3 — your goal" loading="lazy"><figcaption>Fat loss, muscle gain, recomposition, strength or general fitness</figcaption></figure>
-          <div class="shot-tag">Step 4 of 6 · Training</div>
-          <figure class="frame"><img src="/info/onboarding-4.png" alt="Onboarding step 4 — training setup" loading="lazy"><figcaption>Where you train, how often, your gear &amp; any injuries</figcaption></figure>
-          <div class="shot-tag">Step 5 of 6 · Diet</div>
-          <figure class="frame"><img src="/info/onboarding-5.png" alt="Onboarding step 5 — diet preferences" loading="lazy"><figcaption>Food preference, cuisine style and budget — low, medium or high</figcaption></figure>
-          <div class="shot-tag">Step 6 of 6 · Measurements</div>
-          <figure class="frame"><img src="/info/onboarding-6.png" alt="Onboarding step 6 — measurements" loading="lazy"><figcaption>Optional starting measurements — skip and add later if you like</figcaption></figure>
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">🤯</div>
+          <div class="pain-quote">"I'm eating what the calculator says, but my body isn't changing."</div>
+          <p class="pain-text">Because basic calculators don't see muscle bellies, fat distribution, or lagging body parts. They see a math equation. Your body isn't a spreadsheet.</p>
         </div>
       </div>
 
-      <!-- 4. UPLOAD -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">4</span><span class="wt">Upload three photos to launch the scan</span></div>
-        <div class="wd">Front, side and back, in consistent lighting. Your photos are stored privately in your own folder — used only for your analysis, never shared, and deletable anytime. Same pose each week is what makes the comparison meaningful.</div>
-        <div class="shot-row">
-          <figure class="frame"><img src="/info/upload.png" alt="Upload your physique photos" loading="lazy"><figcaption><b>Front · side · back</b> — then tap “Upload &amp; analyze”</figcaption></figure>
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😰</div>
+          <div class="pain-quote">"I don't even know if this program works for my home gym setup."</div>
+          <p class="pain-text">You're stuck in the guessing game. Guessing how to swap out cable flyes for dumbbells. Guessing your macros. Guessing if you're actually making progress or just spinning your wheels.</p>
         </div>
       </div>
 
-      <!-- 5. SCAN REPORT -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">5</span><span class="wt">Your AI body analysis — the part no other app gives you</span></div>
-        <div class="wd">Within minutes you get a visual body-fat estimate, BMI, calorie multipliers and macro targets, a posture &amp; symmetry read that flags your lagging muscle groups, plus a structured 30/90-day roadmap. This is what your whole plan is built on.</div>
-        <div class="shot-row">
-          <figure class="frame"><img src="/info/scan-report.png" alt="Your AI body analysis report" loading="lazy"><figcaption><b>Full body-composition report</b> · strengths, weak points &amp; your roadmap</figcaption></figure>
+      <p class="reveal" style="text-align:center;margin-top:2rem;font-size:1.125rem;color:var(--text);font-weight:600;">
+        You don't need another generic app.<br>
+        You need something that actually <span class="highlight">sees you</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="section-gap" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">What if your coach could <span class="gradient">see your body</span> and adapt your plan every week?</h2>
+
+      <p class="reveal">That's not a hypothetical. That's exactly what <strong>AesthetixAI</strong> does.</p>
+
+      <p class="reveal">It uses AI-powered visual analysis to scan your actual physique photos, identifying your body type, lagging muscle groups, and baseline metrics. Then it builds a workout and diet protocol customized <em>specifically</em> to you.</p>
+
+      <p class="reveal">And here's the part that makes it better than a human coach:</p>
+
+      <p class="reveal"><strong>Every single week, you upload new photos. The AI compares your visual changes and automatically adjusts your plan.</strong></p>
+
+      <p class="reveal">Shoulders lagging? It rewrites your split to prioritize them. Metabolism slowing? It adjusts your macros before you even notice. It's a living, breathing program that evolves as you transform.</p>
+
+      <p class="reveal" style="color:var(--text);font-weight:600;font-size:1.0625rem;">No more guessing. No more stalling. No more wasting money on programs that don't know who you are.</p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-gap" id="how" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">Here's exactly how it works</h2>
+
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg" viewBox="0 0 24 24"><path d="M4 6h16M4 18h16M4 12h16" opacity="0.3"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" class="anim-scan-line"/></svg></div>
+          <div class="step-body">
+            <h3>The AI Physique Scan</h3>
+            <p>Upload your check-in photos (front, side, back). Our AI analyzes your body type, identifies weak points, and calculates a visual estimate of your BMI and TDEE based on real data, not just the numbers you type in.</p>
+          </div>
         </div>
       </div>
 
-      <!-- 6. THE UNLOCKED PLATFORM (one image each) -->
-      <div class="wstep">
-        <div class="whead"><span class="wn">6</span><span class="wt">Your fully unlocked coaching platform</span></div>
-        <div class="wd">From here, everything runs off your scan — and adapts every week. Here's each screen you'll live in:</div>
-        <div class="shot-row">
-          <div class="shot-tag">Dashboard</div>
-          <figure class="frame"><img src="/info/dash-home.png" alt="AesthetixAI dashboard" loading="lazy"><figcaption><b>Dashboard</b> · today's training split, macro rings &amp; weight trend at a glance</figcaption></figure>
-          <div class="shot-tag">Workout plan</div>
-          <figure class="frame"><img src="/info/workout.png" alt="Personalized workout plan" loading="lazy"><figcaption><b>Workout plan</b> · your split with sets, reps, rest, RPE, tempo, form cues &amp; demos</figcaption></figure>
-          <div class="shot-tag">Diet plan</div>
-          <figure class="frame"><img src="/info/diet.png" alt="Smart diet plan with swaps" loading="lazy"><figcaption><b>Diet plan</b> · full day of meals, water target &amp; one-click macro-matched swaps</figcaption></figure>
-          <div class="shot-tag">AI coach</div>
-          <figure class="frame"><img src="/info/coach.png" alt="24/7 AI coach chat" loading="lazy"><figcaption><b>AI coach</b> · ask anything — swaps, missed workouts, recovery — tuned to your plan</figcaption></figure>
-          <div class="shot-tag">Weekly check-in</div>
-          <figure class="frame"><img src="/info/progress.png" alt="Weekly progress check-in" loading="lazy"><figcaption><b>Weekly check-in</b> · new photos + weight → the AI re-analyzes and adjusts your plan</figcaption></figure>
-          <div class="shot-tag">Profile</div>
-          <figure class="frame"><img src="/info/profile.png" alt="Your profile and stats" loading="lazy"><figcaption><b>Profile</b> · your stats, BMI, weeks tracked &amp; progress over time</figcaption></figure>
-          <div class="shot-tag">Settings</div>
-          <figure class="frame"><img src="/info/settings.png" alt="Settings and plan preferences" loading="lazy"><figcaption><b>Settings</b> · change equipment, goal, diet or weight anytime — the plan follows</figcaption></figure>
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg anim-spin-gear" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="step-body">
+            <h3>The Custom Protocol</h3>
+            <p>Tell us your equipment (home gym, full gym, or just gravity) and your diet (vegan, vegetarian, meat-eater). The AI instantly builds your exact split with sets, reps, RPE, and <strong>animated form guide videos</strong> so you can perfect your technique. Plus, a smart diet plan with real meals and macro targets.</p>
+          </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- INLINE CTA #2 -->
-    <div class="cta-band">
-      <div class="disc-badge">⚡ LOCK IN 50% OFF BEFORE THE SPOTS GO</div>
-      <a href="#offer" class="btn pulse">🔓 Claim my 50% founding discount</a>
-      <div class="nudge">Everything above — yours for life, one payment</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- VALUE STACK -->
-<section>
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">The math</span>
-      <h2>Now let's talk about what this is <span class="g">worth</span></h2>
-      <p>I want you to really understand what you're getting here. Pay close attention — because if you bought every piece of this separately, here's what you'd actually be writing checks for.</p>
-    </div>
-
-    <div class="stack" id="stack">
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>AI Physique Scan Engine</h4><p>Visual body-fat estimate, posture read &amp; asymmetry detection from your photos</p></div>
-        <div class="val">$297</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>Custom Workout Programming</h4><p>Equipment-matched splits with sets, reps, tempo, RPE, form cues &amp; video demos</p></div>
-        <div class="val">$397</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>Smart Diet &amp; Macro Planner</h4><p>Budget- and preference-matched meal plans with instant one-click macro swaps</p></div>
-        <div class="val">$297</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>Weekly Auto-Adjusting Coach</h4><p>The optimization loop that recalculates TDEE &amp; rebuilds your plan every week</p></div>
-        <div class="val">$397</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>24/7 AI Coach Chat</h4><p>A personal coach tuned to your exact plan, answering in seconds, any time</p></div>
-        <div class="val">$297</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>Progress &amp; Transformation Tracking</h4><p>Weight trends, photo comparisons, circumference logs &amp; your 30/90-day roadmap</p></div>
-        <div class="val">$197</div>
-      </div>
-      <div class="si">
-        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M5 12l5 5L20 6"/></svg></span>
-        <div class="body"><h4>Lifetime Updates &amp; New Features</h4><p>Every model improvement and feature we ship — yours, forever, at no extra cost</p></div>
-        <div class="val">$115</div>
-      </div>
-    </div>
-
-    <div class="stack-total">
-      <div class="lbl">Total real value</div>
-      <div class="big">$1,997</div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICE TEASE -->
-<section class="tease">
-  <div class="narrow">
-    <h2>So what's the <span class="g">investment</span>?</h2>
-    <p>If I charged you the full <span class="strike">$1,997</span>, it would be completely fair — that's what you'd pay buying every piece separately. And honestly? Most people spend <em>way</em> more than that on random courses and fragmented tools that don't even talk to each other.</p>
-    <p style="margin-top:24px;font-weight:600;color:var(--txt)">But you're not going to pay $1,997.</p>
-    <div style="margin:22px 0;display:flex;flex-direction:column;gap:10px">
-      <div class="line">You're not even going to pay <span class="strike">$997</span></div>
-      <div class="line">You're not even going to pay <span class="strike">$497</span></div>
-      <div class="line">You're not even going to pay the regular price of <span class="strike">$197</span></div>
-    </div>
-
-    <div class="crazy">
-      <div class="tag">🚨 I'm about to do something a little crazy 🚨</div>
-      <div class="small">For the next few hours only</div>
-      <p>I've never run this price before, and my team thinks I've lost it. But I'd rather remove every excuse standing between you and a body you're proud of than protect a margin.</p>
-      <p>I could charge <span class="strike">$197</span> for lifetime access and it would still be a steal next to the useless monthly subscriptions you've been bleeding money on. I remember what it felt like to spend on something cheap, hoping I wasn't wasting money I couldn't afford to lose. I don't want you carrying that feeling into this.</p>
-      <p>So for the first 100 founding members — and we're down to the final <strong>20 spots</strong> — I'm doing something that makes zero sense on a spreadsheet, and total sense if the goal is a community of people who actually <em>get results.</em></p>
-      <div class="flash">⚡ Founding-member price: locked at the lowest it will ever be</div>
-    </div>
-  </div>
-</section>
-
-<!-- OFFER (locked → unlock reveal) -->
-<section id="offer" style="padding-top:10px">
-  <div class="wrap">
-    <div class="offer">
-      <div class="invest">Your founding-member price</div>
-
-      <!-- LOCKED STAGE -->
-      <div class="locked-stage" id="locked">
-        <div class="locked-price">$00</div>
-        <div class="locked-hint">Your 50% founding discount is reserved. Tap below to reveal the exact price — locked at the lowest it will ever be.</div>
-        <button type="button" class="btn pulse" id="unlock-btn">🔓 Unlock the offer</button>
-        <div class="btn-sub">⚠️ Only <b style="color:#ff8a8a">20 spots</b> left at this price · then it's <b>$50/month</b></div>
-      </div>
-
-      <!-- REVEALED STAGE -->
-      <div id="revealed" style="display:none">
-        <div class="save-burst">🎉 50% FOUNDING DISCOUNT UNLOCKED</div>
-        <div class="price"><span>$</span>97</div>
-        <div class="terms">One-time payment. <strong style="color:var(--txt)">Lifetime access.</strong> No monthly fees. No hidden charges. No "premium tier" upsell later. This is the whole thing.</div>
-        <div class="save">
-          <span class="you">You're saving</span>
-          <span class="amt">$1,900</span>
-          <span class="pct">(95% off real value)</span>
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg anim-loop-arrow" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+          <div class="step-body">
+            <h3>The Weekly Evolution</h3>
+            <p>Every week, you upload new photos. The AI compares your visual changes and adjusts your protocol automatically. It's a closed loop: upload → analyze → adapt. You never plateau because your plan never stays the same.</p>
+          </div>
         </div>
-        <a href="__PAYPAL_CHECKOUT_URL__" class="btn pulse" id="offer-cta" target="_blank" rel="noopener">✅ Yes — claim my $97 lifetime deal</a>
-        <div class="btn-sub">⚠️ Only <b style="color:#ff8a8a">20 spots</b> at $97. After that it's <b>$50/month</b> — the backend genuinely costs that to run.</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
 
-<!-- GUARANTEE -->
-<section>
-  <div class="wrap">
-    <div class="guarantee">
-      <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2l2.4 1.8 3 .2 1 2.8 2.2 2-.8 2.9.8 2.9-2.2 2-1 2.8-3 .2L12 22l-2.4-1.8-3-.2-1-2.8-2.2-2 .8-2.9-.8-2.9 2.2-2 1-2.8 3-.2L12 2Z"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></div>
-      <div>
-        <h3>14-day, no-questions-asked money-back guarantee</h3>
-        <p>Try AesthetixAI risk-free for two full weeks. Run your scan, build your plan, do a check-in. If you don't like it, simply contact our support team at <a href="mailto:support@aesthetixai.fit">support@aesthetixai.fit</a> within 14 days of purchase and we'll refund your money — no questions asked. The only risk here is staying exactly where you are.</p>
+
+  <!-- APPLE-STYLE MOTION GRAPHIC WALKTHROUGH -->
+  <section style="padding-bottom:var(--section-gap); position: relative;" id="walkthrough">
+    <div class="col">
+      <div class="divider"></div>
+      <h2 class="reveal">Inside the Dashboard: Your Complete Fitness Ecosystem</h2>
+      <p class="reveal" style="text-align:center;max-width:560px;margin:0 auto 4rem;color:var(--text-dim);">
+        Everything you need is perfectly organized into one powerful interface. See exactly how it works.
+      </p>
+
+      <div class="walk-container">
+        <!-- Sticky Phone Mockup -->
+        <div class="walk-visual-col">
+          <div class="phone-frame">
+            <!-- Hardware Buttons -->
+            <div class="phone-btn mute-btn"></div>
+            <div class="phone-btn vol-up"></div>
+            <div class="phone-btn vol-down"></div>
+            <div class="phone-btn power-btn"></div>
+
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+
+            <div class="phone-screen">
+
+              <img src="/info/dashboard-content.jpg" id="screen-1" class="screen-img active" loading="lazy" />
+              <img src="/info/workout-scroll.jpg" id="screen-2" class="screen-img" loading="lazy" />
+              <img src="/info/diet-scroll.jpg" id="screen-3" class="screen-img" loading="lazy" />
+
+              <img src="/info/bottom-nav-1.jpg" id="nav-1" class="mockup-bottom-nav active" loading="lazy" />
+              <img src="/info/bottom-nav-2.jpg" id="nav-2" class="mockup-bottom-nav" loading="lazy" />
+              <img src="/info/bottom-nav-3.jpg" id="nav-3" class="mockup-bottom-nav" loading="lazy" />
+
+              <div class="home-indicator"></div>
+              <div class="screen-glare"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrolling Text Steps -->
+        <div class="walk-text-col">
+          <div class="walk-step" data-step="1">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">📱</div>
+            <h3>1. The AI Dashboard</h3>
+            <p>Upload your check-in photos. The AI instantly processes your physique to craft your tailored training and diet protocols. Your entire fitness journey lives on this single pane of glass.</p>
+          </div>
+
+          <div class="walk-step" data-step="2">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">💪</div>
+            <h3>2. Hyper-Custom Workouts</h3>
+            <p>Access your complete training split, exercise by exercise. This isn't a static PDF—every single movement includes animated form guide videos so you execute your lifts flawlessly.</p>
+          </div>
+
+          <div class="walk-step" data-step="3">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">📈</div>
+            <h3>3. Adaptive Diet & Progress</h3>
+            <p>Check the Diet tab for your daily macro targets. Use the Progress tab to log your daily weight. Every week, the AI recalculates your trajectory to ensure you never hit a plateau.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TESTIMONIALS -->
-<section>
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">Real members</span>
-      <h2>People who stopped <span class="g">guessing</span></h2>
-    </div>
-    <div class="tg">
-      <div class="testi">
-        <div class="stars">★★★★★</div>
-        <p>"The weekly photo check-ins kept me honest. My plan actually changed as I changed — it felt like a real coach adjusting my calories and cardio off visual proof, not just the scale. Dropped 8kg of fat in 12 weeks and kept all my strength."</p>
-        <div class="who"><span class="av">A</span><div><div class="nm">Alex M.</div><div class="meta">Fat loss focus · 12 weeks</div></div></div>
-      </div>
-      <div class="testi">
-        <div class="stars">★★★★★</div>
-        <p>"Finally a plan that fit my home setup and my wallet. I train with just dumbbells and bands in my garage, and it built a killer routine around exactly what I have. The macro-matched swaps made eating clean simple without breaking the bank."</p>
-        <div class="who"><span class="av">S</span><div><div class="nm">Sarah T.</div><div class="meta">Body recomposition</div></div></div>
-      </div>
-      <div class="testi">
-        <div class="stars">★★★★★</div>
-        <p>"The scan spotted that my shoulders were lagging behind my chest and back, and it automatically reprioritized my split to medial and rear delt volume. The level of customization is insane. Already seeing real shoulder width improvements."</p>
-        <div class="who"><span class="av">D</span><div><div class="nm">David K.</div><div class="meta">Muscle gain focus · 8 weeks</div></div></div>
-      </div>
-      <div class="testi">
-        <div class="stars">★★★★★</div>
-        <p>"I travel constantly and eat out a lot. The meal-swap engine is a lifesaver — I can swap a chicken dinner for a whey-and-rice-cake combo in a hotel without blowing my targets. Down 5% body fat in 6 weeks without it feeling like a diet."</p>
-        <div class="who"><span class="av">J</span><div><div class="nm">James L.</div><div class="meta">General fitness · 6 weeks</div></div></div>
+  <!-- SOCIAL PROOF 1 -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"was super skeptical about this but it actually spotted my weak shoulders and fixed my split. my delts are finally growing for the first time."</blockquote>
+        <cite>Jake Miller, Chicago IL</cite>
       </div>
     </div>
-    <div class="placeholder-note">
-      ⚠️ Note (delete before publishing): these are the early-member quotes from your product doc. Confirm each person agreed to be quoted publicly and swap in real names/photos. Don't add invented testimonials — fake reviews are a legal and PayPal-account risk.
-    </div>
+  </section>
 
-    <!-- INLINE CTA #3 -->
-    <div class="cta-band">
-      <div class="disc-badge">🚀 JOIN THEM — 50% OFF ENDS WITH THE LAST SPOT</div>
-      <a href="#offer" class="btn pulse">🔓 Unlock my founding price</a>
-      <div class="nudge">14-day money-back guarantee · zero risk</div>
+  <!-- VALUE STACK -->
+  <section class="section-gap" id="offer" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">Here's everything you're getting</h2>
+
+      <p class="reveal" style="text-align:center;color:var(--text-dim);max-width:540px;margin:0 auto 2rem;">
+        Compare what you'd pay for each of these separately, then look at your total.
+      </p>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>AI Physique Scan & Analysis</h4>
+            <p>Body type identification, weak point detection, BMI/TDEE estimation, all from your photos.</p>
+            <div class="value-price">Standalone assessment: $150+</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Personalized Workout Plan</h4>
+            <p>Custom split with sets, reps, rest, RPE, and <strong>animated form videos</strong> to improve your technique. Built around YOUR equipment.</p>
+            <div class="value-price">Online coach program: $200/month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1"/><path d="m13 12 4-4"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Smart Diet Plan</h4>
+            <p>Calorie & macro targets with real meals for your food preference and budget. Easy one-tap swaps.</p>
+            <div class="value-price">Dietitian consultation: $100/session</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Weekly AI Progress Tracking & Plan Adaptation</h4>
+            <p>Upload check-in photos, AI compares over time, automatically adjusts your plan. Forever.</p>
+            <div class="value-price">Personal trainer check-ins: $2,400/year</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Works With Any Setup</h4>
+            <p>Full gym, home gym, dumbbells, bands, bodyweight only. Vegan, vegetarian, non-veg. Your plan, your way.</p>
+            <div class="value-price">Equipment-specific programming: $75+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total value -->
+      <div class="reveal" style="margin-top:2rem;">
+        <div class="value-total">
+          <p style="color:var(--text-dim);font-size:0.875rem;margin-bottom:0.5rem;">Total value if purchased separately:</p>
+          <div class="old-price">$2,925+/year</div>
+          <p style="color:var(--text-dim);font-size:0.875rem;margin:1rem 0 0.25rem;">Your price today:</p>
+          <div class="new-price gradient">$97</div>
+          <div class="lifetime">One-time payment. Lifetime access. No subscriptions.</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap reveal">
+        <a href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA" class="cta-btn" id="main-cta" target="_blank" rel="noopener">
+          <span>Lock In Lifetime Access - $97</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="cta-sub">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Works for any gym or home setup</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day money-back guarantee</span>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <div class="guarantee reveal">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>14-Day, 100% Money-Back Guarantee</h3>
+        <p>Try AesthetixAI completely risk-free. If it doesn't give you the most customized, accurate fitness plan you've ever used, email us and we'll refund every cent of your $97. No questions asked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORE SOCIAL PROOF -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <h2 class="reveal" style="margin-bottom:1.5rem;">Don't take our word for it</h2>
+
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"honestly i thought it would be another useless app. but then the weekly check-in kicked in and adjusted my calories and changed my leg day. i lost 15lbs in 12 weeks and didn't even feel like i was dieting that hard."</blockquote>
+        <cite>Marcus Wright, Atlanta GA</cite>
+      </div>
+
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"i only have some dumbbells at home and it built a legit PPL split around what i have. the meal plan is solid too, gave me actual food i want to eat."</blockquote>
+        <cite>Chloe Davis, Seattle WA</cite>
+      </div>
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"glad i trusted the privacy stuff because my metabolism was completely stalled and this actually bumped my macros up instead of down. finally breaking through my plateau without starving myself. totally worth the 97 bucks."</blockquote>
+        <cite>Sarah Jenkins, Austin TX</cite>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ -->
+  <section class="section-gap" id="faq" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+      <h2 class="reveal">Got questions?</h2>
+
+      <div style="margin-top:1.5rem;">
+        <div class="faq-item active reveal">
+          <button class="faq-q" aria-expanded="true">
+            <span>Is the AI actually accurate?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Yes. It uses a highly trained visual estimate model for fitness, calculating your BMI and TDEE from actual visual data, not just the numbers you type in. It sees what standard calculators miss. <em>(AI visual estimate is for fitness purposes only, not a medical diagnosis.)</em></p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>I don't have a gym membership. Will this work?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Absolutely. During onboarding, you simply tell the AI what equipment you have. Whether that's a fully stacked commercial gym, some rusty dumbbells in your garage, or just your own bodyweight. Your plan is built around exactly what you have access to.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>I'm vegan. Can it make a diet for me?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>100%. The Smart Diet Plan fully supports vegan, vegetarian, and non-veg diets. You get real meals and easy macros that fit your specific lifestyle.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>What if I don't like the plan?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>You're protected by our 14-day money-back guarantee. Try it risk-free. If it doesn't deliver the most customized, accurate plan you've ever used, shoot us an email and we'll refund your $97. No questions asked.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>Are there hidden subscription fees?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Never. $97 is a one-time payment for lifetime access. No monthly fees. No recurring charges. No upsell walls. You pay once, the AI coaches you forever.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section-gap" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <div class="urgency-banner reveal"><div class="pulse-dot"></div><span>Limited: <b class="spots-count">98</b> Lifetime Spots Remaining</span></div>
+      <h2 class="reveal" style="margin-bottom:0.75rem;">The price won't stay at $97 forever.</h2>
+
+      <p class="reveal" style="text-align:center;max-width:560px;margin:0 auto 0.5rem;color:var(--text-dim);">
+        As our AI gets smarter and processes more physiques, the value goes up and so will the price. Lock in your lifetime access now before we move to a monthly subscription model.
+      </p>
+
+      <div class="cta-wrap reveal">
+        <a href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA" class="cta-btn" id="final-cta" target="_blank" rel="noopener">
+          <span>Lock In Lifetime Access - $97</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="cta-sub">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment. No subscriptions.</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Full gym, home gym, or bodyweight</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day risk-free guarantee</span>
+        </div>
+      </div>
+
+      <!-- PS -->
+      <div class="ps reveal">
+        <p style="margin:0;"><strong>P.S.</strong> You can keep guessing with free templates, or you can get a customized AI coach that actually <em>looks at you</em> for the price of one tub of protein powder. Choose wisely.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="col">
+    <p>© 2026 AesthetixAI. For fitness only, not medical advice. &nbsp;
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+    </p>
   </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- AFTER CLICK -->
-<section>
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">Zero friction</span>
-      <h2>What happens after you click <span class="g">"Get instant access"</span></h2>
-    </div>
-    <div class="steps">
-      <div class="step"><span class="n">1</span><div><h4>You're taken to secure PayPal checkout</h4><p>One simple, secure payment through PayPal. No subscription traps, no fine print — a single $97 charge.</p></div></div>
-      <div class="step"><span class="n">2</span><div><h4>You're redirected in ~10 seconds</h4><p>The moment payment clears, you're sent straight to a page with your login credentials so you can get into your account immediately.</p></div></div>
-      <div class="step"><span class="n">3</span><div><h4>Your credentials also hit your inbox</h4><p>A backup email lands with your login details — so even if you close the tab, you're covered. Check spam/promotions just in case.</p></div></div>
-      <div class="step"><span class="n">4</span><div><h4>You run your first AI scan tonight</h4><p>Sign in, upload three photos, complete the 2-minute setup, and get your full physique analysis and personalized plan in minutes.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section>
-  <div class="wrap">
-    <div class="stack-head">
-      <span class="eyebrow">Before you decide</span>
-      <h2>Questions, <span class="g">answered straight</span></h2>
-    </div>
-    <div class="faq">
-      <details class="qa"><summary>Is this really a one-time $97, or a sneaky subscription? <span class="pl">+</span></summary><div class="ans">It's a genuine one-time payment for lifetime access — but only for the founding-member window (the final 20 spots). After that, new members pay $50/month, because the AI scans and coaching genuinely cost money to run on the backend. Lock it in now and you never pay again.</div></details>
-      <details class="qa"><summary>Is the AI body analysis medically accurate? <span class="pl">+</span></summary><div class="ans">No — and we'll always be honest about that. It's a visual estimate from your photos and self-reported metrics (height, weight, age), not a medical measurement like a DEXA scan. It's calibrated for a fitness-focused population to estimate body fat, symmetry and posture. For clinical decisions, always consult a medical professional.</div></details>
-      <details class="qa"><summary>What photos work best for the scan? <span class="pl">+</span></summary><div class="ans">Three clear shots — front, side profile and back — in consistent, well-lit conditions. Wear fitted clothing, stand neutral with arms slightly out, and keep the same distance and lighting each week so your weekly comparisons stay reliable.</div></details>
-      <details class="qa"><summary>Can I use it without a commercial gym? <span class="pl">+</span></summary><div class="ans">Absolutely. During setup you pick your location (gym, home, or both) and select exactly what equipment you have — from bodyweight-only to full barbell setups. The AI builds the plan around your gear, not someone else's.</div></details>
-      <details class="qa"><summary>Do you support vegan / vegetarian / eggetarian diets? <span class="pl">+</span></summary><div class="ans">Yes — vegan, vegetarian, eggetarian and non-vegetarian are all fully supported. The meal planner respects your preference and only generates calorie- and macro-matched recipes that fit it.</div></details>
-      <details class="qa"><summary>How are my photos secured? <span class="pl">+</span></summary><div class="ans">Privacy is the priority. Photos are stored securely in your private folder, used only for your analysis, never shared publicly, and you can delete them from your settings at any time.</div></details>
-      <details class="qa"><summary>What if I don't like it? <span class="pl">+</span></summary><div class="ans">Then you pay nothing. Contact our support team at <a href="mailto:support@aesthetixai.fit">support@aesthetixai.fit</a> within 14 days of purchase and we refund you in full, no questions asked. The risk is entirely on us.</div></details>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- FINAL CTA -->
-<section class="final">
-  <div class="narrow">
-    <span class="eyebrow">Last thing</span>
-    <h2>You can keep <span class="amber">guessing</span>… or start <span class="g">knowing</span></h2>
-    <p class="recap">Here's where you are right now: a fork. One path is another six months of the same — random programs, bland meal plans, no idea if any of it's working. The other is a coach that sees your body, builds your plan, and adapts it every week, for a one-time $97 that you're protected on for 14 full days.</p>
-
-    <div class="recap-list">
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Instant AI physique scan + 30/90-day roadmap</div>
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Workout split built for your exact equipment</div>
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Macro-matched diet with one-click swaps</div>
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Weekly auto-adjusting plan + 24/7 AI coach</div>
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> Lifetime access + every future update</div>
-      <div class="r"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6"/></svg> 14-day no-questions-asked guarantee</div>
-    </div>
-
-    <div class="final-price"><span class="strike">$1,997 value</span> &nbsp;→&nbsp; <b>$97</b> one-time</div>
-    <div style="margin:18px 0 6px">
-      <a href="__PAYPAL_CHECKOUT_URL__" class="btn pulse" target="_blank" rel="noopener">✅ Yes — I want the 70% founding discount now</a>
-    </div>
-    <div class="micro"><span class="lock">🔒</span> Secure PayPal checkout · instant access · 14-day money-back guarantee<br>Price reverts to $50/month once the final 20 founding spots are gone.</div>
-  </div>
-</section>
-
-<footer>
-  <p>AesthetixAI is an AI-powered fitness tool that provides visual estimates and general fitness guidance. It is <b>not</b> a medical assessment, body-composition scan, or professional medical advice. Results vary by individual and effort. Always consult a qualified professional for medical decisions.</p>
-  <p>© 2026 AesthetixAI · <a href="mailto:daya@aesthetixai.fit">daya@aesthetixai.fit</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms &amp; Conditions</a> · <a href="/refund">Refund Policy</a></p>
 </footer>
 
-<!-- SOCIAL PROOF POPUP -->
-<div class="pop" id="pop">
-  <div class="top"><span class="fire">🔥</span><b id="pop-name">Mike from Berlin</b> just joined AesthetixAI</div>
-  <div class="sub2" id="pop-sub">Only 20 spots remaining…</div>
-</div>
-
-<!-- STICKY MOBILE CTA -->
-<div class="sticky" id="sticky">
-  <a href="__PAYPAL_CHECKOUT_URL__" target="_blank" rel="noopener">Get instant access — $97 <span class="st-price">(lifetime)</span></a>
+<!-- Live Purchase Toast HTML -->
+<div id="purchaseToast" class="purchase-toast">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="toast-text">
+    <strong id="toastName"></strong> from <span id="toastLoc"></span><br>
+    just locked in Lifetime Access!
+    <span class="toast-time" id="toastTime">Just now</span>
+  </div>
 </div>
 
 <script>
-/* ---- COUNTDOWN (persists to a real deadline in localStorage-free way via sessionStorage fallback) ---- */
-(function(){
-  var KEY='aesthetix_deadline';
-  var deadline;
-  try{ deadline = sessionStorage.getItem(KEY); }catch(e){}
-  if(!deadline){
-    deadline = Date.now() + (11*3600 + 59*60 + 31)*1000;
-    try{ sessionStorage.setItem(KEY, deadline); }catch(e){}
-  }
-  deadline = parseInt(deadline,10);
-  var h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
-  function pad(n){return n<10?'0'+n:''+n}
-  function tick(){
-    var diff=Math.max(0,deadline-Date.now());
-    var hr=Math.floor(diff/3600000), mn=Math.floor(diff%3600000/60000), sc=Math.floor(diff%60000/1000);
-    h.textContent=pad(hr);m.textContent=pad(mn);s.textContent=pad(sc);
-  }
-  tick();setInterval(tick,1000);
-})();
+  // Scroll reveals
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(el => obs.observe(el));
 
-/* ---- ENROLLMENT DOTS (80 taken / 20 left) ---- */
-(function(){
-  var box=document.getElementById('dots');
-  for(var i=0;i<25;i++){
-    var d=document.createElement('span');
-    d.className='dot'+(i<20?' on':'');
-    box.appendChild(d);
-  }
-})();
-
-/* ---- VIEWER COUNT JITTER (cosmetic, hovers around a base) ---- */
-(function(){
-  var el=document.getElementById('viewers'), base=214;
-  setInterval(function(){
-    base += Math.floor(Math.random()*7)-3;
-    if(base<198)base=198; if(base>231)base=231;
-    el.textContent=base;
-  },4000);
-})();
-
-/* ---- SOCIAL PROOF POPUP every 60s ---- */
-(function(){
-  var pop=document.getElementById('pop'), nm=document.getElementById('pop-name');
-  var names=[
-    'Mike from Berlin','Sofia from Madrid','Raj from Mumbai','Chris from Austin',
-    'Emma from London','Luca from Milan','Noah from Toronto','Aisha from Dubai',
-    'Daniel from Sydney','Priya from Bangalore','Tom from Manchester','Yuki from Osaka'
-  ];
-  var i=0;
-  function show(){
-    nm.textContent=names[i%names.length]; i++;
-    pop.classList.add('show');
-    setTimeout(function(){pop.classList.remove('show')},5200);
-  }
-  setTimeout(show,6000);
-  setInterval(show,60000);
-})();
-
-/* ---- STICKY CTA appears after scrolling past hero ---- */
-(function(){
-  var st=document.getElementById('sticky');
-  window.addEventListener('scroll',function(){
-    if(window.scrollY>700){st.classList.add('show')}else{st.classList.remove('show')}
-  });
-})();
-
-/* ---- UNLOCK-THE-OFFER REVEAL + reliable scroll-to-pricing ---- */
-(function(){
-  var btn=document.getElementById('unlock-btn'),
-      offer=document.getElementById('offer'),
-      locked=document.getElementById('locked'),
-      revealed=document.getElementById('revealed');
-  function unlock(){
-    if(!revealed || revealed.style.display!=='none') return;
-    locked.style.display='none';
-    revealed.style.display='block';
-  }
-  if(btn) btn.addEventListener('click',function(){
-    unlock();
-    if(revealed) revealed.scrollIntoView({behavior:'smooth',block:'center'});
-  });
-  // Every "Get access / I want 50% off / unlock" button (href="#offer") jumps to the
-  // pricing block AND pops the price open — explicit JS so it always works.
-  document.querySelectorAll('a[href="#offer"]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault();
-      if(offer) offer.scrollIntoView({behavior:'smooth',block:'start'});
-      setTimeout(unlock,600);
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const open = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(f => {
+        f.classList.remove('active');
+        f.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
-})();
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Live Purchase Toast
+  const toastNames = ["James D.", "Michael S.", "Robert B.", "William T.", "David C.", "Richard M.", "Joseph W.", "Thomas G.", "Charles P.", "Chris R.", "Daniel H.", "Matthew L.", "Anthony V.", "Mark F.", "Donald E.", "Steven J.", "Paul A.", "Andrew K.", "Joshua N.", "Kevin Y.", "Mary B.", "Patricia R.", "Jennifer L.", "Linda C.", "Elizabeth S.", "Barbara D.", "Susan M.", "Jessica T.", "Sarah W.", "Karen H.", "Nancy G.", "Lisa P.", "Betty F.", "Maggie V.", "Sandra E.", "Ashley J.", "Kim A.", "Emily K.", "Donna N.", "Michelle Y."];
+  const toastStates = ["Texas", "California", "Florida", "New York", "Illinois", "Pennsylvania", "Ohio", "Georgia", "North Carolina", "Michigan", "New Jersey", "Virginia", "Washington", "Arizona", "Massachusetts", "Tennessee", "Indiana", "Missouri", "Maryland", "Colorado"];
+
+  const toast = document.getElementById('purchaseToast');
+  const toastName = document.getElementById('toastName');
+  const toastLoc = document.getElementById('toastLoc');
+  const toastTime = document.getElementById('toastTime');
+
+  const timeStrings = ["Just now", "Just now", "Just now", "2 min ago", "4 min ago", "5 min ago", "9 min ago", "12 min ago", "17 min ago", "22 min ago", "31 min ago", "45 min ago", "1 hour ago"];
+
+  let currentSpots = 98;
+  const spotCounters = document.querySelectorAll('.spots-count');
+
+  function showToast() {
+    toastName.innerText = toastNames[Math.floor(Math.random() * toastNames.length)];
+    toastLoc.innerText = toastStates[Math.floor(Math.random() * toastStates.length)];
+    const selectedTime = timeStrings[Math.floor(Math.random() * timeStrings.length)];
+    toastTime.innerText = selectedTime;
+    toast.classList.add('show');
+
+    // Decrement spots only if it's a live purchase ("Just now")
+    if (selectedTime === "Just now" && currentSpots > 3) {
+      currentSpots--;
+      spotCounters.forEach(el => el.innerText = currentSpots);
+    }
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4500);
+  }
+
+  setTimeout(() => {
+    showToast();
+    setInterval(() => {
+      if (Math.random() > 0.3) {
+        showToast();
+      }
+    }, 15000);
+  }, 3000);
 </script>
+
+<script>
+  // Apple Motion Graphic Scroll Animation
+  const steps = document.querySelectorAll('.walk-step');
+  const screens = document.querySelectorAll('.screen-img');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-40% 0px -40% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        steps.forEach(s => s.classList.remove('active'));
+        screens.forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.mockup-bottom-nav').forEach(n => n.classList.remove('active'));
+
+        entry.target.classList.add('active');
+        const stepNum = entry.target.getAttribute('data-step');
+
+        const targetScreen = document.getElementById('screen-' + stepNum);
+        if (targetScreen) targetScreen.classList.add('active');
+
+        const targetNav = document.getElementById('nav-' + stepNum);
+        if (targetNav) targetNav.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  steps.forEach(step => observer.observe(step));
+</script>
+
 </body>
 </html>
