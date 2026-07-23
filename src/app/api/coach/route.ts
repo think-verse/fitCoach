@@ -7,7 +7,7 @@ import {
 } from "@/lib/firestore/repo";
 import { answerCoachChat } from "@/lib/ai/coach-chat";
 import { AIConfigError } from "@/lib/ai/client";
-import { checkCoachAllowed } from "@/lib/limits/limits";
+import { checkCoachAllowed, getCoachUsage } from "@/lib/limits/limits";
 import { reportError, GENERIC_ERROR } from "@/lib/errors/report";
 
 export const runtime = "nodejs";
@@ -43,7 +43,12 @@ export async function POST(req: Request) {
   const gate = await checkCoachAllowed(user.id);
   if (!gate.allowed) {
     return NextResponse.json(
-      { error: gate.reason, code: "LIMIT_REACHED", limit: gate.limit },
+      {
+        error: gate.reason,
+        code: "LIMIT_REACHED",
+        limit: gate.limit,
+        usage: { used: gate.used ?? gate.limit, limit: gate.limit, remaining: 0 },
+      },
       { status: 429 },
     );
   }
@@ -74,5 +79,9 @@ export async function POST(req: Request) {
 
   await addChatMessage(user.id, "assistant", reply);
 
-  return NextResponse.json({ reply });
+  // Fresh count AFTER persisting this turn's user message, so the client's
+  // "messages left" counter reflects the authoritative server value.
+  const usage = await getCoachUsage(user.id);
+
+  return NextResponse.json({ reply, usage });
 }

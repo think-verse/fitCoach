@@ -15,7 +15,7 @@ export function Sidebar({ userName }: { userName?: string | null }) {
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
           <Flame className="h-5 w-5" />
         </div>
-        <span className="text-lg font-bold tracking-tight">FitCoach</span>
+        <span className="text-lg font-bold tracking-tight">AesthetixAI</span>
       </div>
 
       <nav className="flex-1 px-3 py-4">

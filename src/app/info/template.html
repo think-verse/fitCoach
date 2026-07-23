@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <title>AesthetixAI - Get An AI Coach That Actually Looks At You</title>
+  <meta name="description" content="Upload your photos. Get a brutally honest AI physique scan. Receive a custom workout and diet plan that adapts to your body every week. $97 lifetime. No subscriptions." />
+  <style>
+/* ============================================
+   AesthetixAI – Long-Form Sales Letter
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+/* ---- Variables ---- */
+:root {
+  --emerald-300: #6ee7b7;
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --amber-400: #fbbf24;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+
+  --bg: #0a0a0b;
+  --bg-card: #111113;
+  --bg-elevated: #161618;
+  --bg-highlight: #1a1a1e;
+
+  --text: #f0f0f2;
+  --text-dim: #a1a1aa;
+  --text-muted: #71717a;
+  --text-faint: #52525b;
+
+  --border: rgba(255,255,255,0.07);
+  --border-em: rgba(16,185,129,0.25);
+
+  --col-width: min(680px, 92vw);
+  --section-gap: clamp(4rem, 8vw, 6rem);
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img { max-width:100%; height:auto; display:block; }
+a { color:inherit; text-decoration:none; }
+button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+/* ---- Layout ---- */
+.col {
+  width:var(--col-width);
+  margin:0 auto;
+  padding:0 1rem;
+}
+
+.section-gap { padding: var(--section-gap) 0; }
+
+/* ---- Typography ---- */
+.serif { font-family:'Playfair Display',Georgia,serif; }
+
+h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
+
+/* ---- Gradient Text ---- */
+.gradient {
+  background:linear-gradient(135deg,var(--emerald-400),var(--teal-300),var(--emerald-300));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.gradient-animated {
+  background:linear-gradient(90deg,var(--emerald-400),var(--teal-300),var(--emerald-300),var(--emerald-400));
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradShift 4s ease-in-out infinite;
+}
+@keyframes gradShift { 0%,100%{background-position:0 50%} 50%{background-position:100% 50%} }
+
+/* ---- Dividers ---- */
+.divider {
+  width:80px;
+  height:3px;
+  margin:2.5rem auto;
+  background:linear-gradient(90deg,var(--emerald-500),var(--teal-400));
+  border-radius:9999px;
+  opacity:0.6;
+}
+
+.divider-full {
+  width:100%;
+  height:1px;
+  margin:var(--section-gap) 0;
+  background:var(--border);
+}
+
+/* ---- CTA Button ---- */
+.cta-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.625rem;
+  padding:1.125rem 2.5rem;
+  border-radius:1.25rem;
+  font-weight:700;
+  font-size:1.0625rem;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+  color:#fff;
+  background:rgba(16,185,129,0.15);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+.cta-btn::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(45,212,191,0.3));
+  opacity:0;
+  transition:opacity 0.6s;
+}
+.cta-btn:hover {
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 14px 44px rgba(16,185,129,0.3), inset 0 1px 1px rgba(255,255,255,0.3);
+  background:rgba(16,185,129,0.25);
+  border-color:rgba(255,255,255,0.25);
+}
+.cta-btn:hover::before { opacity:1; }
+.cta-btn:active { transform:scale(0.98); }
+.cta-btn span, .cta-btn svg { position:relative; z-index:1; }
+.cta-btn svg {
+  width:20px;
+  height:20px;
+  transition:transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cta-btn:hover svg { transform:translateX(6px); }
+
+/* Keep scroll-to-CTA targets clear of the fixed header */
+#main-cta, #final-cta { scroll-margin-top: 90px; }
+
+.cta-wrap {
+  text-align:center;
+  margin:2.5rem 0;
+}
+
+.cta-sub {
+  margin-top:1rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:0.75rem 1.25rem;
+  font-size:0.8125rem;
+  color:var(--text-dim);
+}
+.cta-sub span {
+  display:inline-flex;
+  align-items:center;
+  gap:0.375rem;
+}
+.cta-sub svg {
+  width:15px;
+  height:15px;
+  color:var(--emerald-400);
+  flex-shrink:0;
+}
+
+/* ---- Header (fixed, minimal) ---- */
+.top-bar {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  background:rgba(10,10,11,0.6);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:0.625rem 0;
+}
+.top-bar-inner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  font-weight:700;
+  font-size:1rem;
+  letter-spacing:-0.02em;
+}
+.logo-icon {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:0.5rem;
+  background:rgba(16,185,129,0.12);
+  color:var(--emerald-400);
+}
+.top-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding:0.6rem 1.25rem;
+  border-radius:0.75rem;
+  font-size:0.875rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:#fff;
+  background: rgba(16, 185, 129, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.top-cta:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Dynamic Flipper inside CTA */
+.cta-flipper-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 1.2em;
+  overflow: hidden;
+  position: relative;
+  min-width: 155px;
+  text-align: center;
+  color: #a7f3d0; /* subtle emerald-200 to match brand */
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+.cta-flipper {
+  display: flex;
+  flex-direction: column;
+  animation: flipWords 10s infinite;
+}
+.cta-flipper span {
+  height: 1.2em;
+  line-height: 1.2em;
+}
+@keyframes flipWords {
+  0%, 15% { transform: translateY(0); }
+  20%, 40% { transform: translateY(-1.2em); }
+  45%, 65% { transform: translateY(-2.4em); }
+  70%, 90% { transform: translateY(-3.6em); }
+  95%, 100% { transform: translateY(-4.8em); }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding:7rem 0 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.hero-bg .orb {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+}
+.hero-bg .orb-1 {
+  width:500px; height:500px;
+  background:rgba(16,185,129,0.12);
+  top:-15%; left:-10%;
+}
+.hero-bg .orb-2 {
+  width:400px; height:400px;
+  background:rgba(99,102,241,0.08);
+  top:0; right:-8%;
+}
+
+.hero-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.375rem 0.875rem;
+  border-radius:9999px;
+  font-size:0.75rem;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  border:1px solid var(--border-em);
+  background:rgba(16,185,129,0.08);
+  color:var(--emerald-300);
+  margin-bottom:1.5rem;
+}
+.hero-badge .dot {
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--emerald-400);
+  animation:pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%,100% { box-shadow:0 0 0 0 rgba(52,211,153,0.4); }
+  50% { box-shadow:0 0 0 8px rgba(52,211,153,0); }
+}
+
+.hero h1 {
+  font-size:clamp(2rem,5.5vw,3.5rem);
+  font-weight:800;
+  line-height:1.1;
+  max-width:760px;
+  margin:0 auto;
+}
+
+.hero-sub {
+  margin:1.5rem auto 0;
+  max-width:620px;
+  font-size:clamp(1rem,1.8vw,1.1875rem);
+  color:var(--text-dim);
+  line-height:1.7;
+}
+
+.hero-img {
+  margin:3rem auto 0;
+  max-width:640px;
+  border-radius:1rem;
+  border:1px solid var(--border);
+  overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5);
+  position:relative;
+}
+.hero-img img {
+  width:100%;
+}
+.hero-img .scanline {
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--emerald-400),transparent);
+  box-shadow:0 0 18px 3px rgba(52,211,153,0.5);
+  animation:scan 3.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes scan { 0%,100%{top:8%;opacity:.5} 50%{top:88%;opacity:1} }
+
+/* ============================================
+   LONG-FORM BODY
+   ============================================ */
+.letter {
+  position:relative;
+  z-index:1;
+}
+
+.letter p {
+  font-size:clamp(0.95rem,1.4vw,1.0625rem);
+  color:var(--text-dim);
+  margin-bottom:1.5rem;
+}
+
+.letter p strong {
+  color:var(--text);
+  font-weight:600;
+}
+
+.letter h2 {
+  font-size:clamp(1.6rem,3.5vw,2.25rem);
+  font-weight:800;
+  margin-bottom:1.25rem;
+  color:var(--text);
+  text-align:center;
+}
+
+.letter h3 {
+  font-size:clamp(1.2rem,2.5vw,1.5rem);
+  font-weight:700;
+  margin-bottom:0.75rem;
+  color:var(--text);
+}
+
+/* Pain quote cards */
+.pain-block {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.5rem 0;
+  transition:border-color .3s;
+}
+.pain-block:hover { border-color:var(--border-em); }
+
+.pain-emoji {
+  font-size:1.5rem;
+  margin-bottom:0.5rem;
+}
+.pain-quote {
+  font-size:1.0625rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:0.625rem;
+  line-height:1.4;
+}
+.pain-text {
+  font-size:0.9375rem;
+  color:var(--text-dim);
+  line-height:1.65;
+  margin:0;
+}
+
+/* Steps */
+.step-block {
+  display:flex;
+  gap:1.25rem;
+  align-items:flex-start;
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.25rem 0;
+  transition:border-color .3s;
+}
+.step-block:hover { border-color:var(--border-em); }
+
+.step-num {
+  flex-shrink:0;
+  width:48px; height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:0.875rem;
+  background:rgba(16,185,129,0.1);
+  border:1px solid var(--border-em);
+  color:var(--emerald-400);
+  font-size:1.125rem;
+  font-weight:800;
+}
+.step-body h3 { margin-bottom:0.375rem; }
+.step-body p { margin:0; font-size:0.9375rem; color:var(--text-dim); line-height:1.65; }
+
+/* Value stack */
+.value-row {
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--border);
+}
+.value-row:last-child { border-bottom:none; }
+
+.value-icon {
+  flex-shrink:0;
+  width:44px; height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:0.75rem;
+  background:rgba(16,185,129,0.08);
+  color:var(--emerald-400);
+}
+.value-icon svg { width:22px; height:22px; }
+.value-body { flex:1; }
+.value-body h4 {
+  font-size:1rem;
+  font-weight:700;
+  margin-bottom:0.25rem;
+}
+.value-body p {
+  font-size:0.875rem;
+  color:var(--text-dim);
+  margin:0;
+  line-height:1.6;
+}
+.value-price {
+  font-size:0.8125rem;
+  color:var(--text-muted);
+  text-decoration:line-through;
+  margin-top:0.25rem;
+}
+
+.value-total {
+  text-align:center;
+  padding:1.5rem 0;
+}
+.value-total .old-price {
+  font-size:1.5rem;
+  color:var(--red-400);
+  text-decoration:line-through;
+  font-weight:600;
+}
+.value-total .new-price {
+  font-size:2.75rem;
+  font-weight:900;
+  letter-spacing:-0.03em;
+}
+.value-total .lifetime {
+  font-size:1rem;
+  color:var(--emerald-300);
+  font-weight:600;
+  margin-top:0.25rem;
+}
+
+/* Testimonial */
+.testimonial {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  padding:1.75rem 2rem;
+  margin:1.5rem 0;
+}
+.testimonial .stars {
+  display:flex;
+  gap:2px;
+  color:var(--amber-400);
+  margin-bottom:0.75rem;
+}
+.testimonial .stars svg {
+  width:16px; height:16px;
+  fill:currentColor;
+}
+.testimonial blockquote {
+  font-size:1rem;
+  line-height:1.7;
+  color:rgba(240,240,242,0.9);
+  font-style:italic;
+  margin-bottom:0.75rem;
+}
+.testimonial cite {
+  font-size:0.8125rem;
+  color:var(--text-muted);
+  font-style:normal;
+  font-weight:600;
+}
+
+/* FAQ */
+.faq-item {
+  background:rgba(17,17,19,0.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius:1.25rem;
+  margin:0.625rem 0;
+  overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item.active { border-color:var(--border-em); }
+
+.faq-q {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  width:100%;
+  padding:1.125rem 1.5rem;
+  text-align:left;
+  font-weight:600;
+  font-size:0.9375rem;
+  cursor:pointer;
+}
+.faq-chevron {
+  width:18px; height:18px;
+  flex-shrink:0;
+  color:var(--text-muted);
+  transition:transform .3s;
+}
+.faq-item.active .faq-chevron { transform:rotate(180deg); }
+
+.faq-a {
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .35s ease;
+}
+.faq-item.active .faq-a { grid-template-rows:1fr; }
+.faq-a-inner { overflow:hidden; }
+.faq-a p {
+  padding:0 1.5rem 1.25rem;
+  font-size:0.9rem;
+  color:var(--text-dim);
+  line-height:1.65;
+  margin:0;
+}
+
+/* Guarantee badge */
+.guarantee {
+  text-align:center;
+  padding:2.5rem;
+  border:2px dashed var(--border-em);
+  border-radius:1.25rem;
+  background:rgba(16,185,129,0.04);
+  margin:2.5rem 0;
+}
+.guarantee-icon {
+  width:64px; height:64px;
+  margin:0 auto 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(16,185,129,0.12);
+  color:var(--emerald-400);
+}
+.guarantee-icon svg { width:32px; height:32px; }
+.guarantee h3 {
+  font-size:1.25rem;
+  font-weight:700;
+  margin-bottom:0.5rem;
+}
+.guarantee p {
+  max-width:480px;
+  margin:0 auto;
+  font-size:0.9375rem;
+  color:var(--text-dim);
+}
+
+/* PS section */
+.ps {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:1rem;
+  padding:1.75rem 2rem;
+  margin:2rem 0;
+  font-size:0.9375rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.ps strong { color:var(--text); }
+
+/* Footer */
+.footer {
+  border-top:1px solid var(--border);
+  padding:1.5rem 0;
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--text-faint);
+}
+.footer a { color:var(--text-muted); transition:color .2s; }
+.footer a:hover { color:var(--text); }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity:0;
+  transform:translateY(30px) scale(0.98);
+  transition:opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.reveal.vis { opacity:1; transform:translateY(0) scale(1); }
+.reveal-d1 { transition-delay:.1s; }
+.reveal-d2 { transition-delay:.2s; }
+.reveal-d3 { transition-delay:.3s; }
+
+/* Highlight text */
+.highlight {
+  background:linear-gradient(transparent 60%,rgba(16,185,129,0.15) 60%);
+  padding:0 0.125rem;
+}
+
+/* Strike price animation */
+.strike { text-decoration:line-through; color:var(--red-400); }
+
+/* ---- APPLE MOCKUP WALKTHROUGH ---- */
+.walk-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  position: relative;
+}
+.walk-visual-col {
+  flex: 1;
+  position: sticky;
+  top: 120px;
+  display: flex;
+  justify-content: center;
+}
+.phone-frame {
+  width: 310px;
+  height: 630px;
+  border-radius: 46px;
+  background: #000;
+  box-shadow:
+    0 0 0 2px #444,
+    0 0 0 5px #222,
+    0 30px 60px rgba(16, 185, 129, 0.2),
+    inset 0 0 0 1px rgba(255,255,255,0.1);
+  position: relative;
+  transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.phone-frame:hover {
+  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.02);
+}
+
+/* Hardware Buttons */
+.phone-btn {
+  position: absolute;
+  background: #444;
+  width: 3px;
+  border-radius: 2px 0 0 2px;
+}
+.mute-btn { top: 100px; left: -8px; height: 26px; }
+.vol-up { top: 150px; left: -8px; height: 55px; }
+.vol-down { top: 220px; left: -8px; height: 55px; }
+.power-btn {
+  top: 170px; right: -8px; left: auto;
+  height: 80px; width: 3px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Notch & Camera */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 30px;
+  background: #000;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.notch-speaker {
+  width: 45px;
+  height: 6px;
+  border-radius: 4px;
+  background: #222;
+}
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #111;
+  box-shadow: inset 0 0 4px rgba(255,255,255,0.1);
+  position: relative;
+}
+.notch-camera::after {
+  content:'';
+  position: absolute;
+  top: 4px; left: 4px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #0f1847;
+}
+
+/* Screen */
+.phone-screen {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #0a0a0b;
+}
+/* Mockup Fixed Navs */
+.mockup-top-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+}
+.mockup-bottom-nav {
+  position: absolute;
+  bottom: -2px; /* Slight overlap to ensure it covers the bottom curve completely */
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.mockup-bottom-nav.active {
+  opacity: 1;
+}
+
+/* Screen Content */
+.screen-img {
+  position: absolute;
+  top: 0; /* Starts under top nav */
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.screen-img.active {
+  opacity: 1;
+}
+
+/* Only animate Workout (screen-2) and Diet (screen-3) */
+#screen-2.active, #screen-3.active {
+  animation: panTranslate 22s ease-in-out forwards;
+}
+
+@keyframes panTranslate {
+  0%   { transform: translateY(0); }
+  5%   { transform: translateY(0); }
+  90%  { transform: translateY(-400px); }
+  100% { transform: translateY(-400px); }
+}
+
+/* Home Indicator */
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 4px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 4px;
+  z-index: 5;
+}
+
+/* Screen Glare */
+.screen-glare {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%);
+  transform: rotate(30deg);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.walk-text-col {
+  flex: 1;
+  padding: 10vh 0 20vh;
+}
+.walk-step {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.2;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateX(20px);
+}
+.walk-step.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.walk-step h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.walk-step p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width:600px) {
+  :root { --section-gap: 3.5rem; }
+  .logo-text { display: none; }
+  .hero { padding: 5.5rem 0 2rem; }
+  .hero h1 { font-size: 2.25rem; }
+  .pain-block, .step-block, .testimonial { padding: 1.25rem; }
+  .step-block { flex-direction:column; gap:0.75rem; }
+  .faq-q { padding: 1rem; }
+  .faq-a p { padding: 0 1rem 1rem; }
+  .value-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .top-cta { padding: 0.5rem 0.75rem; font-size: 0.75rem; gap: 0.25rem; }
+  .cta-flipper-container { min-width: 120px; }
+  .cta-btn { width:100%; justify-content:center; font-size:0.9375rem; padding:1rem 1.5rem; }
+  .cta-sub { flex-direction:column; align-items:center; }
+  /* Walkthrough Mobile - Premium Overlapping Glass */
+  .walk-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .walk-visual-col {
+    grid-area: 1 / 1;
+    position: sticky;
+    top: 80px;
+    height: 500px;
+    width: 100%;
+    align-self: start;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    margin-bottom: 0;
+  }
+  .phone-notch {
+    width: 110px;
+    height: 25px;
+  }
+  .phone-frame {
+    transform: none !important;
+    width: 240px;
+    height: 500px;
+  }
+  .phone-frame:hover { transform: none !important; }
+  .walk-text-col {
+    grid-area: 1 / 1;
+    padding: 550px 0 150px;
+    z-index: 2;
+    position: relative;
+    pointer-events: none;
+  }
+  .walk-step {
+    min-height: 80vh;
+    opacity: 0.3;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    margin-bottom: 2rem;
+    transform: translateY(20px);
+    pointer-events: auto;
+  }
+  .walk-step.active {
+    opacity: 1;
+    transform: translateY(0);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .walk-step h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .walk-step p { font-size: 0.95rem; }
+}
+
+/* ============================================
+   URGENCY & ANIMATED ICONS
+   ============================================ */
+.urgency-banner {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+  background:rgba(239,68,68,0.1);
+  border:1px solid rgba(239,68,68,0.2);
+  color:var(--red-400);
+  padding:0.375rem 0.875rem;
+  border-radius:2rem;
+  font-size:0.75rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:1.5rem;
+}
+.pulse-dot {
+  width:8px; height:8px;
+  background:var(--red-400);
+  border-radius:50%;
+  animation:urgencyPulse 1.5s infinite;
+}
+@keyframes urgencyPulse {
+  0% { box-shadow:0 0 0 0 rgba(239,68,68,0.7); }
+  70% { box-shadow:0 0 0 8px rgba(239,68,68,0); }
+  100% { box-shadow:0 0 0 0 rgba(239,68,68,0); }
+}
+
+/* SVG Step Icons Animations */
+.step-icon-svg {
+  width:24px; height:24px;
+  stroke:var(--emerald-400);
+  fill:none;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.anim-scan-line {
+  animation:scanMove 2s infinite ease-in-out;
+}
+@keyframes scanMove {
+  0%, 100% { transform:translateY(-4px); }
+  50% { transform:translateY(8px); }
+}
+.anim-spin-gear {
+  transform-origin:center;
+  animation:spinGear 4s linear infinite;
+}
+@keyframes spinGear {
+  100% { transform:rotate(360deg); }
+}
+.anim-loop-arrow {
+  animation:loopArrow 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes loopArrow {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+
+/* ============================================
+   PURCHASE TOAST NOTIFICATION (APPLE LIQUID STYLE)
+   ============================================ */
+.purchase-toast {
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  background:rgba(20, 20, 22, 0.65);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius:24px;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  transform:translateY(80px) scale(0.9);
+  opacity:0;
+  transition:transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  z-index:9999;
+  max-width:320px;
+  pointer-events:none;
+}
+.purchase-toast.show {
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+.toast-icon {
+  width:40px; height:40px;
+  background:linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(16,185,129,0.05) 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.2);
+  border:1px solid rgba(16,185,129,0.2);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--emerald-400);
+  flex-shrink:0;
+}
+.toast-icon svg { width:22px; height:22px; }
+.toast-text {
+  font-size:0.875rem;
+  line-height:1.4;
+  color:rgba(255, 255, 255, 0.8);
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.toast-text strong {
+  color:#ffffff;
+  font-weight:600;
+  letter-spacing:-0.2px;
+}
+.toast-time {
+  font-size:0.75rem;
+  color:rgba(255, 255, 255, 0.5);
+  display:block;
+  margin-top:2px;
+}
+@media (max-width:600px) {
+  .purchase-toast {
+    left:16px; right:16px; bottom:16px; max-width:none;
+  }
+}
+  </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR ========== -->
+<header class="top-bar">
+  <div class="col top-bar-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+      </div>
+      <span class="logo-text">AesthetixAI</span>
+    </a>
+    <a href="#main-cta" class="top-cta">
+      Get
+      <span class="cta-flipper-container">
+        <span class="cta-flipper">
+          <span>Lifetime Access</span>
+          <span>Your AI Coach</span>
+          <span>Custom Workouts</span>
+          <span>Almost Sold Out</span>
+          <span>Lifetime Access</span>
+        </span>
+      </span>
+      - $97
+    </a>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
+  <div class="col" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <span class="hero-badge"><span class="dot"></span> AI-Powered Fitness Coaching</span>
+    </div>
+
+    <div class="urgency-banner reveal"><div class="pulse-dot"></div><span>Limited: <b class="spots-count">98</b> Lifetime Spots Remaining</span></div>
+    <h1 class="reveal reveal-d1">
+      Stop Wasting Time On Generic Workout Apps.<br>
+      <span class="gradient-animated">Get An AI Coach That Actually <em class="serif">Looks</em> At You.</span>
+    </h1>
+
+    <p class="hero-sub reveal reveal-d2">
+      Upload your photos. Get a brutally honest AI physique scan. Receive a custom, evolving workout and diet protocol that adapts to your body every single week. <strong>All the personalization of a private coach, with zero monthly fees.</strong>
+    </p>
+
+    <div class="cta-wrap reveal reveal-d3">
+      <a href="#main-cta" class="cta-btn" id="hero-cta">
+        <span>Get My Custom Plan - $97 Lifetime</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <div class="cta-sub">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lifetime access</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day money-back guarantee</span>
+      </div>
+    </div>
+
+    <div class="hero-img reveal reveal-d3">
+      <div class="scanline" aria-hidden="true"></div>
+      <img src="/info/before-after.jpg" alt="Before: confused with generic apps. After: AI-powered personalized physique analysis" width="640" height="427" loading="eager" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== LETTER BODY ========== -->
+<main class="letter">
+
+  <!-- PROBLEM AGITATION -->
+  <section class="section-gap">
+    <div class="col">
+      <div class="divider"></div>
+
+      <p class="reveal" style="text-align:center;font-size:clamp(1.1rem,2vw,1.25rem);color:var(--text);font-weight:600;">
+        Let me guess…
+      </p>
+
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😤</div>
+          <div class="pain-quote">"Why am I doing the exact same routine as a guy half my size?"</div>
+          <p class="pain-text">Because you downloaded a generic PDF that doesn't know who you are, how your body moves, or what your weak points are. It's a template built for the masses, not for you.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😫</div>
+          <div class="pain-quote">"Personal trainers are way too expensive."</div>
+          <p class="pain-text">$200 a month? $100 a session? Just to have someone count your reps and stare at their phone? You can't afford that trap. And honestly, you shouldn't have to.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">🤯</div>
+          <div class="pain-quote">"I'm eating what the calculator says, but my body isn't changing."</div>
+          <p class="pain-text">Because basic calculators don't see muscle bellies, fat distribution, or lagging body parts. They see a math equation. Your body isn't a spreadsheet.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="pain-block">
+          <div class="pain-emoji">😰</div>
+          <div class="pain-quote">"I don't even know if this program works for my home gym setup."</div>
+          <p class="pain-text">You're stuck in the guessing game. Guessing how to swap out cable flyes for dumbbells. Guessing your macros. Guessing if you're actually making progress or just spinning your wheels.</p>
+        </div>
+      </div>
+
+      <p class="reveal" style="text-align:center;margin-top:2rem;font-size:1.125rem;color:var(--text);font-weight:600;">
+        You don't need another generic app.<br>
+        You need something that actually <span class="highlight">sees you</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="section-gap" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">What if your coach could <span class="gradient">see your body</span> and adapt your plan every week?</h2>
+
+      <p class="reveal">That's not a hypothetical. That's exactly what <strong>AesthetixAI</strong> does.</p>
+
+      <p class="reveal">It uses AI-powered visual analysis to scan your actual physique photos, identifying your body type, lagging muscle groups, and baseline metrics. Then it builds a workout and diet protocol customized <em>specifically</em> to you.</p>
+
+      <p class="reveal">And here's the part that makes it better than a human coach:</p>
+
+      <p class="reveal"><strong>Every single week, you upload new photos. The AI compares your visual changes and automatically adjusts your plan.</strong></p>
+
+      <p class="reveal">Shoulders lagging? It rewrites your split to prioritize them. Metabolism slowing? It adjusts your macros before you even notice. It's a living, breathing program that evolves as you transform.</p>
+
+      <p class="reveal" style="color:var(--text);font-weight:600;font-size:1.0625rem;">No more guessing. No more stalling. No more wasting money on programs that don't know who you are.</p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-gap" id="how" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">Here's exactly how it works</h2>
+
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg" viewBox="0 0 24 24"><path d="M4 6h16M4 18h16M4 12h16" opacity="0.3"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" class="anim-scan-line"/></svg></div>
+          <div class="step-body">
+            <h3>The AI Physique Scan</h3>
+            <p>Upload your check-in photos (front, side, back). Our AI analyzes your body type, identifies weak points, and calculates a visual estimate of your BMI and TDEE based on real data, not just the numbers you type in.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg anim-spin-gear" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="step-body">
+            <h3>The Custom Protocol</h3>
+            <p>Tell us your equipment (home gym, full gym, or just gravity) and your diet (vegan, vegetarian, meat-eater). The AI instantly builds your exact split with sets, reps, RPE, and <strong>animated form guide videos</strong> so you can perfect your technique. Plus, a smart diet plan with real meals and macro targets.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="step-block">
+          <div class="step-num"><svg class="step-icon-svg anim-loop-arrow" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+          <div class="step-body">
+            <h3>The Weekly Evolution</h3>
+            <p>Every week, you upload new photos. The AI compares your visual changes and adjusts your protocol automatically. It's a closed loop: upload → analyze → adapt. You never plateau because your plan never stays the same.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- APPLE-STYLE MOTION GRAPHIC WALKTHROUGH -->
+  <section style="padding-bottom:var(--section-gap); position: relative;" id="walkthrough">
+    <div class="col">
+      <div class="divider"></div>
+      <h2 class="reveal">Inside the Dashboard: Your Complete Fitness Ecosystem</h2>
+      <p class="reveal" style="text-align:center;max-width:560px;margin:0 auto 4rem;color:var(--text-dim);">
+        Everything you need is perfectly organized into one powerful interface. See exactly how it works.
+      </p>
+
+      <div class="walk-container">
+        <!-- Sticky Phone Mockup -->
+        <div class="walk-visual-col">
+          <div class="phone-frame">
+            <!-- Hardware Buttons -->
+            <div class="phone-btn mute-btn"></div>
+            <div class="phone-btn vol-up"></div>
+            <div class="phone-btn vol-down"></div>
+            <div class="phone-btn power-btn"></div>
+
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-camera"></div>
+            </div>
+
+            <div class="phone-screen">
+
+              <img src="/info/dashboard-content.jpg" id="screen-1" class="screen-img active" loading="lazy" />
+              <img src="/info/workout-scroll.jpg" id="screen-2" class="screen-img" loading="lazy" />
+              <img src="/info/diet-scroll.jpg" id="screen-3" class="screen-img" loading="lazy" />
+
+              <img src="/info/bottom-nav-1.jpg" id="nav-1" class="mockup-bottom-nav active" loading="lazy" />
+              <img src="/info/bottom-nav-2.jpg" id="nav-2" class="mockup-bottom-nav" loading="lazy" />
+              <img src="/info/bottom-nav-3.jpg" id="nav-3" class="mockup-bottom-nav" loading="lazy" />
+
+              <div class="home-indicator"></div>
+              <div class="screen-glare"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrolling Text Steps -->
+        <div class="walk-text-col">
+          <div class="walk-step" data-step="1">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">📱</div>
+            <h3>1. The AI Dashboard</h3>
+            <p>Upload your check-in photos. The AI instantly processes your physique to craft your tailored training and diet protocols. Your entire fitness journey lives on this single pane of glass.</p>
+          </div>
+
+          <div class="walk-step" data-step="2">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">💪</div>
+            <h3>2. Hyper-Custom Workouts</h3>
+            <p>Access your complete training split, exercise by exercise. This isn't a static PDF—every single movement includes animated form guide videos so you execute your lifts flawlessly.</p>
+          </div>
+
+          <div class="walk-step" data-step="3">
+            <div class="step-num" style="font-size:2rem; margin-bottom:1rem;">📈</div>
+            <h3>3. Adaptive Diet & Progress</h3>
+            <p>Check the Diet tab for your daily macro targets. Use the Progress tab to log your daily weight. Every week, the AI recalculates your trajectory to ensure you never hit a plateau.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF 1 -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"was super skeptical about this but it actually spotted my weak shoulders and fixed my split. my delts are finally growing for the first time."</blockquote>
+        <cite>Jake Miller, Chicago IL</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE STACK -->
+  <section class="section-gap" id="offer" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <h2 class="reveal">Here's everything you're getting</h2>
+
+      <p class="reveal" style="text-align:center;color:var(--text-dim);max-width:540px;margin:0 auto 2rem;">
+        Compare what you'd pay for each of these separately, then look at your total.
+      </p>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>AI Physique Scan & Analysis</h4>
+            <p>Body type identification, weak point detection, BMI/TDEE estimation, all from your photos.</p>
+            <div class="value-price">Standalone assessment: $150+</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Personalized Workout Plan</h4>
+            <p>Custom split with sets, reps, rest, RPE, and <strong>animated form videos</strong> to improve your technique. Built around YOUR equipment.</p>
+            <div class="value-price">Online coach program: $200/month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10"/><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1"/><path d="m13 12 4-4"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Smart Diet Plan</h4>
+            <p>Calorie & macro targets with real meals for your food preference and budget. Easy one-tap swaps.</p>
+            <div class="value-price">Dietitian consultation: $100/session</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Weekly AI Progress Tracking & Plan Adaptation</h4>
+            <p>Upload check-in photos, AI compares over time, automatically adjusts your plan. Forever.</p>
+            <div class="value-price">Personal trainer check-ins: $2,400/year</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="value-row">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="value-body">
+            <h4>Works With Any Setup</h4>
+            <p>Full gym, home gym, dumbbells, bands, bodyweight only. Vegan, vegetarian, non-veg. Your plan, your way.</p>
+            <div class="value-price">Equipment-specific programming: $75+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total value -->
+      <div class="reveal" style="margin-top:2rem;">
+        <div class="value-total">
+          <p style="color:var(--text-dim);font-size:0.875rem;margin-bottom:0.5rem;">Total value if purchased separately:</p>
+          <div class="old-price">$2,925+/year</div>
+          <p style="color:var(--text-dim);font-size:0.875rem;margin:1rem 0 0.25rem;">Your price today:</p>
+          <div class="new-price gradient">$97</div>
+          <div class="lifetime">One-time payment. Lifetime access. No subscriptions.</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap reveal">
+        <a href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA" class="cta-btn" id="main-cta" target="_blank" rel="noopener">
+          <span>Lock In Lifetime Access - $97</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="cta-sub">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Works for any gym or home setup</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day money-back guarantee</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <div class="guarantee reveal">
+        <div class="guarantee-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>14-Day, 100% Money-Back Guarantee</h3>
+        <p>Try AesthetixAI completely risk-free. If it doesn't give you the most customized, accurate fitness plan you've ever used, email us and we'll refund every cent of your $97. No questions asked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORE SOCIAL PROOF -->
+  <section style="padding-bottom:var(--section-gap);">
+    <div class="col">
+      <h2 class="reveal" style="margin-bottom:1.5rem;">Don't take our word for it</h2>
+
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"honestly i thought it would be another useless app. but then the weekly check-in kicked in and adjusted my calories and changed my leg day. i lost 15lbs in 12 weeks and didn't even feel like i was dieting that hard."</blockquote>
+        <cite>Marcus Wright, Atlanta GA</cite>
+      </div>
+
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"i only have some dumbbells at home and it built a legit PPL split around what i have. the meal plan is solid too, gave me actual food i want to eat."</blockquote>
+        <cite>Chloe Davis, Seattle WA</cite>
+      </div>
+      <div class="testimonial reveal">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+        </div>
+        <blockquote>"glad i trusted the privacy stuff because my metabolism was completely stalled and this actually bumped my macros up instead of down. finally breaking through my plateau without starving myself. totally worth the 97 bucks."</blockquote>
+        <cite>Sarah Jenkins, Austin TX</cite>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ -->
+  <section class="section-gap" id="faq" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+      <h2 class="reveal">Got questions?</h2>
+
+      <div style="margin-top:1.5rem;">
+        <div class="faq-item active reveal">
+          <button class="faq-q" aria-expanded="true">
+            <span>Is the AI actually accurate?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Yes. It uses a highly trained visual estimate model for fitness, calculating your BMI and TDEE from actual visual data, not just the numbers you type in. It sees what standard calculators miss. <em>(AI visual estimate is for fitness purposes only, not a medical diagnosis.)</em></p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>I don't have a gym membership. Will this work?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Absolutely. During onboarding, you simply tell the AI what equipment you have. Whether that's a fully stacked commercial gym, some rusty dumbbells in your garage, or just your own bodyweight. Your plan is built around exactly what you have access to.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>I'm vegan. Can it make a diet for me?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>100%. The Smart Diet Plan fully supports vegan, vegetarian, and non-veg diets. You get real meals and easy macros that fit your specific lifestyle.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>What if I don't like the plan?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>You're protected by our 14-day money-back guarantee. Try it risk-free. If it doesn't deliver the most customized, accurate plan you've ever used, shoot us an email and we'll refund your $97. No questions asked.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            <span>Are there hidden subscription fees?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Never. $97 is a one-time payment for lifetime access. No monthly fees. No recurring charges. No upsell walls. You pay once, the AI coaches you forever.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section-gap" style="padding-top:0;">
+    <div class="col">
+      <div class="divider"></div>
+
+      <div class="urgency-banner reveal"><div class="pulse-dot"></div><span>Limited: <b class="spots-count">98</b> Lifetime Spots Remaining</span></div>
+      <h2 class="reveal" style="margin-bottom:0.75rem;">The price won't stay at $97 forever.</h2>
+
+      <p class="reveal" style="text-align:center;max-width:560px;margin:0 auto 0.5rem;color:var(--text-dim);">
+        As our AI gets smarter and processes more physiques, the value goes up and so will the price. Lock in your lifetime access now before we move to a monthly subscription model.
+      </p>
+
+      <div class="cta-wrap reveal">
+        <a href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA" class="cta-btn" id="final-cta" target="_blank" rel="noopener">
+          <span>Lock In Lifetime Access - $97</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <div class="cta-sub">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> One-time payment. No subscriptions.</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Full gym, home gym, or bodyweight</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 14-day risk-free guarantee</span>
+        </div>
+      </div>
+
+      <!-- PS -->
+      <div class="ps reveal">
+        <p style="margin:0;"><strong>P.S.</strong> You can keep guessing with free templates, or you can get a customized AI coach that actually <em>looks at you</em> for the price of one tub of protein powder. Choose wisely.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="col">
+    <p>© 2026 AesthetixAI. For fitness only, not medical advice. &nbsp;
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Live Purchase Toast HTML -->
+<div id="purchaseToast" class="purchase-toast">
+  <div class="toast-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="toast-text">
+    <strong id="toastName"></strong> from <span id="toastLoc"></span><br>
+    just locked in Lifetime Access!
+    <span class="toast-time" id="toastTime">Just now</span>
+  </div>
+</div>
+
+<script>
+  // Scroll reveals
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  els.forEach(el => obs.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const open = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(f => {
+        f.classList.remove('active');
+        f.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!open) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Live Purchase Toast
+  const toastNames = ["James D.", "Michael S.", "Robert B.", "William T.", "David C.", "Richard M.", "Joseph W.", "Thomas G.", "Charles P.", "Chris R.", "Daniel H.", "Matthew L.", "Anthony V.", "Mark F.", "Donald E.", "Steven J.", "Paul A.", "Andrew K.", "Joshua N.", "Kevin Y.", "Mary B.", "Patricia R.", "Jennifer L.", "Linda C.", "Elizabeth S.", "Barbara D.", "Susan M.", "Jessica T.", "Sarah W.", "Karen H.", "Nancy G.", "Lisa P.", "Betty F.", "Maggie V.", "Sandra E.", "Ashley J.", "Kim A.", "Emily K.", "Donna N.", "Michelle Y."];
+  const toastStates = ["Texas", "California", "Florida", "New York", "Illinois", "Pennsylvania", "Ohio", "Georgia", "North Carolina", "Michigan", "New Jersey", "Virginia", "Washington", "Arizona", "Massachusetts", "Tennessee", "Indiana", "Missouri", "Maryland", "Colorado"];
+
+  const toast = document.getElementById('purchaseToast');
+  const toastName = document.getElementById('toastName');
+  const toastLoc = document.getElementById('toastLoc');
+  const toastTime = document.getElementById('toastTime');
+
+  const timeStrings = ["Just now", "Just now", "Just now", "2 min ago", "4 min ago", "5 min ago", "9 min ago", "12 min ago", "17 min ago", "22 min ago", "31 min ago", "45 min ago", "1 hour ago"];
+
+  let currentSpots = 98;
+  const spotCounters = document.querySelectorAll('.spots-count');
+
+  function showToast() {
+    toastName.innerText = toastNames[Math.floor(Math.random() * toastNames.length)];
+    toastLoc.innerText = toastStates[Math.floor(Math.random() * toastStates.length)];
+    const selectedTime = timeStrings[Math.floor(Math.random() * timeStrings.length)];
+    toastTime.innerText = selectedTime;
+    toast.classList.add('show');
+
+    // Decrement spots only if it's a live purchase ("Just now")
+    if (selectedTime === "Just now" && currentSpots > 3) {
+      currentSpots--;
+      spotCounters.forEach(el => el.innerText = currentSpots);
+    }
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4500);
+  }
+
+  setTimeout(() => {
+    showToast();
+    setInterval(() => {
+      if (Math.random() > 0.3) {
+        showToast();
+      }
+    }, 15000);
+  }, 3000);
+</script>
+
+<script>
+  // Apple Motion Graphic Scroll Animation
+  const steps = document.querySelectorAll('.walk-step');
+  const screens = document.querySelectorAll('.screen-img');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-40% 0px -40% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        steps.forEach(s => s.classList.remove('active'));
+        screens.forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.mockup-bottom-nav').forEach(n => n.classList.remove('active'));
+
+        entry.target.classList.add('active');
+        const stepNum = entry.target.getAttribute('data-step');
+
+        const targetScreen = document.getElementById('screen-' + stepNum);
+        if (targetScreen) targetScreen.classList.add('active');
+
+        const targetNav = document.getElementById('nav-' + stepNum);
+        if (targetNav) targetNav.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  steps.forEach(step => observer.observe(step));
+</script>
+
+</body>
+</html>

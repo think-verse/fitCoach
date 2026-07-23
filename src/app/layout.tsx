@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "FitCoach — Your AI Personal Trainer & Diet Coach",
-    template: "%s · FitCoach",
+    default: "AesthetixAI — Your AI Personal Trainer & Diet Coach",
+    template: "%s · AesthetixAI",
   },
   description:
     "AI fitness coach. Upload physique photos, get a personalized workout plan, diet plan, and weekly progress tracking.",
@@ -26,7 +26,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-dvh bg-background font-sans">{children}</body>
+      <body className="min-h-dvh overflow-x-clip bg-background font-sans">
+        {children}
+      </body>
     </html>
   );
 }

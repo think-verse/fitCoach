@@ -1,4 +1,4 @@
-# FitCoach — Rebuild & Migration Plan
+# AesthetixAI — Rebuild & Migration Plan
 
 > Goal: take the current Supabase-backed MVP and turn it into a **sellable,
 > mobile-first product** with a **Firebase backend**, an **admin panel**, a
@@ -200,7 +200,7 @@ PAYPAL_ENV=sandbox        # sandbox | live
 
 # --- App ---
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=FitCoach
+NEXT_PUBLIC_APP_NAME=AesthetixAI
 
 # --- Admin / queue / cron ---
 ADMIN_EMAILS=             # comma-separated allow-list for first admin bootstrap
@@ -240,7 +240,7 @@ UPSTASH_REDIS_REST_TOKEN=
 ## Open questions for you (need answers before/while building)
 
 1. **Two products or one?** Is the "YouTube-type" generator (Gemini + revid)
-   a *separate* project, or being merged into this FitCoach codebase? The env
+   a *separate* project, or being merged into this AesthetixAI codebase? The env
    includes both, but scope changes a lot if it's one app.
 2. **Free vs paid feature matrix** — what exactly is gated behind PayPal?
 3. **Pricing tiers** — names, prices, billing period (one-time / monthly /

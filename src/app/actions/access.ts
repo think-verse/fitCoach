@@ -18,7 +18,7 @@ import {
 const GrantSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(120),
   email: z.string().trim().email("Enter a valid email"),
-  mobile: z.string().trim().min(5, "Enter a valid mobile number").max(30),
+  mobile: z.string().trim().max(30).optional().default(""),
 });
 
 export type GrantInput = z.infer<typeof GrantSchema>;
@@ -27,6 +27,10 @@ export interface GrantResult {
   ok: boolean;
   error?: string;
   returning?: boolean;
+  /** Credentials returned so the user can see them on-screen (also emailed). */
+  email?: string;
+  password?: string;
+  loginUrl?: string;
 }
 
 /** Generate a readable, strong temporary password. */
@@ -83,7 +87,7 @@ export async function grantAccess(input: GrantInput): Promise<GrantResult> {
   await Promise.allSettled([
     sendEmail({
       to: email,
-      subject: "Your FitCoach access is confirmed 🎉",
+      subject: "Your AesthetixAI access is confirmed 🎉",
       html: credentialEmailHtml({ name, email, password, loginUrl }),
     }),
     sendEmail({
@@ -93,5 +97,5 @@ export async function grantAccess(input: GrantInput): Promise<GrantResult> {
     }),
   ]);
 
-  return { ok: true, returning };
+  return { ok: true, returning, email, password, loginUrl };
 }

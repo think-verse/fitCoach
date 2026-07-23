@@ -9,21 +9,24 @@ import {
   Dumbbell,
   Salad,
   Bot,
-  Camera,
+  Copy,
+  Check,
+  Eye,
+  EyeOff,
+  KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { COUNTRIES, DEFAULT_COUNTRY } from "@/lib/countries";
 import { grantAccess } from "@/app/actions/access";
 
-const CONTACT_EMAIL = "contact@geekbotai.com";
-
-const STEPS = [
-  { icon: Mail, t: "Check your email", d: "We sent your login email + temporary password (check spam too)." },
-  { icon: ArrowRight, t: "Sign in", d: "Open the sign-in page and log in with that email & password — no OTP." },
-  { icon: Camera, t: "Upload your physique", d: "Add front / side / back photos for your AI body analysis." },
-  { icon: Dumbbell, t: "Get your plan", d: "Receive a personalized workout & diet plan, then check in weekly." },
-];
+interface Creds {
+  email: string;
+  password: string;
+  loginUrl?: string;
+}
 
 export function ThankYouForm() {
   const [status, setStatus] = React.useState<
@@ -31,15 +34,26 @@ export function ThankYouForm() {
   >("idle");
   const [error, setError] = React.useState("");
   const [returning, setReturning] = React.useState(false);
+  const [creds, setCreds] = React.useState<Creds | null>(null);
   const [form, setForm] = React.useState({ name: "", email: "", mobile: "" });
+  // Track the country by its unique ISO code — US and Canada share "+1", so the
+  // dial code alone can't identify the selected option.
+  const [countryIso, setCountryIso] = React.useState(DEFAULT_COUNTRY.iso);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
-    const res = await grantAccess(form);
+    const number = form.mobile.trim();
+    const dialCode =
+      COUNTRIES.find((c) => c.iso === countryIso)?.dial ?? DEFAULT_COUNTRY.dial;
+    const mobile = number ? `${dialCode} ${number}` : "";
+    const res = await grantAccess({ ...form, mobile });
     if (res.ok) {
       setReturning(!!res.returning);
+      if (res.email && res.password) {
+        setCreds({ email: res.email, password: res.password, loginUrl: res.loginUrl });
+      }
       setStatus("done");
     } else {
       setError(res.error ?? "Something went wrong. Please try again.");
@@ -54,49 +68,27 @@ export function ThankYouForm() {
           <CheckCircle2 className="h-9 w-9" />
         </div>
         <h2 className="mt-5 text-2xl font-bold tracking-tight">
-          All access generated 🎉
+          You&apos;re in 🎉
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
           {returning
             ? "Welcome back! We've refreshed your password — your existing data is exactly where you left it."
-            : "Your FitCoach account is ready."}{" "}
-          We&apos;ve emailed <strong className="text-foreground">{form.email}</strong>{" "}
-          your login details.
+            : "Your account is ready."}{" "}
+          Your login is below — and we&apos;ve also emailed it to{" "}
+          <strong className="text-foreground">{form.email}</strong>.
         </p>
 
-        <div className="mt-8 space-y-3 text-left">
-          {STEPS.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.t}
-                className="flex items-start gap-3 rounded-xl border border-border bg-background/40 p-4"
-              >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <Icon className="h-4 w-4" />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold">
-                    {i + 1}. {s.t}
-                  </div>
-                  <div className="text-xs text-muted-foreground">{s.d}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {creds && <Credentials creds={creds} />}
 
-        <Button asChild className="mt-8 w-full" size="lg">
-          <a href="/login">
-            Go to sign in <ArrowRight className="h-4 w-4" />
+        <Button asChild className="mt-6 w-full" size="lg">
+          <a href={creds?.loginUrl || "/login"}>
+            Sign in now <ArrowRight className="h-4 w-4" />
           </a>
         </Button>
 
-        <p className="mt-6 text-xs text-muted-foreground">
-          Need help? Email{" "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">
-            {CONTACT_EMAIL}
-          </a>
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+          <Mail className="h-3.5 w-3.5" />
+          A copy was emailed to you (check spam too).
         </p>
       </div>
     );
@@ -130,19 +122,30 @@ export function ThankYouForm() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="mobile">Mobile number</Label>
-        <Input
-          id="mobile"
-          type="tel"
-          required
-          value={form.mobile}
-          onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value }))}
-          placeholder="+91 90000 00000"
-        />
+        <div className="flex gap-2">
+          <Select
+            aria-label="Country code"
+            value={countryIso}
+            onChange={(e) => setCountryIso(e.target.value)}
+            className="w-[7.5rem] shrink-0 px-3"
+          >
+            {COUNTRIES.map((c) => (
+              <option key={c.iso} value={c.iso}>
+                {c.flag} {c.dial}
+              </option>
+            ))}
+          </Select>
+          <Input
+            id="mobile"
+            type="tel"
+            value={form.mobile}
+            onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value }))}
+            placeholder="90000 00000"
+          />
+        </div>
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-destructive">{error}</p>
-      )}
+      {status === "error" && <p className="text-sm text-destructive">{error}</p>}
 
       <Button
         type="submit"
@@ -173,6 +176,88 @@ export function ThankYouForm() {
         </span>
       </div>
     </form>
+  );
+}
+
+/* On-screen login credentials with reveal + copy, so the user never has to
+   leave the page to open their email. */
+function Credentials({ creds }: { creds: Creds }) {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <div className="mt-6 space-y-2.5 rounded-2xl border border-primary/30 bg-primary/5 p-4 text-left">
+      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
+        <KeyRound className="h-3.5 w-3.5" />
+        Your login
+      </div>
+
+      <CredRow label="Email" value={creds.email} />
+
+      <div className="space-y-1">
+        <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+          Temporary password
+        </span>
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-background/60 px-3 py-2">
+          <code className="flex-1 truncate font-mono text-sm">
+            {show ? creds.password : "•".repeat(creds.password.length)}
+          </code>
+          <button
+            type="button"
+            onClick={() => setShow((s) => !s)}
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            aria-label={show ? "Hide password" : "Show password"}
+          >
+            {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </button>
+          <CopyButton value={creds.password} />
+        </div>
+      </div>
+
+      <p className="text-[11px] text-muted-foreground">
+        Save these now. You can change your password after signing in.
+      </p>
+    </div>
+  );
+}
+
+function CredRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="space-y-1">
+      <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+      <div className="flex items-center gap-2 rounded-lg border border-border bg-background/60 px-3 py-2">
+        <span className="flex-1 truncate text-sm">{value}</span>
+        <CopyButton value={value} />
+      </div>
+    </div>
+  );
+}
+
+function CopyButton({ value }: { value: string }) {
+  const [copied, setCopied] = React.useState(false);
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable — ignore */
+    }
+  }
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      className="text-muted-foreground transition-colors hover:text-foreground"
+      aria-label={copied ? "Copied" : "Copy"}
+    >
+      {copied ? (
+        <Check className="h-4 w-4 text-emerald-400" />
+      ) : (
+        <Copy className="h-4 w-4" />
+      )}
+    </button>
   );
 }
 

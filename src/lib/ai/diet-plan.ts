@@ -2,7 +2,7 @@ import type { UserProfile } from "@/lib/firestore/types";
 import { generateStructured, TEXT_MODEL } from "./client";
 import { DietPlanSchema, type DietPlanAI } from "./schemas";
 
-const SYSTEM = `You are FitCoach AI generating a personalized diet plan.
+const SYSTEM = `You are AesthetixAI generating a personalized diet plan.
 
 Rules:
 - Hit the calorie and macro targets within ±5%.

@@ -26,7 +26,7 @@ export default async function LoginPage({
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
             <Flame className="h-6 w-6" />
           </div>
-          <span className="text-xl font-bold tracking-tight">FitCoach</span>
+          <span className="text-xl font-bold tracking-tight">AesthetixAI</span>
         </Link>
 
         <Card className="card-glow">
@@ -40,6 +40,15 @@ export default async function LoginPage({
               <PasswordSignInForm from={searchParams.from} />
             </div>
 
+            <div className="mt-3 text-right">
+              <Link
+                href="/forgot-password"
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
             <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
               <div className="h-px flex-1 bg-border" />
               <span>or</span>
@@ -47,6 +56,13 @@ export default async function LoginPage({
             </div>
 
             <GoogleSignInButton from={searchParams.from} />
+
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              New here?{" "}
+              <Link href="/signup" className="font-medium text-primary underline">
+                Create a free account
+              </Link>
+            </p>
 
             {searchParams.error && (
               <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">

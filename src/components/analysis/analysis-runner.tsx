@@ -98,8 +98,7 @@ export function AnalysisRunner() {
         <CardContent className="p-8 text-center">
           <p className="text-destructive">{error}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            If you haven't configured ANTHROPIC_API_KEY yet, see the README. You
-            can still browse the rest of the app — your photos are saved.
+            You can still browse the rest of the app — your photos are saved.
           </p>
         </CardContent>
       </Card>

@@ -117,9 +117,14 @@ export function Hero({
         </div>
       </div>
 
-      <div className="container relative grid items-center gap-10 pb-16 pt-12 md:gap-12 md:pb-28 md:pt-24 lg:grid-cols-2">
+      <div className="container relative grid grid-cols-1 items-center gap-10 pb-16 pt-12 md:gap-12 md:pb-28 md:pt-24 lg:grid-cols-2">
         {/* ---------- left: copy ---------- */}
-        <motion.div variants={container} initial="hidden" animate="show">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="min-w-0"
+        >
           <motion.div variants={rise}>
             <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-emerald-300">
               <span className="relative mr-2 flex h-2 w-2">
@@ -160,19 +165,15 @@ export function Hero({
             variants={rise}
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
-            <Button asChild size="xl" className="w-full sm:w-auto">
-              <Link href={primaryHref}>
-                {primaryLabel}
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
             <Button
               asChild
-              size="xl"
-              variant="outline"
-              className="w-full sm:w-auto"
+              size="lg"
+              className="h-auto min-h-[3.5rem] w-full whitespace-normal py-3 text-center leading-snug sm:w-auto"
             >
-              <Link href="/pricing">See pricing</Link>
+              <Link href={primaryHref}>
+                {primaryLabel}
+                <ArrowRight className="h-5 w-5 shrink-0" />
+              </Link>
             </Button>
           </motion.div>
 
@@ -212,7 +213,7 @@ export function Hero({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
           style={{ perspective: 1200 }}
-          className="mx-auto w-full max-w-sm sm:max-w-md"
+          className="mx-auto w-full min-w-0 max-w-sm sm:max-w-md"
         >
           <motion.div
             style={
@@ -324,7 +325,7 @@ function EmptyCard({ reduce }: { reduce: boolean }) {
       <Button asChild size="sm" className="mt-5">
         <Link href="/login">
           <Sparkles className="h-4 w-4" />
-          Get started free
+          Get started
         </Link>
       </Button>
     </div>

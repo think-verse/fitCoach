@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Loader2, Send, Sparkles } from "lucide-react";
+import { Loader2, Send, CheckCircle2, Dumbbell, Salad, Plus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,20 +9,28 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { saveCheckin } from "@/app/actions/checkin";
 import type { CheckinInput } from "@/lib/validation/schemas";
-import type { WeeklyUpdate } from "@/lib/ai/schemas";
 
 interface Props {
   defaultWeek: number;
+  weightUnit?: string;
 }
 
-export function CheckinForm({ defaultWeek }: Props) {
+/**
+ * Weekly check-in — a FREE, direct DB write. It logs weight / measurements /
+ * adherence and updates the progress graph. It does NOT call the AI and is NOT
+ * rate-limited, so the user can check in as often as they like. The AI photo
+ * comparison (which costs a generation) is a separate flow in the photos
+ * section above.
+ */
+export function CheckinForm({ defaultWeek, weightUnit = "kg" }: Props) {
   const [form, setForm] = useState<CheckinInput>({
     weightKg: undefined,
     workoutAdherencePct: 80,
     dietAdherencePct: 80,
   });
   const [error, setError] = useState<string | null>(null);
-  const [update, setUpdate] = useState<WeeklyUpdate | null>(null);
+  const [savedWeek, setSavedWeek] = useState<number | null>(null);
+  const [savedWeight, setSavedWeight] = useState<number | null>(null);
   const [isPending, startTransition] = useTransition();
 
   function upd<K extends keyof CheckinInput>(k: K, v: CheckinInput[K]) {
@@ -34,36 +42,62 @@ export function CheckinForm({ defaultWeek }: Props) {
     startTransition(async () => {
       try {
         const { weekNumber } = await saveCheckin(form, defaultWeek);
-        const res = await fetch("/api/checkin", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ weekNumber }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error ?? "AI comparison failed.");
-        setUpdate(data.update as WeeklyUpdate);
+        setSavedWeek(weekNumber);
+        setSavedWeight(form.weightKg ?? null);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Check-in failed.");
       }
     });
   }
 
-  if (update) {
-    return <UpdateView update={update} />;
+  function logAnother() {
+    setSavedWeek(null);
+    setSavedWeight(null);
+    setForm({ weightKg: undefined, workoutAdherencePct: 80, dietAdherencePct: 80 });
+  }
+
+  if (savedWeek != null) {
+    return (
+      <Card className="border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card">
+        <CardContent className="p-6 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/15 text-primary">
+            <CheckCircle2 className="h-8 w-8" />
+          </div>
+          <h2 className="mt-4 text-xl font-bold tracking-tight">
+            Check-in saved
+          </h2>
+          <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">
+            {savedWeight != null
+              ? `Logged ${savedWeight} ${weightUnit} for week ${savedWeek}. Your progress graph is updated.`
+              : `Week ${savedWeek} check-in is logged. Your progress graph is updated.`}
+          </p>
+          <Button onClick={logAnother} variant="outline" className="mt-6">
+            <Plus className="h-4 w-4" /> Log another check-in
+          </Button>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Want AI to read your progress? Upload a photo set above and run the
+            photo analysis — that&apos;s the part that uses your plan limit.
+          </p>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
     <Card>
       <CardContent className="p-6 space-y-5">
-        <div>
-          <h2 className="text-xl font-semibold">Week {defaultWeek} check-in</h2>
-          <p className="text-sm text-muted-foreground">
-            Log weight, optional measurements, and how the week went.
-          </p>
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <h2 className="text-xl font-semibold">Week {defaultWeek} check-in</h2>
+            <p className="text-sm text-muted-foreground">
+              Log weight, optional measurements, and how the week went.
+            </p>
+          </div>
+          <Badge variant="success">Free · no limit</Badge>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Weight (kg)">
+          <Field label={`Weight (${weightUnit})`}>
             <Input
               type="number"
               inputMode="decimal"
@@ -129,120 +163,28 @@ export function CheckinForm({ defaultWeek }: Props) {
           </p>
         )}
 
-        <div className="pt-2 text-xs text-muted-foreground">
-          Upload new photos via the section below before submitting — they help the
-          AI compare your progress.
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Salad className="h-3 w-3 text-primary" /> Saved straight to your log
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Dumbbell className="h-3 w-3 text-primary" /> No AI, no limit
+          </span>
         </div>
 
         <Button onClick={submit} size="lg" className="w-full" disabled={isPending}>
           {isPending ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" /> Comparing your week…
+              <Loader2 className="h-4 w-4 animate-spin" /> Saving…
             </>
           ) : (
             <>
-              <Send className="h-4 w-4" /> Submit check-in
+              <Send className="h-4 w-4" /> Save check-in
             </>
           )}
         </Button>
       </CardContent>
     </Card>
-  );
-}
-
-function UpdateView({ update }: { update: WeeklyUpdate }) {
-  return (
-    <Card className="card-glow border-primary/30 bg-gradient-to-br from-primary/15 via-card to-card">
-      <CardContent className="p-6 space-y-5">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" />
-          <Badge variant="success">AI weekly update</Badge>
-          <Badge variant="muted">Confidence: {update.confidence_level}</Badge>
-        </div>
-        <p className="text-sm leading-relaxed">{update.progress_summary}</p>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <BulletBox title="What improved" items={update.what_improved} tone="success" />
-          <BulletBox
-            title="Still to work on"
-            items={update.what_did_not_improve}
-            tone="warning"
-          />
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-3">
-          <Mini label="Fat trend" value={update.estimated_fat_trend} />
-          <Mini label="Muscle trend" value={update.estimated_muscle_trend} />
-          <Mini
-            label="Calorie adjust"
-            value={
-              update.calorie_adjustment_kcal === 0
-                ? "hold"
-                : `${update.calorie_adjustment_kcal > 0 ? "+" : ""}${
-                    update.calorie_adjustment_kcal
-                  } kcal/day`
-            }
-          />
-        </div>
-
-        <div className="rounded-lg border border-border bg-muted/30 p-4 text-sm">
-          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Workout adjustment
-          </div>
-          <div className="mt-1">{update.workout_adjustment}</div>
-        </div>
-
-        <BulletBox title="Next week focus" items={update.next_week_focus} />
-
-        <div className="rounded-lg border border-primary/30 bg-primary/10 p-4 text-sm italic">
-          {update.motivation_message}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function BulletBox({
-  title,
-  items,
-  tone,
-}: {
-  title: string;
-  items: string[];
-  tone?: "success" | "warning";
-}) {
-  const dot =
-    tone === "success"
-      ? "bg-emerald-400"
-      : tone === "warning"
-        ? "bg-amber-400"
-        : "bg-muted-foreground/60";
-  if (!items.length) return null;
-  return (
-    <div>
-      <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        {title}
-      </div>
-      <ul className="space-y-1.5 text-sm">
-        {items.map((i, n) => (
-          <li key={n} className="flex gap-2">
-            <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${dot}`} />
-            {i}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function Mini({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-background/40 p-3">
-      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-        {label}
-      </div>
-      <div className="mt-0.5 text-sm font-semibold capitalize">{value}</div>
-    </div>
   );
 }
 

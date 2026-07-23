@@ -16,6 +16,18 @@ import {
 } from "@/app/actions/account";
 import type { UserProfile, Subscription } from "@/lib/firestore/types";
 
+const EQUIPMENT_OPTIONS = [
+  "Dumbbells",
+  "Barbell",
+  "Bench",
+  "Pull-up bar",
+  "Resistance bands",
+  "Cables/machines",
+  "Squat rack",
+  "Kettlebells",
+  "Bodyweight only",
+];
+
 export function SettingsForm({
   profile,
   subscription,
@@ -27,6 +39,15 @@ export function SettingsForm({
 }) {
   const [form, setForm] = useState({
     goal: profile.goal ?? "general_fitness",
+    experience: (profile.experience ?? "beginner") as
+      | "beginner"
+      | "intermediate"
+      | "advanced",
+    trainingLocation: (profile.trainingLocation ?? "gym") as
+      | "gym"
+      | "home"
+      | "both",
+    equipment: (profile.equipment ?? []) as string[],
     trainingDaysPerWeek: profile.trainingDaysPerWeek ?? 4,
     foodPref: profile.foodPref ?? "non_vegetarian",
     // Legacy 'indian' value (no longer offered) falls back to 'mixed' so the
@@ -104,6 +125,68 @@ export function SettingsForm({
               <option value="strength">Strength</option>
               <option value="general_fitness">General fitness</option>
             </Select>
+          </Field>
+
+          <Field label="Experience level">
+            <Select
+              value={form.experience}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  experience: e.target.value as typeof f.experience,
+                }))
+              }
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </Select>
+          </Field>
+
+          <Field label="Training location">
+            <Select
+              value={form.trainingLocation}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  trainingLocation: e.target.value as typeof f.trainingLocation,
+                }))
+              }
+            >
+              <option value="gym">Gym</option>
+              <option value="home">Home</option>
+              <option value="both">Both</option>
+            </Select>
+          </Field>
+
+          <Field label="Equipment available">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {EQUIPMENT_OPTIONS.map((item) => {
+                const on = form.equipment.includes(item);
+                return (
+                  <button
+                    type="button"
+                    key={item}
+                    onClick={() =>
+                      setForm((f) => ({
+                        ...f,
+                        equipment: on
+                          ? f.equipment.filter((e) => e !== item)
+                          : [...f.equipment, item],
+                      }))
+                    }
+                    className={
+                      "rounded-lg border px-3 py-2 text-left text-xs transition-colors " +
+                      (on
+                        ? "border-primary bg-primary/10 text-foreground"
+                        : "border-border bg-background/40 text-muted-foreground hover:border-primary/40")
+                    }
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
           </Field>
 
           <Field label="Training days / week">

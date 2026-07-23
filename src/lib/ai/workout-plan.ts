@@ -21,7 +21,7 @@ import { videoUrl } from "@/lib/exercises/library";
  * A single monolithic call took ~85s and truncated; this lands at ~30–40s.
  */
 
-const STRUCTURE_SYSTEM = `You are FitCoach AI designing a weekly training SPLIT (structure only — no exercises yet).
+const STRUCTURE_SYSTEM = `You are AesthetixAI designing a weekly training SPLIT (structure only — no exercises yet).
 
 Rules:
 - Split must match training days/week: 3=full body, 4=upper/lower or PPL+full,
@@ -31,7 +31,7 @@ Rules:
   a one-line focus, a one-line warmup, a one-line cooldown, and optional cardio.
 - Emit ONLY real training days (no rest days). Keep every field to one short sentence.`;
 
-const DAY_SYSTEM = `You are FitCoach AI filling in exercises for ONE training day.
+const DAY_SYSTEM = `You are AesthetixAI filling in exercises for ONE training day.
 
 Rules:
 - Max 5 exercises. Order them big compound → isolation.

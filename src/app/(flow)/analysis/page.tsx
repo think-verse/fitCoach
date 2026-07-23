@@ -1,8 +1,12 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/firebase/auth";
 import { getLatestAnalysis } from "@/lib/firestore/repo";
+import { checkGenerationAllowed } from "@/lib/limits/limits";
 import { AnalysisRunner } from "@/components/analysis/analysis-runner";
 import { AnalysisView } from "@/components/analysis/analysis-view";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import type { BodyAnalysis } from "@/lib/ai/schemas";
 
 export const metadata = { title: "Your AI body analysis" };
@@ -21,6 +25,12 @@ export default async function AnalysisPage({
 
   const shouldRunFresh = searchParams.fresh === "1" || !latest;
 
+  // Gate the generation cap HERE — before mounting AnalysisRunner — so an
+  // out-of-quota user who just uploaded photos sees a clear "limit reached"
+  // message instead of the runner firing /api/analysis and bouncing off the
+  // 429. The server route keeps its own check as the authoritative backstop.
+  const gate = shouldRunFresh ? await checkGenerationAllowed(user.id) : null;
+
   return (
     <div className="min-h-dvh bg-hero-glow px-4 py-8 md:py-12">
       <div className="mx-auto max-w-4xl">
@@ -33,7 +43,21 @@ export default async function AnalysisPage({
           </p>
         </header>
 
-        {shouldRunFresh ? (
+        {shouldRunFresh && gate && !gate.allowed ? (
+          <Card>
+            <CardContent className="space-y-4 p-8 text-center">
+              <p className="text-lg font-semibold">You&apos;re out of generations</p>
+              <p className="text-sm text-muted-foreground">{gate.reason}</p>
+              <p className="text-sm text-muted-foreground">
+                Your uploaded photos are saved — they&apos;ll be ready when your
+                limit resets.
+              </p>
+              <Button asChild>
+                <Link href="/dashboard">Back to dashboard</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ) : shouldRunFresh ? (
           <AnalysisRunner />
         ) : (
           <AnalysisView

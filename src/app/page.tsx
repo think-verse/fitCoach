@@ -5,7 +5,6 @@ import {
   ChartBar,
   Dumbbell,
   LogIn,
-  Mail,
   RefreshCw,
   Salad,
   Sparkles,
@@ -21,7 +20,7 @@ import { Reveal } from "@/components/marketing/reveal";
 import { Hero } from "@/components/marketing/hero";
 import { AnimatedCounter } from "@/components/marketing/animated-counter";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FitCoach";
+const APP_NAME = "AesthetixAI";
 
 const STATS = [
   { value: 60, suffix: "s", label: "To your first AI analysis" },
@@ -31,7 +30,7 @@ const STATS = [
 ];
 
 const STEPS = [
-  { icon: LogIn, n: "1", t: "Sign in", d: "Free account in seconds — no card." },
+  { icon: LogIn, n: "1", t: "Sign in", d: "Account ready in seconds — no card." },
   { icon: Camera, n: "2", t: "Upload photos", d: "Front, side, back — same lighting." },
   { icon: Sparkles, n: "3", t: "AI analysis", d: "Body type, weak points, BMI/TDEE." },
   { icon: Dumbbell, n: "4", t: "Get your plan", d: "Workout + diet for your gear." },
@@ -127,7 +126,7 @@ export default async function LandingPage() {
 
   const primary = isAuthed
     ? { label: "Open my dashboard", href: "/home" }
-    : { label: "Start free — analyze my physique", href: "/login" };
+    : { label: "Analyze my physique", href: "/login" };
 
   return (
     <div className="min-h-dvh bg-background">
@@ -179,7 +178,7 @@ export default async function LandingPage() {
             aria-hidden
             className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent lg:block"
           />
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <ol className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map((s, i) => {
               const Icon = s.icon;
               return (
@@ -216,7 +215,7 @@ export default async function LandingPage() {
             and a plan that evolves with you.
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           {FEATURES.map((f, i) => {
             const Icon = f.icon;
             return (
@@ -251,7 +250,7 @@ export default async function LandingPage() {
             actually see the change.
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
             <Reveal key={t.quote} delay={i * 0.05}>
               <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
@@ -303,13 +302,15 @@ export default async function LandingPage() {
                 60 seconds to your first AI body analysis. No credit card.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button asChild size="xl">
+                <Button
+                  asChild
+                  size="xl"
+                  className="h-auto min-h-[4rem] w-full whitespace-normal py-4 text-center leading-snug sm:w-auto"
+                >
                   <Link href={primary.href}>
-                    {primary.label} <ArrowRight className="h-5 w-5" />
+                    {primary.label}{" "}
+                    <ArrowRight className="h-5 w-5 shrink-0" />
                   </Link>
-                </Button>
-                <Button asChild size="xl" variant="outline">
-                  <Link href="/pricing">View plans</Link>
                 </Button>
               </div>
             </CardContent>
@@ -324,21 +325,12 @@ export default async function LandingPage() {
             medical advice.
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <Link href="/pricing" className="hover:text-foreground">
-              Pricing
-            </Link>
             <Link href="/privacy" className="hover:text-foreground">
               Privacy
             </Link>
             <Link href="/terms" className="hover:text-foreground">
               Terms
             </Link>
-            <a
-              href="mailto:contact@geekbotai.com"
-              className="inline-flex items-center gap-1 hover:text-foreground"
-            >
-              <Mail className="h-3.5 w-3.5" /> contact@geekbotai.com
-            </a>
           </div>
         </div>
       </footer>

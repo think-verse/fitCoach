@@ -15,7 +15,7 @@ export default function PrivacyPage() {
 
       <div className="prose prose-invert mt-8 max-w-none space-y-4 text-sm leading-relaxed text-muted-foreground">
         <p>
-          FitCoach stores the data you give us (profile, photos, plans, check-ins)
+          AesthetixAI stores the data you give us (profile, photos, plans, check-ins)
           to provide you with personalized fitness guidance.
         </p>
         <h2 className="mt-6 text-base font-semibold text-foreground">What we store</h2>
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
         </p>
         <h2 className="mt-6 text-base font-semibold text-foreground">Health disclaimer</h2>
         <p>
-          FitCoach output is an AI visual estimate. It is NOT a medical diagnosis.
+          AesthetixAI output is an AI visual estimate. It is NOT a medical diagnosis.
           For medical conditions, consult a qualified professional.
         </p>
       </div>

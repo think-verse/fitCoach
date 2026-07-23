@@ -9,6 +9,7 @@ import {
   Flame,
   LogOut,
   Salad,
+  SlidersHorizontal,
   Sparkles,
   TrendingDown,
   TrendingUp,
@@ -122,6 +123,11 @@ export default async function DashboardPage() {
               {labelForGoal(profile.goal)}
             </span>
           </Badge>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/settings">
+              <SlidersHorizontal className="h-4 w-4" /> Edit preferences
+            </Link>
+          </Button>
           <form action={signOut}>
             <Button type="submit" variant="outline" size="sm">
               <LogOut className="h-4 w-4" /> Sign out
@@ -365,16 +371,6 @@ export default async function DashboardPage() {
         </CardContent>
       </Card>
 
-      {/* Contact / support */}
-      <p className="pt-2 text-center text-xs text-muted-foreground">
-        Need help? Contact us at{" "}
-        <a
-          href="mailto:contact@geekbotai.com"
-          className="text-primary hover:underline"
-        >
-          contact@geekbotai.com
-        </a>
-      </p>
     </div>
   );
 }

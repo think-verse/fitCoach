@@ -6,8 +6,7 @@ import "server-only";
  * access flow still works in dev. Set the key in .env.local to enable real mail.
  */
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM || "FitCoach <onboarding@resend.dev>";
-export const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "contact@geekbotai.com";
+const EMAIL_FROM = process.env.EMAIL_FROM || "AesthetixAI <daya@aesthetixai.fit>";
 export const ADMIN_NOTIFY_EMAIL =
   process.env.ADMIN_NOTIFY_EMAIL || "dhruvsangal1999@gmail.com";
 
@@ -65,13 +64,12 @@ function shell(inner: string): string {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
     <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
       <tr><td style="padding:0 8px 24px;">
-        <span style="display:inline-block;background:${BRAND};color:#052e1a;font-weight:800;border-radius:10px;padding:8px 12px;font-size:15px;">FitCoach</span>
+        <span style="display:inline-block;background:${BRAND};color:#052e1a;font-weight:800;border-radius:10px;padding:8px 12px;font-size:15px;">AesthetixAI</span>
       </td></tr>
       <tr><td style="background:${CARD};border:1px solid #232327;border-radius:18px;padding:32px;">
         ${inner}
       </td></tr>
       <tr><td style="padding:20px 8px;color:${MUTED};font-size:12px;line-height:1.6;">
-        Need help? Contact us at <a href="mailto:${CONTACT_EMAIL}" style="color:${BRAND};">${CONTACT_EMAIL}</a>.<br/>
         For fitness guidance only — not medical advice.
       </td></tr>
     </table>
@@ -87,8 +85,7 @@ export function credentialEmailHtml(opts: {
   return shell(`
     <h1 style="margin:0 0 8px;color:${TEXT};font-size:24px;">Your access is confirmed 🎉</h1>
     <p style="margin:0 0 20px;color:${MUTED};font-size:15px;line-height:1.6;">
-      Hi ${escapeHtml(opts.name)}, your FitCoach access is now active. Use the
-      credentials below to sign in — no OTP needed.
+      Your AesthetixAI access is now active. Use the credentials below to sign in.
     </p>
     <div style="background:${BG};border:1px solid #232327;border-radius:12px;padding:18px;margin-bottom:22px;">
       <div style="color:${MUTED};font-size:12px;text-transform:uppercase;letter-spacing:.05em;">Login email</div>
@@ -96,7 +93,7 @@ export function credentialEmailHtml(opts: {
       <div style="color:${MUTED};font-size:12px;text-transform:uppercase;letter-spacing:.05em;">Temporary password</div>
       <div style="color:${BRAND};font-size:18px;font-weight:700;font-family:monospace;margin-top:2px;">${escapeHtml(opts.password)}</div>
     </div>
-    <a href="${opts.loginUrl}" style="display:inline-block;background:${BRAND};color:#052e1a;font-weight:700;text-decoration:none;border-radius:12px;padding:14px 28px;font-size:15px;">Sign in to FitCoach →</a>
+    <a href="${opts.loginUrl}" style="display:inline-block;background:${BRAND};color:#052e1a;font-weight:700;text-decoration:none;border-radius:12px;padding:14px 28px;font-size:15px;">Sign in to AesthetixAI →</a>
     <p style="margin:24px 0 0;color:${MUTED};font-size:13px;line-height:1.7;">
       <strong style="color:${TEXT};">What you can do now:</strong><br/>
       • Upload your physique for an AI body analysis<br/>
@@ -119,7 +116,7 @@ export function adminNotifyHtml(opts: {
     <table role="presentation" width="100%" style="color:${TEXT};font-size:15px;">
       <tr><td style="color:${MUTED};padding:6px 0;width:120px;">Name</td><td style="padding:6px 0;">${escapeHtml(opts.name)}</td></tr>
       <tr><td style="color:${MUTED};padding:6px 0;">Email</td><td style="padding:6px 0;">${escapeHtml(opts.email)}</td></tr>
-      <tr><td style="color:${MUTED};padding:6px 0;">Mobile</td><td style="padding:6px 0;">${escapeHtml(opts.mobile)}</td></tr>
+      <tr><td style="color:${MUTED};padding:6px 0;">Mobile</td><td style="padding:6px 0;">${opts.mobile ? escapeHtml(opts.mobile) : "—"}</td></tr>
     </table>
   `);
 }
