@@ -915,72 +915,62 @@ h1,h2,h3 { line-height:1.15; letter-spacing:-0.035em; }
   .cta-flipper-container { min-width: 120px; }
   .cta-btn { width:100%; justify-content:center; font-size:0.9375rem; padding:1rem 1.5rem; }
   .cta-sub { flex-direction:column; align-items:center; }
-  /* Walkthrough Mobile - SAME side-by-side animated layout as desktop, just
-     scaled down: phone pinned on the left, steps scroll on the right, the
-     screen switches as you scroll. Two separate columns = no overlap. */
+  /* Walkthrough Mobile - Premium Overlapping Glass */
   .walk-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 0.9rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   .walk-visual-col {
-    flex: 0 0 auto;
+    grid-area: 1 / 1;
     position: sticky;
-    top: 64px;
-    width: auto;
+    top: 80px;
+    height: 500px;
+    width: 100%;
+    align-self: start;
     display: flex;
     justify-content: center;
+    z-index: 1;
+    margin-bottom: 0;
+  }
+  .phone-notch {
+    width: 110px;
+    height: 25px;
   }
   .phone-frame {
     transform: none !important;
-    width: 140px;
-    height: 290px;
-    border-radius: 26px;
-    box-shadow: 0 0 0 1.5px #444, 0 0 0 3px #222, 0 15px 30px rgba(16,185,129,0.22);
+    width: 240px;
+    height: 500px;
   }
   .phone-frame:hover { transform: none !important; }
-  .phone-btn { display: none; }               /* hardware buttons don't scale down cleanly */
-  .phone-screen {
-    top: 6px; left: 6px; right: 6px; bottom: 6px;
-    border-radius: 20px;
-  }
-  .phone-notch {
-    width: 66px;
-    height: 15px;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-    gap: 6px;
-  }
-  .notch-speaker { width: 22px; height: 3px; }
-  .notch-camera { width: 6px; height: 6px; }
-  .notch-camera::after { top: 2px; left: 2px; width: 2px; height: 2px; }
-  .home-indicator { width: 58px; height: 3px; bottom: 5px; }
-  /* Gentler screen pan to match the smaller screen height */
-  #screen-2.active, #screen-3.active { animation: panTranslateMobile 22s ease-in-out forwards; }
-  @keyframes panTranslateMobile {
-    0%   { transform: translateY(0); }
-    5%   { transform: translateY(0); }
-    90%  { transform: translateY(-160px); }
-    100% { transform: translateY(-160px); }
-  }
   .walk-text-col {
-    flex: 1 1 auto;
-    min-width: 0;
-    padding: 6vh 0 12vh;
+    grid-area: 1 / 1;
+    padding: 550px 0 150px;
+    z-index: 2;
+    position: relative;
+    pointer-events: none;
   }
   .walk-step {
-    min-height: 62vh;
+    min-height: 80vh;
     opacity: 0.3;
-    transform: translateX(10px);
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    margin-bottom: 2rem;
+    transform: translateY(20px);
+    pointer-events: auto;
   }
   .walk-step.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
-  .walk-step .step-num { font-size: 1.5rem !important; margin-bottom: 0.5rem !important; }
-  .walk-step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-  .walk-step p { font-size: 0.9rem; line-height: 1.6; }
+  .walk-step h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .walk-step p { font-size: 0.95rem; }
 }
 
 /* ============================================
