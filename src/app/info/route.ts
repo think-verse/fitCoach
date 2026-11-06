@@ -2,15 +2,20 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 /**
- * Serves the self-contained AesthetixAI sales page at /info.
+ * Serves the AesthetixAI sales page at /info.
  *
  * The markup lives in ./template.html (a full standalone HTML document, kept
- * out of /public so it isn't served raw as a static asset). The PayPal checkout
- * link is hardcoded directly in the markup, so this route just reads and returns
- * the file as-is.
+ * out of /public so it isn't served raw as a static asset). Its stylesheet,
+ * script and images are static files in public/info/ and are referenced with
+ * absolute /info/... paths:
+ *   public/info/styles.css   page styles (fonts load from ./assets/fonts)
+ *   public/info/main.js      page behaviour + owner CONFIG (PayPal link, spots, video)
+ *   public/info/assets/**    images and fonts
+ * Those are served by Next's static handler, unaffected by this route (which
+ * only matches /info exactly).
  *
- * Images are referenced as /info/<name>.(png|jpg) and served statically from
- * public/info/ — unaffected by this route (which only matches /info exactly).
+ * Demo mode: /info?preview=1 turns on the sample-data countdown, viewer badge
+ * and buyer pop-ups. Regular visitors to /info never see them.
  */
 export const dynamic = "force-static";
 
