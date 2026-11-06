@@ -2,1179 +2,722 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#FFFFFF" />
-    <title>AesthetixAI — Stop training blind. $97 lifetime access.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#16213A" />
+    <title>AesthetixAI: Stop training blind. Your body, finally on a plan.</title>
     <meta
       name="description"
-      content="Mateo’s two-year story, five mistakes, and the weekly loop that became AesthetixAI. $97 one time, lifetime access. 14-day money-back guarantee."
+      content="Mateo’s two-year natural transformation, the five mistakes that wasted his first year, and the weekly loop that became AesthetixAI. Lifetime access plus two human-written 6-month plans for the first 50 members."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="AesthetixAI — Stop training blind." />
+    <meta property="og:title" content="You weren’t lazy. You were training blind." />
     <meta
       property="og:description"
-      content="$97 one time. Lifetime access. Human-written training and nutrition bonuses for the first 50 members."
+      content="AesthetixAI looks at your body, builds your plan, and rewrites it every week. First 50 members also get a custom 6-month training protocol and nutrition plan."
     />
     <meta property="og:image" content="/info/assets/brand/vsl-poster.jpg" />
-    <meta
-      property="og:image:alt"
-      content="Mateo’s transformation, with his face covered by his signature mask."
-    />
+    <meta property="og:image:alt" content="Mateo’s transformation, with his face covered by his signature mask." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316213A'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23F5B400'%3EA%3C/text%3E%3C/svg%3E" />
+    <link rel="preload" href="/info/assets/fonts/Jost.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="stylesheet" href="/info/styles.css" />
+    <script>document.documentElement.classList.add("js");</script>
     <script src="/info/main.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="preview-banner" id="preview-banner" hidden>Preview mode · sample data · visitors never see this</div>
+
+    <!-- ================= STICKY HEADER + URGENCY ================= -->
     <header class="topbar">
-      <div class="topbar-inner">
-        <a class="wordmark" href="#top">Aesthetix<span>AI</span></a
-        ><a
-          class="buy-button buy-button-small"
-          data-buy
-          href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA"
-          >Get lifetime access: $97</a
-        >
+      <div class="urgency-strip" data-timer-wrap>
+        <span class="urgency-label">Discount expires in</span>
+        <span class="countdown" data-countdown aria-live="off">
+          <span class="cd-unit"><b data-h>12</b><i>hrs</i></span><span class="cd-sep">:</span>
+          <span class="cd-unit"><b data-m>00</b><i>min</i></span><span class="cd-sep">:</span>
+          <span class="cd-unit"><b data-s>00</b><i>sec</i></span>
+        </span>
+        <span class="urgency-spots" data-spots-inline hidden>· Only <b data-spots-left>15</b> custom-plan spots left</span>
       </div>
-      <progress
-        id="reading-progress"
-        max="24"
-        value="1"
-        aria-label="Story progress"
-      >
-        1 of 24
-      </progress>
+      <div class="topbar-inner">
+        <a class="wordmark" href="#top">Aesthetix<span>AI</span></a>
+        <a class="buy-button buy-button-small" data-buy href="#">Claim my spot</a>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="reading-progress"></span></div>
     </header>
+
     <main id="main">
-      <!-- VSL 1 -->
-      <section
-        class="section hero"
-        id="top"
-        data-vsl="1"
-        aria-labelledby="top-title"
-      >
+      <!-- ================= HERO ================= -->
+      <section class="section hero" id="top" aria-labelledby="top-title">
         <div class="wrap">
-          <p class="eyebrow">Mateo’s story · Musclore</p>
-          <h1 id="top-title">
-            Working hard.<br />Still look like<br />you don’t lift?
-          </h1>
+          <p class="eyebrow">You just watched my story · Here’s your next step</p>
+          <h1 id="top-title">You weren’t lazy.<br /><span class="hl">You were training blind.</span></h1>
           <p class="hero-lead">
-            I’m not going to show you my face.<br /><strong
-              >But I’m going to show you everything else.</strong
-            >
+            Four days a week. Eating “clean.” Doing everything the internet told you to do. And
+            the mirror still says <em>“you don’t lift.”</em>
           </p>
-          <div class="character-stage hero-character" data-rise>
-            <img
-              class=""
-              src="/info/assets/char/navy-shirt-hides-face-shy-fullbody.webp"
-              width="255"
-              height="995"
-              alt="Mateo shyly hides his face"
-              fetchpriority="high"
-            />
+          <p class="hero-lead">
+            <strong>That was me for eleven months.</strong> This page is everything that fixed
+            it, and how you can have the same thing looking at <em>your</em> body, starting tonight.
+          </p>
+
+          <a class="video-shell" id="video-shell" href="https://youtu.be/-C5VOCfZyKQ" target="_blank" rel="noopener">
+            <img src="/info/assets/brand/vsl-poster.jpg" width="1280" height="720" alt="Play Mateo’s full transformation story" fetchpriority="high" />
+            <span class="video-play-overlay">
+              <span class="play-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" /></svg></span>
+              <span class="play-label">Watch my story</span>
+            </span>
+          </a>
+          <p class="small-note">Mateo’s full story · 36 min</p>
+
+          <div class="warning-box" data-spots-box hidden>
+            <span class="warning-icon" aria-hidden="true">!</span>
+            <p><strong>WARNING:</strong> Only <b data-spots-left>15</b> spots left for the 6-month custom diet &amp; workout plans. When they’re gone, they’re gone forever.</p>
           </div>
-          <p>
-            Five mistakes. Eleven lost months.<br />And the weekly habit that
-            finally changed things.
-          </p>
-          <div class="video-shell" id="video-shell">
-            <img
-              class=""
-              src="/info/assets/brand/vsl-poster.jpg"
-              width="1920"
-              height="1080"
-              alt="Mateo’s masked physique transformation"
-              fetchpriority="high"
-            />
-            <button
-              class="video-play"
-              id="video-play"
-              type="button"
-              aria-describedby="video-status"
-            >
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M11 6 26 16 11 26Z" /></svg
-              ><span>Watch my story</span>
-            </button>
-          </div>
-          <p
-            id="video-status"
-            class="small-note"
-            role="status"
-            aria-live="polite"
-          >
-            The whole story is also right here below.
-          </p>
-          <a
-            class="buy-button"
-            data-buy
-            href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA"
-            >Get lifetime access: $97</a
-          >
+
+          <a class="buy-button buy-button-xl" data-buy href="#">Yes, I’m done training blind <span aria-hidden="true">→</span></a>
           <ul class="trust-lines">
-            <li>One-time payment</li>
-            <li>Works for any gym or home setup</li>
+            <li>Instant access</li>
+            <li>Any gym, home or no equipment</li>
             <li>14-day money-back guarantee</li>
           </ul>
+          <p class="viewers" data-viewers hidden><span class="live-dot" aria-hidden="true"></span><b data-viewers-count></b> people are viewing this page right now</p>
         </div>
       </section>
-      <!-- VSL 2 -->
-      <section
-        class="section gray"
-        id="before-after"
-        data-vsl="2"
-        aria-labelledby="before-after-title"
-      >
+
+      <!-- ================= BEFORE / AFTER ================= -->
+      <section class="section gray" id="before-after" aria-labelledby="before-after-title">
         <div class="wrap">
-          <p class="eyebrow">The before & after</p>
-          <h2 id="before-after-title">Same guy. Two years apart.</h2>
-          <p>No steroids. No surgery. No secret.</p>
-          <div class="photo-pair">
+          <p class="eyebrow">The proof, properly</p>
+          <h2 id="before-after-title">Same guy. Same genetics.<br />Two years apart.</h2>
+          <p>No steroids. No surgery. No secret. Just a pair of dumbbells, a bathroom mirror, and a frankly concerning number of eggs.</p>
+          <div class="photo-pair" data-reveal>
             <figure>
-              <img
-                class=""
-                src="/info/assets/photos/photo-1.jpg"
-                width="750"
-                height="1000"
-                alt="Before: narrow shoulders and a soft middle, face covered"
-                loading="lazy"
-              />
-              <figcaption>
-                <strong>Before</strong>Working hard. Training blind.
-              </figcaption>
+              <img src="/info/assets/photos/photo-1.jpg" width="750" height="1000" alt="Before: narrow shoulders and a soft middle, face covered" loading="lazy" />
+              <figcaption><strong>Before</strong>Training 4 days a week. Looked untrained.</figcaption>
             </figure>
             <figure>
-              <img
-                class=""
-                src="/info/assets/photos/photo-3.jpg"
-                width="750"
-                height="1000"
-                alt="After two years: developed shoulders, chest and arms, face covered"
-                loading="lazy"
-              />
-              <figcaption>
-                <strong>Two years later</strong>Same spot. No pump.
-              </figcaption>
+              <img src="/info/assets/photos/photo-3.jpg" width="750" height="1000" alt="After two years: developed shoulders, chest and arms, face covered" loading="lazy" />
+              <figcaption><strong>Two years later</strong>Same spot. Same light. No pump.</figcaption>
             </figure>
           </div>
           <p>
-            From narrow shoulders and a soft middle to a chest, arms, and waist
-            I could see changing. Just dumbbells, a bathroom mirror, and a
-            concerning number of eggs.
-          </p>
-          <p class="small-note">Individual experience, results vary.</p>
-        </div>
-      </section>
-      <!-- VSL 3 -->
-      <section
-        class="section"
-        id="who-for"
-        data-vsl="3"
-        aria-labelledby="who-for-title"
-      >
-        <div class="wrap">
-          <p class="eyebrow">Is this you?</p>
-          <h2 id="who-for-title">
-            You’re doing the work.<br />Where’s the evidence?
-          </h2>
-          <p>
-            Months of training. Half-finished protein tubs. Another program,
-            another late-night search—and the same reflection.
+            I wasn’t fat. I wasn’t skinny. I was just… <strong>soft.</strong> Narrow shoulders. A flat
+            chest. Arms that disappeared inside a T-shirt. And a little belly that survived every
+            single crunch I ever did.
           </p>
           <p>
-            This is for you if you’re ready to stop guessing. If you want a
-            six-pack in two weeks, I checked. That doesn’t exist.
+            Now look at the before one more time. If that list sounded a bit too familiar, hear this:
+            <strong>it is not a “you” problem.</strong> It’s a specific set of muscles nobody ever
+            taught you to prioritise.
           </p>
+          <p class="small-note">Mateo’s individual result over two years. Your results depend on your starting point, consistency and recovery.</p>
         </div>
       </section>
-      <!-- VSL 4 -->
-      <section
-        class="section illustrated-section"
-        id="mask"
-        data-vsl="4"
-        aria-labelledby="mask-title"
-      >
+
+      <!-- ================= IS THIS YOU ================= -->
+      <section class="section" id="who-for" aria-labelledby="who-for-title">
         <div class="wrap">
-          <div class="illustrated">
-            <div>
-              <p class="eyebrow">Why the mask</p>
-              <h2 id="mask-title">
-                The story is yours.<br />The face stays mine.
-              </h2>
-              <p>
-                I’m rehearse-my-coffee-order-in-the-car shy. I started lifting
-                because I hated taking my shirt off. The guy swimming in a
-                T-shirt? Me.
-              </p>
-              <p>
-                You get the body, training, diet, and whole story. I keep the
-                face.
-              </p>
-            </div>
-            <img
-              class="illustration"
-              src="/info/assets/gen/mask.webp"
-              width="334"
-              height="1000"
-              alt="Mateo holds a mask beside his face"
-              loading="lazy"
-            />
+          <p class="eyebrow">Be honest with yourself</p>
+          <h2 id="who-for-title">This page is for one specific guy.</h2>
+          <ul class="check-list" data-reveal>
+            <li>You’ve trained for months, maybe years, and you <strong>still don’t look like you lift.</strong></li>
+            <li>You’re skinny fat, and you’ve jumped between five different programs.</li>
+            <li>You’ve stood in the mirror after a workout and thought, <em>“Is any of this even doing anything?”</em></li>
+            <li>You train at home with a couple of dumbbells, and every program assumes you own a cable machine.</li>
+            <li>You own three tubs of protein powder and none of them are empty.</li>
+            <li>You’ve typed “how to get big arms fast” at one in the morning.</li>
+          </ul>
+          <div class="not-for">
+            <p><strong>Who it’s not for:</strong> if you want a six-pack in two weeks, close this page. That doesn’t exist. I checked. I was extremely motivated to find it.</p>
           </div>
         </div>
       </section>
-      <!-- VSL 5 -->
-      <section
-        class="section"
-        id="ground-rules"
-        data-vsl="5"
-        aria-labelledby="ground-rules-title"
-      >
-        <div class="wrap">
-          <p class="eyebrow">Two ground rules</p>
-          <h2 id="ground-rules-title">Stay for the why.</h2>
-          <ol class="plain-list">
-            <li>
-              <strong>The routine isn’t the point.</strong> I had beautiful
-              routines. I needed to understand why they weren’t working.
-            </li>
-            <li>
-              <strong>Reading this at 2 a.m.?</strong> I was you. Remember that
-              when we get to mistake five.
-            </li>
-          </ol>
-        </div>
-      </section>
-      <!-- VSL 6 -->
-      <section
-        class="section illustrated-section"
-        id="life-before"
-        data-vsl="6"
-        aria-labelledby="life-before-title"
-      >
+
+      <!-- ================= TRAINING BLIND ================= -->
+      <section class="section illustrated-section gray" id="life-before" aria-labelledby="life-before-title">
         <div class="wrap">
           <div class="illustrated">
             <div>
-              <p class="eyebrow">Training blind</p>
-              <h2 id="life-before-title">
-                A gym membership.<br />And a lot of guilt.
-              </h2>
-              <p>
-                Four or five days a week. Eating “clean.” Doing everything
-                YouTube said. Then I took that before photo: “That’s what all
-                those workouts did?”
+              <p class="eyebrow">The worst part wasn’t how I looked</p>
+              <h2 id="life-before-title">It was that I was <span class="hl">trying.</span></h2>
+              <p>When you’re lazy and you look bad, at least it makes sense. But when you put in the work and still look the same, your brain goes somewhere dark.</p>
+              <p class="strike-lines">
+                <span data-scribble>Bad genetics.</span>
+                <span data-scribble>Wrong body type.</span>
+                <span data-scribble>Some guys just can’t grow.</span>
               </p>
-              <p>
-                I blamed genetics. My body type. Nobody was looking closely—not
-                even me.
-              </p>
+              <p>All lies. Nobody was looking at me. Not a coach. Not a camera. Not even me, properly. <strong>I was training blind</strong>, and that’s the villain of this whole story.</p>
             </div>
-            <img
-              class="illustration"
-              src="/info/assets/gen/before.webp"
-              width="550"
-              height="1000"
-              alt="Mateo slumps on a bench with his phone"
-              loading="lazy"
-            />
+            <img class="illustration" src="/info/assets/gen/before.webp" width="550" height="1000" alt="Mateo slumps on a bench with his phone" loading="lazy" />
           </div>
         </div>
       </section>
-      <!-- VSL 7 -->
-      <section
-        class="section"
-        id="mistakes"
-        data-vsl="7"
-        aria-labelledby="mistakes-title"
-      >
+
+      <!-- ================= 5 MISTAKES ================= -->
+      <section class="section" id="mistakes" aria-labelledby="mistakes-title">
         <div class="wrap">
           <h2 data-ransom id="mistakes-title">THE 5 MISTAKES</h2>
-          <ol class="numbered-list">
-            <li>
+          <p class="center-lead">These quietly deleted eleven months of my progress. I’d bet money you’re making at least two of them right now.</p>
+          <ol class="mistake-cards">
+            <li data-reveal>
               <span class="number">1</span>
               <div>
-                <h3><span data-scribble>Program hopping</span></h3>
-                <p>I kept restarting before I could build on anything.</p>
-                <p>
-                  <strong>The fix:</strong> Give one plan at least twelve weeks.
-                </p>
+                <h3>Program hopping</h3>
+                <p>Every program got three weeks. The first weeks are mostly your nervous system learning the movement. The muscle comes after. I kept restarting right before the good part.</p>
+                <p class="fix"><b>The fix</b> One plan. Twelve weeks minimum before you’re allowed to judge it.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">2</span>
               <div>
-                <h3><span data-scribble>No progressive overload</span></h3>
-                <p>Same weights, same reps: no new reason to adapt.</p>
-                <p>
-                  <strong>The fix:</strong> Reach the top of your rep range,
-                  then add weight.
-                </p>
+                <h3>No progressive overload</h3>
+                <p>Same dumbbells, same reps, every week. I got a pump, so I assumed it was working. The pump is a liar. Your body goes, “Cool, we can already do this,” and builds nothing new.</p>
+                <p class="fix"><b>The fix</b> Hit the top of your rep range on every set, then add a little weight. Boring. It works.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">3</span>
               <div>
-                <h3>
-                  <span data-scribble
-                    >Eating “clean,” but not eating enough</span
-                  >
-                </h3>
-                <p>Too little protein and food to build much.</p>
-                <p>
-                  <strong>The fix:</strong> Track long enough to learn your
-                  calorie and protein targets.
-                </p>
+                <h3>Eating “clean,” but not eating enough</h3>
+                <p>Chicken, rice, salad. I was eating like a very disciplined small bird, and I never counted.</p>
+                <div class="research-card"><b>~1.6 g</b><span>protein per kg of bodyweight per day is where muscle gains level off.<small>Morton et al., 2018, a review of 49 studies</small></span></div>
+                <p class="fix"><b>The fix</b> Count for a few weeks, long enough to learn what your protein target actually looks like on a plate.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">4</span>
               <div>
-                <h3><span data-scribble>Training everything the same</span></h3>
-                <p>My shoulders, chest, and arms needed more attention.</p>
-                <p>
-                  <strong>The fix:</strong> Compare photos. Give weak points
-                  extra work.
-                </p>
+                <h3>Training everything the same</h3>
+                <p>My shoulders, chest and arms were exactly what made me look like I didn’t lift, and I trained them exactly like everything else. I couldn’t see it because of <strong>the mirror lie</strong>: same mirror, same angle, every day. Your brain quietly updates the picture, so today always looks like yesterday.</p>
+                <p class="fix"><b>The fix</b> Compare photos side by side. Give your weak points extra work.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">5</span>
               <div>
-                <h3><span data-scribble>Sleeping like a raccoon</span></h3>
-                <p>Hard training. Five hours to recover.</p>
-                <p>
-                  <strong>The fix:</strong> Phone out of the bedroom. Seven to
-                  eight hours of sleep.
-                </p>
+                <h3>Sleeping like a raccoon</h3>
+                <p>Phone in bed. Five, maybe six hours. You don’t grow in the gym. The gym breaks the muscle down. You grow while you sleep.</p>
+                <div class="research-card"><b>−18%</b><span>muscle protein synthesis after one night without sleep.<small>Lamon et al., 2021</small></span></div>
+                <p class="fix"><b>The fix</b> Phone out of the bedroom. Same bedtime. Seven to eight hours.</p>
               </div>
             </li>
           </ol>
+          <div class="pull-quote" data-reveal>
+            <p>I wasn’t lazy. I trained hard. I just had five small leaks that cancelled out everything I poured in.</p>
+            <p><strong>And nobody told me, because nobody was looking.</strong></p>
+          </div>
         </div>
       </section>
-      <!-- VSL 8 -->
-      <section
-        class="section gray"
-        id="loop"
-        data-vsl="8"
-        aria-labelledby="loop-title"
-      >
+
+      <!-- ================= 7-DAY LOOP ================= -->
+      <section class="section gray" id="loop" aria-labelledby="loop-title">
         <div class="wrap">
           <h2 data-ransom id="loop-title">THE 7-DAY LOOP</h2>
-          <div
-            class="week-strip"
-            aria-label="Monday through Saturday: train and recover. Sunday: check in."
-          >
-            <span>Mon<i aria-hidden="true"></i></span
-            ><span>Tue<i aria-hidden="true"></i></span
-            ><span>Wed<i aria-hidden="true"></i></span
-            ><span>Thu<i aria-hidden="true"></i></span
-            ><span>Fri<i aria-hidden="true"></i></span
-            ><span>Sat<i aria-hidden="true"></i></span
-            ><span>Sun<i aria-hidden="true"></i></span>
+          <p class="center-lead">The thing that finally changed everything was tiny. It cost nothing, and it takes less than a minute a week.</p>
+          <div class="week-strip" aria-label="Monday through Saturday: train and recover. Sunday: check in.">
+            <span>Mon<i aria-hidden="true"></i></span><span>Tue<i aria-hidden="true"></i></span><span>Wed<i aria-hidden="true"></i></span><span>Thu<i aria-hidden="true"></i></span><span>Fri<i aria-hidden="true"></i></span><span>Sat<i aria-hidden="true"></i></span><span>Sun<i aria-hidden="true"></i></span>
           </div>
-          <div
-            class="loop-diagram"
-            role="img"
-            aria-label="Look. Adjust. Repeat."
-          >
+          <div class="loop-diagram" role="img" aria-label="Look. Adjust. Repeat.">
             <svg viewBox="0 0 400 400" data-arc aria-hidden="true"></svg>
             <div class="loop-center">Look.<br />Adjust.<br />Repeat.</div>
           </div>
-          <ul class="loop-lines">
-            <li>Sunday: front, side, back. Same spot. Same light.</li>
-            <li>Ask what’s not moving. Change one thing.</li>
-            <li>Repeat every seven days.</li>
-          </ul>
+          <ol class="loop-steps">
+            <li><b>Look.</b> Every Sunday: front, side, back. Same spot, same light, same awkward pose. The mirror lies. Photos side by side can’t.</li>
+            <li><b>Adjust.</b> Ask one question: <em>“What’s not moving?”</em> Shoulders behind? More shoulder work. Soft around the waist? Pull calories back a little.</li>
+            <li><b>Repeat.</b> Change one thing. Every seven days.</li>
+          </ol>
+          <p class="center-lead">It’s not a program. It’s not a diet. It’s the thing that fixes your program and your diet every week, based on what your actual body is doing. <strong>That’s what a good coach does, and it’s what I’d been missing for a whole year.</strong></p>
         </div>
       </section>
-      <!-- VSL 9 -->
-      <section
-        class="section"
-        id="system"
-        data-vsl="9"
-        aria-labelledby="system-title"
-      >
+
+      <!-- ================= THE RESULT ================= -->
+      <section class="section" id="result" aria-labelledby="result-title">
         <div class="wrap">
-          <p class="eyebrow">What worked</p>
-          <h2 id="system-title">My next year, on one page.</h2>
-          <ul class="plain-list">
-            <li>
-              <strong>Training.</strong> Push, pull, legs, upper, lower. About
-              an hour. Compounds: 5–8 reps; smaller muscles: 10–15. Stop 1–2
-              reps short of failure; add weight at the top of the range. Extra
-              work for weak points.
-            </li>
-            <li>
-              <strong>Food.</strong> Around 0.7 g protein per pound daily. Lean
-              bulk, then a cut. Ordinary food, eaten consistently.
-            </li>
-            <li>
-              <strong>Sleep.</strong> Phone in another room. Same bedtime. Seven
-              to eight hours.
-            </li>
-            <li>
-              <strong>The loop.</strong> Sunday photos and weight. Change one
-              thing. This was my routine; yours may differ.
-            </li>
-          </ul>
+          <p class="eyebrow">What the loop did</p>
+          <h2 id="result-title">The difference wasn’t effort.<br />It was feedback.</h2>
+          <div class="timeline" data-reveal>
+            <figure><img src="/info/assets/photos/photo-1.jpg" width="750" height="1000" alt="Starting point, face covered" loading="lazy" /><figcaption>Month 0</figcaption></figure>
+            <figure><img src="/info/assets/photos/photo-5.jpg" width="750" height="1000" alt="Midway through, face covered" loading="lazy" /><figcaption>Loop running</figcaption></figure>
+            <figure><img src="/info/assets/photos/photo-3.jpg" width="750" height="1000" alt="Two years in, face covered" loading="lazy" /><figcaption>Month 24</figcaption></figure>
+          </div>
+          <p>I was trying just as hard in month one. After I fixed the five leaks and started the loop, I grew more in twelve months than in all the time before it combined.</p>
+          <p><strong>My genetics didn’t change. My plan did.</strong> And it changed every single week, based on what was actually happening.</p>
         </div>
       </section>
-      <!-- VSL 10 -->
-      <section
-        class="section"
-        id="result"
-        data-vsl="10"
-        aria-labelledby="result-title"
-      >
+
+      <!-- ================= 3 LIES ================= -->
+      <section class="section gray" id="lies" aria-labelledby="lies-title">
         <div class="wrap">
-          <p class="eyebrow">Two years later</p>
-          <h2 id="result-title">Same genetics.<br />Better feedback.</h2>
-          <p>
-            I was trying just as hard in month one. What changed was a plan
-            built around my weak points—and a weekly loop that kept it useful.
-          </p>
-          <p>
-            The photos above are two years apart. The difference came one
-            adjustment at a time.
-          </p>
-        </div>
-      </section>
-      <!-- VSL 11 -->
-      <section
-        class="section"
-        id="lies"
-        data-vsl="11"
-        aria-labelledby="lies-title"
-      >
-        <div class="wrap">
-          <p class="eyebrow">The 3 lies</p>
-          <h2 id="lies-title">I believed all three.</h2>
+          <h2 data-ransom id="lies-title">THE 3 LIES</h2>
+          <p class="center-lead">Three things you probably believe right now that are keeping you exactly where you are. I believed all three.</p>
           <ol class="numbered-list lies">
-            <li>
+            <li data-reveal>
               <span class="number">1</span>
               <div>
                 <h3>“My genetics are just bad.”</h3>
-                <p>My genetics didn’t change. My plan did.</p>
+                <p>Genetics set your ceiling. But almost nobody reading this is anywhere near it. I wasn’t. You’re not either.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">2</span>
               <div>
                 <h3>“I don’t have the setup. Or the time.”</h3>
-                <p>
-                  A plan for the equipment and time you have beats one you can’t
-                  follow.
-                </p>
+                <p>Muscle doesn’t know what a gym is. It knows tension, effort and progress. About an hour, four or five times a week, with the equipment you actually have.</p>
               </div>
             </li>
-            <li>
+            <li data-reveal>
               <span class="number">3</span>
               <div>
-                <h3>“I need a real coach. I can’t afford one.”</h3>
-                <p>
-                  I needed someone to notice what was stalled. Weekly coaching
-                  was out of my budget. That’s the problem I wanted to solve.
-                </p>
+                <h3>“I’d need a real coach. And I can’t afford one.”</h3>
+                <p>This one’s half true, and the true half matters. You <strong>do</strong> need someone looking at you. But look at what that costs:</p>
+                <div class="coach-cost">
+                  <div><span>Personal trainer</span><b>$60–100</b><small>per hour. Looks at you for that one hour.</small></div>
+                  <div><span>Online coach</span><b>$1,000+</b><small>per month. That’s a car payment.</small></div>
+                </div>
+                <p>For most people, that’s just not happening. It wasn’t for me. <strong>So I sat down to solve it.</strong></p>
               </div>
             </li>
           </ol>
         </div>
       </section>
-      <!-- VSL 12 -->
-      <section
-        class="section"
-        id="knowing"
-        data-vsl="12"
-        aria-labelledby="knowing-title"
-      >
-        <div class="wrap">
-          <p class="eyebrow">A plan isn’t enough</p>
-          <h2 id="knowing-title">
-            The plan got me started.<br />The loop kept it working.
-          </h2>
-          <p>
-            You could copy my routine tonight. But my shoulders, weight,
-            schedule, and calories aren’t yours.
-          </p>
-          <p>
-            Even a good plan needs to change. The hard part is knowing what to
-            look for—and what to adjust.
-          </p>
-        </div>
-      </section>
-      <!-- VSL 13 -->
-      <section
-        class="section illustrated-section"
-        id="built"
-        data-vsl="13"
-        aria-labelledby="built-title"
-      >
+
+      <!-- ================= KNOWING ISN'T ENOUGH / BUILT ================= -->
+      <section class="section illustrated-section" id="built" aria-labelledby="built-title">
         <div class="wrap">
           <div class="illustrated">
             <div>
-              <p class="eyebrow">So I built it</p>
-              <h2 id="built-title">What if AI could<br />be the eyes?</h2>
-              <p>
-                Look at your photos. Spot weak points. Build around your body
-                and equipment. Look again next week.
-              </p>
-              <p>
-                I put two years of mistakes and Sunday check-ins into
-                AesthetixAI.
-              </p>
+              <p class="eyebrow">Why copying my plan won’t work</p>
+              <h2 id="built-title">You don’t need my plan.<br /><span class="hl">You need the eyes.</span></h2>
+              <p>My split was built for my body, my weak points, my schedule. Yours are different. And the plan that works for you in week one will be wrong by week ten, because your body will have changed.</p>
+              <p>People don’t pay coaches $1,000 a month for the plan. They pay for the eyes. So I asked one question: <strong>what if an AI could be the eyes?</strong></p>
+              <p>I put everything from two years into it. Every mistake. Every rule that worked. Every Sunday’s “what’s not moving?”</p>
             </div>
-            <img
-              class="illustration"
-              src="/info/assets/gen/builder.webp"
-              width="669"
-              height="952"
-              alt="Mateo builds AesthetixAI at his laptop"
-              loading="lazy"
-            />
+            <img class="illustration" src="/info/assets/gen/builder.webp" width="669" height="952" alt="Mateo builds AesthetixAI at his laptop" loading="lazy" />
           </div>
         </div>
       </section>
-      <!-- VSL 14 -->
-      <section
-        class="section gray"
-        id="demo"
-        data-vsl="14"
-        aria-labelledby="demo-title"
-      >
+
+      <!-- ================= APP DEMO ================= -->
+      <section class="section gray" id="demo" aria-labelledby="demo-title">
         <div class="wrap">
-          <h2 data-ransom id="demo-title">INSIDE THE APP</h2>
-          <ol class="steps">
-            <li>
-              <h3>Scan</h3>
-              <p>Three photos, your goal, and your equipment.</p>
-            </li>
-            <li>
-              <h3>Plan</h3>
-              <p>Muscle priorities, workouts, meals, and an AI coach.</p>
-            </li>
-            <li>
-              <h3>Check in</h3>
-              <p>Weekly photos and weight. A plan that adjusts.</p>
-            </li>
-          </ol>
-          <div class="app-tabs" role="tablist" aria-label="Explore the app">
-            <button
-              type="button"
-              role="tab"
-              id="tab-dashboard"
-              aria-selected="true"
-              aria-controls="app-panel"
-              tabindex="0"
-              data-page="dashboard"
-            >
-              Dashboard
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-workout"
-              aria-selected="false"
-              aria-controls="app-panel"
-              tabindex="-1"
-              data-page="workout"
-            >
-              Workout
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-diet"
-              aria-selected="false"
-              aria-controls="app-panel"
-              tabindex="-1"
-              data-page="diet"
-            >
-              Diet
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-progress"
-              aria-selected="false"
-              aria-controls="app-panel"
-              tabindex="-1"
-              data-page="progress"
-            >
-              Progress
-            </button>
-            <button
-              type="button"
-              role="tab"
-              id="tab-coach"
-              aria-selected="false"
-              aria-controls="app-panel"
-              tabindex="-1"
-              data-page="coach"
-            >
-              AI Coach
-            </button>
+          <p class="eyebrow center">Introducing</p>
+          <h2 class="brand-reveal" id="demo-title">Aesthetix<span>AI</span></h2>
+          <p class="center-lead">Your coach that looks at your body, builds your plan around it, and rewrites it every single week.</p>
+
+          <div class="diagnosis" data-reveal>
+            <img src="/info/assets/photos/photo-1.jpg" width="750" height="1000" alt="Mateo’s before photo uploaded to the scan" loading="lazy" />
+            <div>
+              <p class="eyebrow">The test from the video</p>
+              <h3>I uploaded my old before photo.</h3>
+              <ul class="diag-tags">
+                <li>Priority: Shoulders</li><li>Priority: Chest</li><li>Priority: Arms</li><li>Soft midsection</li>
+              </ul>
+              <p><strong>That took me a year to figure out. It took the scan about a minute.</strong></p>
+            </div>
           </div>
-          <div
-            id="app-panel"
-            role="tabpanel"
-            aria-labelledby="tab-dashboard"
-            tabindex="0"
-          >
+
+          <div class="app-tabs" role="tablist" aria-label="Explore the app">
+            <button type="button" role="tab" id="tab-dashboard" aria-selected="true" aria-controls="app-panel" tabindex="0" data-page="dashboard">Dashboard</button>
+            <button type="button" role="tab" id="tab-workout" aria-selected="false" aria-controls="app-panel" tabindex="-1" data-page="workout">Workout</button>
+            <button type="button" role="tab" id="tab-diet" aria-selected="false" aria-controls="app-panel" tabindex="-1" data-page="diet">Diet</button>
+            <button type="button" role="tab" id="tab-progress" aria-selected="false" aria-controls="app-panel" tabindex="-1" data-page="progress">Check-in</button>
+            <button type="button" role="tab" id="tab-coach" aria-selected="false" aria-controls="app-panel" tabindex="-1" data-page="coach">AI Coach</button>
+          </div>
+          <div id="app-panel" role="tabpanel" aria-labelledby="tab-dashboard" tabindex="0">
             <div class="phone-column">
               <div class="phone" id="app-phone">
                 <div class="phone-screen">
-                  <div
-                    class="phone-viewport"
-                    id="phone-viewport"
-                    tabindex="0"
-                    role="region"
-                    aria-label="Dashboard screenshot; scroll to explore"
-                  >
-                    <img
-                      class="phone-scroll-image"
-                      id="app-screenshot"
-                      src="/info/assets/app/dashboard.jpg"
-                      width="860"
-                      height="3160"
-                      loading="lazy"
-                      alt="AesthetixAI dashboard with today's workout, calorie and macro targets, and weekly check-in"
-                    />
+                  <div class="phone-viewport" id="phone-viewport" tabindex="0" role="region" aria-label="Dashboard screenshot; scroll to explore">
+                    <img class="phone-scroll-image" id="app-screenshot" src="/info/assets/app/dashboard.jpg" width="860" height="3160" loading="lazy" alt="AesthetixAI dashboard with today's workout, calorie and macro targets, and weekly check-in" />
                   </div>
-                  <div class="phone-status" aria-hidden="true">
-                    <span>9:41</span><span class="phone-notch"></span
-                    ><span>▰</span>
-                  </div>
-                  <img
-                    class="phone-nav"
-                    id="app-nav"
-                    src="/info/assets/app/nav-dashboard.png"
-                    width="860"
-                    height="144"
-                    loading="lazy"
-                    alt="Dashboard selected in the app navigation"
-                  />
+                  <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-notch"></span><span>▰</span></div>
+                  <img class="phone-nav" id="app-nav" src="/info/assets/app/nav-dashboard.png" width="860" height="144" loading="lazy" alt="Dashboard selected in the app navigation" />
                 </div>
               </div>
-              <button
-                type="button"
-                class="preview-toggle"
-                id="preview-toggle"
-                aria-pressed="false"
-              >
-                Pause preview
-              </button>
-              <p class="small-note">
-                Hover to pause. Tap or scroll to explore.
-              </p>
+              <button type="button" class="preview-toggle" id="preview-toggle" aria-pressed="false">Pause preview</button>
             </div>
-            <p class="app-caption" id="app-description">
-              Today’s workout, food targets, weight trend, and next check-in.
-              These demo targets are personal to this account.
-            </p>
+            <p class="app-caption" id="app-description">Today’s workout, food targets, weight trend and next check-in. You always know exactly what you’re doing today.</p>
           </div>
-          <p class="small-note medical-note">
-            AI visual estimates are for fitness, not a medical scan, exact
-            body-fat measurement, or diagnosis. For pain or injury, speak with a
-            qualified professional.
-          </p>
-        </div>
-      </section>
-      <!-- VSL 15 -->
-      <section
-        class="section"
-        id="bonuses"
-        data-vsl="15"
-        aria-labelledby="bonuses-title"
-      >
-        <div class="wrap">
-          <h2 data-ransom id="bonuses-title">THE BONUSES</h2>
-          <div data-bonus-only>
-            <p>
-              A human reads your full assessment and maps out six months. Both
-              plans arrive within seven days of your completed assessment.
-            </p>
-            <ul class="plain-list bonus-list">
-              <li>
-                <h3>6-Month Custom Training Protocol</h3>
-                <strong>$597 value</strong>
-                <p>
-                  Your goal, body, schedule, equipment, and injury history.
-                  Phases, progressions, and deloads.
-                </p>
-              </li>
-              <li>
-                <h3>6-Month Custom Nutrition Plan</h3>
-                <strong>$997 value</strong>
-                <p>
-                  Macro-based meals for your target, food preferences, and daily
-                  routine.
-                </p>
-              </li>
-            </ul>
-            <p class="availability" data-spots>
-              Bonuses for the first 50 members
-            </p>
-          </div>
-          <p data-sold-out hidden>
-            The 50 human-written bonus spots are filled. The app stays
-            available; the custom plans are no longer included.
-          </p>
-        </div>
-      </section>
-      <!-- VSL 16 -->
-      <section
-        class="section value-section"
-        id="value"
-        data-vsl="16"
-        aria-labelledby="value-title"
-      >
-        <div class="wrap">
-          <p class="eyebrow">What it’s worth</p>
-          <h2 id="value-title">The whole picture.</h2>
-          <table class="value-table">
-            <caption>
-              Value comparison. Your payment is one time, below.
-            </caption>
-            <tbody>
-              <tr>
-                <th scope="row">AesthetixAI app</th>
-                <td>$997 <small>/ year</small></td>
-              </tr>
-              <tr data-bonus-only>
-                <th scope="row">6-Month Custom Training Protocol</th>
-                <td>$597</td>
-              </tr>
-              <tr data-bonus-only>
-                <th scope="row">6-Month Custom Nutrition Plan</th>
-                <td>$997</td>
-              </tr>
-            </tbody>
-            <tfoot data-bonus-only>
-              <tr>
-                <th scope="row">Total value</th>
-                <td>$2,591</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </section>
-      <!-- VSL 17 -->
-      <section
-        class="section price-section"
-        id="price"
-        data-vsl="17"
-        aria-labelledby="price-title"
-      >
-        <div class="wrap">
-          <h2 data-ransom id="price-title">THE PRICE</h2>
-          <div class="price-reveal">
-            <div
-              class="price-ladder"
-              aria-label="Not $2,591, not $1,297, not $797, not $497"
-            >
-              <span data-scribble>$2,591</span><span aria-hidden="true">→</span
-              ><span data-scribble>$1,297</span><span aria-hidden="true">→</span
-              ><span data-scribble>$797</span><span aria-hidden="true">→</span
-              ><span data-scribble>$497</span>
-            </div>
-            <p class="big-price">$97</p>
-            <h3>One time. Lifetime access.</h3>
-            <p>
-              No subscription. No monthly or yearly charge.<br /><span
-                data-bonus-only
-                >Both human-written plans included for the first 50
-                members.</span
-              >
-            </p>
-            <div class="character-stage price-character">
-              <img
-                class=""
-                src="/info/assets/char/color-hoodie-finger-wag.webp"
-                width="946"
-                height="1000"
-                alt="The blue-and-gold narrator celebrates lifetime access"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <a
-            class="buy-button"
-            data-buy
-            href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA"
-            >Get lifetime access: $97</a
-          >
-          <ul class="trust-lines">
-            <li>One-time payment</li>
-            <li>Lifetime access</li>
-            <li>14-day money-back guarantee</li>
+
+          <h3 class="feature-heading">Everything inside, and the mistake each one kills</h3>
+          <ul class="feature-grid">
+            <li data-reveal><span class="f-icon" aria-hidden="true">◎</span><h4>The body scan</h4><p>Three photos. It reads your body type, weak points and muscle priorities, plus your estimated BMI and daily calorie burn.</p><span class="kills">Kills mistake #4</span></li>
+            <li data-reveal><span class="f-icon" aria-hidden="true">▤</span><h4>Your workout plan</h4><p>Built around your weak points and your equipment. Sets, reps, rest, tempo, form cues, videos, warm-ups and swaps for every exercise.</p><span class="kills">Kills mistakes #1 &amp; #2</span></li>
+            <li data-reveal><span class="f-icon" aria-hidden="true">◐</span><h4>Your diet plan</h4><p>Exact calories and macros, real meals with one-tap swaps, a water target and a weekly grocery list. Vegan to everything.</p><span class="kills">Kills mistake #3</span></li>
+            <li data-reveal><span class="f-icon" aria-hidden="true">✦</span><h4>The AI coach</h4><p>Text it at 10 p.m. “My shoulder hurts.” “I missed the gym.” “I ate 500 extra calories.” Real answers in seconds. Never judges you.</p><span class="kills">Kills lie #3</span></li>
+            <li data-reveal><span class="f-icon" aria-hidden="true">↻</span><h4>The weekly check-in</h4><p>The 7-Day Loop, automated. New photo and weight, it compares you with past weeks and rewrites your plan.</p><span class="kills">Kills training blind</span></li>
+            <li data-reveal><span class="f-icon" aria-hidden="true">⌂</span><h4>Your dashboard</h4><p>Today’s workout and how long it takes, today’s macros, your weight trend. Open it and you know exactly what to do.</p><span class="kills">Kills guessing</span></li>
           </ul>
+          <p class="small-note medical-note">The scan is an AI visual estimate for fitness, not a medical scan or an exact body-fat measurement. For pain or injury, see a qualified professional.</p>
+
+          <div class="cta-block" data-reveal>
+            <p class="cta-kicker">That’s two years of my learning, running on your phone every week, for as long as you train.</p>
+            <a class="buy-button buy-button-xl" data-buy href="#">Give me the eyes I’ve been missing <span aria-hidden="true">→</span></a>
+            <p class="cta-sub">Instant access · 14-day money-back guarantee</p>
+          </div>
         </div>
       </section>
-      <!-- VSL 18 -->
-      <section
-        class="section"
-        id="fifty"
-        data-vsl="18"
-        aria-labelledby="fifty-title"
-      >
+
+      <!-- ================= BONUSES ================= -->
+      <section class="section" id="bonuses" aria-labelledby="bonuses-title">
         <div class="wrap">
-          <p class="eyebrow">The catch: 50 people</p>
-          <h2 id="fifty-title">The app can scale.<br />My hours can’t.</h2>
-          <p>
-            A human reads every assessment and writes both six-month plans. I
-            can do fifty, not five hundred. When the spots go, the bonuses go.
-            The app stays.
-          </p>
-          <p data-bonus-only>
-            If the page still says lifetime and still shows the two bonuses,
-            you’re still in time.
-            <strong data-spots>Bonuses for the first 50 members</strong>.
-          </p>
-          <p data-sold-out hidden>The human-written bonuses are now closed.</p>
+          <h2 data-ransom id="bonuses-title">THE 2 BONUSES</h2>
+          <div data-bonus-only>
+            <p class="center-lead">The app gets smarter about you every week. But the first few weeks are where most guys quit, and nothing beats a human sitting down with your whole story on day one and mapping the next six months. <strong>I never had that.</strong> So for a small group, I’m doing it.</p>
+            <div class="bonus-cards">
+              <article class="bonus-card" data-reveal>
+                <span class="bonus-tag">Bonus #1 · Human-written</span>
+                <h3>Your 6-Month Custom Training Protocol</h3>
+                <p>Not a template. Every body is different, so you fill in a detailed assessment first: your goal, current body, body type, lifestyle, schedule, equipment, and anything that’s ever hurt.</p>
+                <ul class="mini-checks"><li>Written for you, and only you</li><li>Phases, progressions and deloads for 6 months</li><li>Built around your weak points and equipment</li></ul>
+                <div class="bonus-foot"><span>Delivered within 7 days</span><b>$597 value</b></div>
+              </article>
+              <article class="bonus-card" data-reveal>
+                <span class="bonus-tag">Bonus #2 · Human-written</span>
+                <h3>Your 6-Month Custom Nutrition Plan</h3>
+                <p>Built on your goal, your food preferences and your actual daily routine. Macro-based for your specific target. No crash dieting. No six months of chicken and sadness.</p>
+                <ul class="mini-checks"><li>Realistic meals you’ll actually eat</li><li>Vegan, vegetarian, eggs or everything</li><li>Fits your schedule, not a bodybuilder’s</li></ul>
+                <div class="bonus-foot"><span>Delivered within 7 days</span><b>$997 value</b></div>
+              </article>
+            </div>
+            <p class="center-lead">The scan tells you where you are. The two plans tell you exactly where you’re going for six months. And the loop keeps you on the road, every week, for life.</p>
+            <div class="warning-box" data-spots-box hidden>
+              <span class="warning-icon" aria-hidden="true">!</span>
+              <p><strong>WARNING:</strong> Only <b data-spots-left>15</b> spots left for the 6-month custom diet &amp; workout plans. When they’re gone, they’re gone forever.</p>
+            </div>
+          </div>
+          <p class="sold-out-note" data-sold-out hidden>All 50 custom-plan spots are taken. The human-written bonuses are closed. AesthetixAI itself is still available below.</p>
         </div>
       </section>
-      <!-- VSL 19 -->
-      <section
-        class="section gray"
-        id="guarantee"
-        data-vsl="19"
-        aria-labelledby="guarantee-title"
-      >
+
+      <!-- ================= VALUE STACK ================= -->
+      <section class="section navy value-section" id="value" aria-labelledby="value-title">
         <div class="wrap">
-          <p class="eyebrow">Try it for 14 days</p>
-          <h2 id="guarantee-title">Not for you?<br />Every cent back.</h2>
-          <p>
-            Scan. Follow the plan. Text the coach.
-            <span data-bonus-only>Try your custom plans.</span> Use everything
-            for fourteen days.
-          </p>
-          <p>
-            If it isn’t for you, email
-            <a href="mailto:aesthetixai.fit@gmail.com"
-              >aesthetixai.fit@gmail.com</a
-            >
-            for a full refund of your $97. No questions. No hoops.
-          </p>
+          <p class="eyebrow">Pay close attention</p>
+          <h2 id="value-title">Now let’s talk about what this is worth.</h2>
+          <p>I want you to really understand what you’re getting here.</p>
+          <p>Look, if I were to sell each piece of this system separately, which is exactly what everyone else does, here’s what you’d be paying…</p>
+
+          <div class="receipt" data-reveal data-receipt>
+            <div class="receipt-head"><span>Your system</span><span>Value</span></div>
+            <div class="receipt-row main">
+              <div><b>AesthetixAI: your AI coach</b><small>Body scan · custom workout plan · custom diet plan · AI coach you can text · weekly check-ins that rewrite your plan · dashboard</small></div>
+              <span class="r-price" data-add="997">$997<small>/year</small></span>
+            </div>
+            <div class="receipt-row" data-bonus-only>
+              <div><b>Bonus #1: 6-Month Custom Training Protocol</b><small>Written for your body after a full assessment</small></div>
+              <span class="r-price" data-add="597">$597</span>
+            </div>
+            <div class="receipt-row" data-bonus-only>
+              <div><b>Bonus #2: 6-Month Custom Nutrition Plan</b><small>Built on your goal, food and routine</small></div>
+              <span class="r-price" data-add="997">$997</span>
+            </div>
+            <div class="receipt-sub" data-bonus-only><span>AesthetixAI</span><span>$997</span></div>
+            <div class="receipt-sub" data-bonus-only><span>+ Total bonus value</span><span>$1,594</span></div>
+            <div class="receipt-total">
+              <span>TOTAL REAL VALUE</span>
+              <b data-total data-final="2591">$2,591</b>
+            </div>
+          </div>
+          <p class="value-after">That’s still less than three months with a real coach, and he gets one set of eyes on you for one hour a week. <strong>This looks at you every week, for as long as you train.</strong></p>
+        </div>
+      </section>
+
+      <!-- ================= PRICE LADDER ================= -->
+      <section class="section price-section" id="price" aria-labelledby="price-title">
+        <div class="wrap">
+          <h2 data-ransom id="price-title">SO WHAT’S THE INVESTMENT?</h2>
+          <p>If I charged you <strong>$2,591</strong>, that would be completely fair. That’s what you’d pay buying each piece on its own. And most guys spend more than that in a year on random programs, random coaches and supplements that don’t do anything.</p>
+
+          <ol class="ladder" data-ladder>
+            <li>But you’re not going to pay <span class="lad-num" data-scribble>$2,591</span></li>
+            <li>You’re not going to pay half of that, <span class="lad-num" data-scribble>$1,297</span></li>
+            <li>You’re not going to pay <span class="lad-num" data-scribble>$797</span></li>
+            <li>You’re not even going to pay the regular price of <span class="lad-num" data-scribble>$497</span></li>
+          </ol>
+
+          <div class="confession">
+            <img src="/info/assets/gen/mask.webp" width="334" height="1000" alt="Mateo holds his mask, speaking straight to you" loading="lazy" />
+            <div>
+              <p><strong>I’m doing something crazy.</strong> I’ve never done this before, and the people around me think I’ve lost my mind.</p>
+              <p>But I want to remove every single excuse standing between you and a real physique. The excuse I had was money. So I’m killing it.</p>
+              <p>I remember what it felt like at the starting line. Looking at that before photo, wondering if I could do this at all. So for the first fifty people, I’m doing something that makes zero business sense, and complete sense if my goal is a group of guys who actually transform.</p>
+            </div>
+          </div>
+
+          <div class="price-reveal" id="offer">
+            <p class="price-over">Today, your investment is</p>
+            <p class="big-price"><span class="cur">$</span>97</p>
+            <p class="price-under">ONE TIME. LIFETIME ACCESS.</p>
+            <p class="price-explain">Once. Not per month. Not per year. Lifetime access to AesthetixAI<span data-bonus-only>, plus your 6-month custom training protocol, plus your 6-month custom nutrition plan</span>. <strong>$97, one time, for all of it.</strong></p>
+
+            <div class="compare-cards">
+              <div><span>One trainer session</span><b>$60–100</b><small>one hour, then you’re on your own</small></div>
+              <div><span>One tub of protein</span><b>gone in a month</b><small>and you know which tub</small></div>
+              <div class="win"><span>AesthetixAI</span><b>$97 once</b><small>coaches you every week, for life</small></div>
+            </div>
+            <p class="price-math">That’s under 4 cents on the dollar of what it’s worth. It’s about <strong>27 cents a day</strong> for the next year, and every year after that is free.</p>
+
+            <div class="checkout-card">
+              <div class="checkout-urgency">
+                <span>Discount expires in</span>
+                <span class="countdown countdown-lg" data-countdown>
+                  <span class="cd-unit"><b data-h>12</b><i>hrs</i></span><span class="cd-sep">:</span>
+                  <span class="cd-unit"><b data-m>00</b><i>min</i></span><span class="cd-sep">:</span>
+                  <span class="cd-unit"><b data-s>00</b><i>sec</i></span>
+                </span>
+              </div>
+              <a class="buy-button buy-button-xl buy-pulse" data-buy href="#">Yes! Give me lifetime access for $97 <span aria-hidden="true">→</span></a>
+              <ul class="checkout-includes">
+                <li>Lifetime access to AesthetixAI</li>
+                <li data-bonus-only>6-Month Custom Training Protocol</li>
+                <li data-bonus-only>6-Month Custom Nutrition Plan</li>
+                <li>14-day money-back guarantee</li>
+              </ul>
+              <p class="viewers" data-viewers hidden><span class="live-dot" aria-hidden="true"></span><b data-viewers-count></b> people are viewing this page right now</p>
+              <p class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 0 1 6 0v3H9Z" /></svg> Secure checkout with PayPal or card · Instant access</p>
+            </div>
+          </div>
+          <p class="center-lead">If you’re doing the maths and thinking “that makes no sense”… you’re right. Which is why there’s a catch.</p>
+        </div>
+      </section>
+
+      <!-- ================= THE CATCH ================= -->
+      <section class="section gray" id="fifty" aria-labelledby="fifty-title">
+        <div class="wrap">
+          <h2 data-ransom id="fifty-title">THE CATCH: 50 PEOPLE</h2>
+          <div class="spots-meter" data-spots-meter hidden>
+            <div class="meter-top"><span><b data-spots-claimed>35</b> of 50 claimed</span><span class="meter-left"><b data-spots-left>15</b> left</span></div>
+            <div class="meter-bar"><span data-meter-fill></span></div>
+          </div>
+          <p>The app can scale to a million people. <strong>The bonuses can’t.</strong> Someone has to read every assessment and write six months of training and six months of nutrition for each person. That’s a human being, with hours in a day. I can do fifty. I can’t do five hundred. I physically can’t.</p>
+          <p>And honestly, I can’t keep doing this for $97 forever. It isn’t possible for me.</p>
+          <p>So when the fifty are gone, the bonuses are gone. Not paused. Gone. The app stays. The custom plans come off this page, and I’m not going to pretend otherwise.</p>
+          <p>Which means right now there are two kinds of people reading this. The ones who claim a spot. And the ones who come back in a week, find the bonuses gone, and ask me in the comments to bring them back. I’ll feel bad. But I’ll say no, because I made a promise to the fifty.</p>
+          <div class="cta-block">
+            <a class="buy-button buy-button-xl" data-buy href="#">Claim one of the last spots <span aria-hidden="true">→</span></a>
+            <p class="cta-sub" data-spots-text>Bonuses for the first 50 members</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= WHAT HAPPENS NEXT ================= -->
+      <section class="section" id="next" aria-labelledby="next-title">
+        <div class="wrap">
+          <p class="eyebrow">What happens after you click</p>
+          <h2 id="next-title">You’re in within seconds.</h2>
+          <ol class="after-steps">
+            <li data-reveal><span>1</span><div><h3>Instant access, about 5 seconds after payment</h3><p>The full AesthetixAI software opens. Tell it your goal, equipment and how you eat, then upload three photos. In about a minute you’ll know exactly what’s been holding your physique back.</p></div></li>
+            <li data-reveal data-bonus-only><span>2</span><div><h3>Fill in your body assessment</h3><p>Right inside, you’ll see a short form about your body, goal, schedule, equipment and injuries. This is what your custom plans are written from.</p></div></li>
+            <li data-reveal data-bonus-only><span>3</span><div><h3>Your custom plans land within 7 days</h3><p>Your 6-month workout protocol and 6-month nutrition plan, written for your body, delivered within seven days of your assessment.</p></div></li>
+            <li data-reveal><span>✓</span><div><h3>Every Sunday after that</h3><p>New photo, new weight. The loop compares you with past weeks and rewrites your plan. Without you needing to know what to look for.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= GUARANTEE ================= -->
+      <section class="section gray" id="guarantee" aria-labelledby="guarantee-title">
+        <div class="wrap">
+          <div class="guarantee-card" data-reveal>
+            <div class="seal" aria-hidden="true"><span>14</span><small>DAY</small><em>MONEY-BACK</em></div>
+            <div>
+              <p class="eyebrow">You don’t have to trust me on any of this</p>
+              <h2 id="guarantee-title">Try everything for 14 days.<br />Not for you? Every cent back.</h2>
+              <p>Do the scan. Follow the plan. Text the coach. <span data-bonus-only>Get your custom plans.</span> If for any reason it’s not for you, email <a href="mailto:aesthetixai.fit@gmail.com">aesthetixai.fit@gmail.com</a> and you get every cent of your $97 back.</p>
+              <p><strong>No questions. No hoops. No “did you really try.”</strong></p>
+              <p>Which means the only way you can actually lose here… is by not trying it.</p>
+            </div>
+          </div>
+
+          <!-- OWNER: keep these only if they are real members' words, used with their permission. -->
           <div class="member-notes">
             <h3>What members say</h3>
             <div class="testimonials">
-              <figure class="quote-card">
-                <blockquote>
-                  “was super skeptical about this but it actually spotted my
-                  weak shoulders and fixed my split. my delts are finally
-                  growing for the first time.”
-                </blockquote>
-                <figcaption>Jake Miller, Chicago IL</figcaption>
-              </figure>
-              <figure class="quote-card">
-                <blockquote>
-                  “honestly i thought it would be another useless app. but then
-                  the weekly check-in kicked in and adjusted my calories and
-                  changed my leg day. i lost 15lbs in 12 weeks and didn't even
-                  feel like i was dieting that hard.”
-                </blockquote>
-                <figcaption>Marcus Wright, Atlanta GA</figcaption>
-              </figure>
-              <figure class="quote-card">
-                <blockquote>
-                  “i only have some dumbbells at home and it built a legit PPL
-                  split around what i have. the meal plan is solid too, gave me
-                  actual food i want to eat.”
-                </blockquote>
-                <figcaption>Chloe Davis, Seattle WA</figcaption>
-              </figure>
-              <figure class="quote-card">
-                <blockquote>
-                  “glad i trusted the privacy stuff because my metabolism was
-                  completely stalled and this actually bumped my macros up
-                  instead of down. finally breaking through my plateau without
-                  starving myself. totally worth the 97 bucks.”
-                </blockquote>
-                <figcaption>Sarah Jenkins, Austin TX</figcaption>
-              </figure>
+              <figure class="quote-card"><blockquote>“was super skeptical about this but it actually spotted my weak shoulders and fixed my split. my delts are finally growing for the first time.”</blockquote><figcaption>Jake Miller, Chicago IL</figcaption></figure>
+              <figure class="quote-card"><blockquote>“honestly i thought it would be another useless app. but then the weekly check-in kicked in and adjusted my calories and changed my leg day. i lost 15lbs in 12 weeks and didn't even feel like i was dieting that hard.”</blockquote><figcaption>Marcus Wright, Atlanta GA</figcaption></figure>
+              <figure class="quote-card"><blockquote>“i only have some dumbbells at home and it built a legit PPL split around what i have. the meal plan is solid too, gave me actual food i want to eat.”</blockquote><figcaption>Chloe Davis, Seattle WA</figcaption></figure>
+              <figure class="quote-card"><blockquote>“glad i trusted the privacy stuff because my metabolism was completely stalled and this actually bumped my macros up instead of down. finally breaking through my plateau without starving myself. totally worth the 97 bucks.”</blockquote><figcaption>Sarah Jenkins, Austin TX</figcaption></figure>
             </div>
-            <p class="small-note">Individual experience, results vary.</p>
+            <p class="small-note">Individual experiences. Results vary.</p>
           </div>
         </div>
       </section>
-      <!-- VSL 20 -->
-      <section
-        class="section illustrated-section"
-        id="waiting"
-        data-vsl="20"
-        aria-labelledby="waiting-title"
-      >
+
+      <!-- ================= COST OF WAITING + TWO ROADS ================= -->
+      <section class="section" id="two-roads" aria-labelledby="two-roads-title">
         <div class="wrap">
-          <div class="illustrated">
-            <div>
-              <p class="eyebrow">Another summer?</p>
-              <h2 id="waiting-title">The expensive part<br />was the year.</h2>
-              <p>
-                A whole summer with my shirt on. Another program abandoned at
-                week three. Twelve months of “Is this even working?”
-              </p>
-              <p>I would have paid more than $97 to skip that year.</p>
-            </div>
-            <img
-              class="illustration"
-              src="/info/assets/gen/calendar.webp"
-              width="1000"
-              height="916"
-              alt="Calendar pages slipping away beside a dumbbell"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-      <!-- VSL 21 -->
-      <section
-        class="section gray"
-        id="two-roads"
-        data-vsl="21"
-        aria-labelledby="two-roads-title"
-      >
-        <div class="wrap">
-          <h2 data-ransom id="two-roads-title">TWO ROADS</h2>
+          <p class="eyebrow">Sit with this for a second</p>
+          <h2 id="two-roads-title">$97 is the cheap price.<br /><span class="hl">The expensive one is a year.</span></h2>
+          <p>Two years ago, I’d have paid way more than $97 to skip the year I wasted. That year cost me a whole summer with my shirt on. It cost me twelve more months of “is this even working?”</p>
+          <p>The expensive price is the one you’re already paying. Another month of guessing. Another program abandoned at week three. Another summer.</p>
           <div class="roads">
-            <article>
-              <h3>Keep guessing.</h3>
-              <p>
-                Switch programs. Guess your calories. Check the same mirror.<br /><strong
-                  >The cost: another year.</strong
-                >
-              </p>
+            <article class="road road-bad" data-reveal>
+              <img src="/info/assets/gen/road-before.webp" width="326" height="1000" alt="" loading="lazy" />
+              <div>
+                <span class="road-label">Road one</span>
+                <h3>Close this page.</h3>
+                <p>Back to YouTube workouts. You find a new guy with bigger arms. He has a van. You trust the van guy. You switch programs in three weeks, keep guessing your calories, keep looking in the mirror that lies to you.</p>
+                <p><strong>A year from now, you look pretty much the way you do today.</strong></p>
+              </div>
             </article>
-            <article>
-              <h3>Start the loop.</h3>
-              <p>
-                Three photos tonight. A plan tomorrow.
-                <span data-bonus-only
-                  >Your human-written plans within seven days of
-                  assessment.</span
-                >
-                Check in every week.<br /><strong
-                  >The investment: $97 once.</strong
-                >
-              </p>
+            <article class="road road-good" data-reveal>
+              <img src="/info/assets/gen/road-after.webp" width="325" height="1000" alt="" loading="lazy" />
+              <div>
+                <span class="road-label">Road two</span>
+                <h3>Start tonight.</h3>
+                <p>You upload three photos tonight<span data-bonus-only> and fill in the assessment</span>. Tomorrow morning you open your dashboard and know exactly what to train and eat. <span data-bonus-only>Within seven days your six-month plans land.</span> Every week after, it gets more dialled in to you.</p>
+                <p><strong>One road costs $97. The other costs another year.</strong></p>
+              </div>
             </article>
+          </div>
+          <div class="cta-block">
+            <a class="buy-button buy-button-xl" data-buy href="#">I choose road two <span aria-hidden="true">→</span></a>
+            <p class="cta-sub">$97 once · Lifetime access · 14-day money-back guarantee</p>
           </div>
         </div>
       </section>
-      <!-- VSL 22 -->
-      <section
-        class="section"
-        id="questions"
-        data-vsl="22"
-        aria-labelledby="questions-title"
-      >
+
+      <!-- ================= FAQ ================= -->
+      <section class="section gray" id="questions" aria-labelledby="questions-title">
         <div class="wrap">
           <h2 data-ransom id="questions-title">QUESTIONS?</h2>
           <div class="faq-list">
-            <details>
-              <summary>Is the AI actually accurate?</summary>
-              <div class="faq-answer">
-                <p>
-                  It estimates muscle priorities and calorie needs from photos.
-                  Weekly check-ins test the plan against your actual progress.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>I don’t have a gym. Will this work?</summary>
-              <div class="faq-answer">
-                <p>
-                  Yes. Your plan fits your equipment: a gym, dumbbells, bands,
-                  or bodyweight.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>I’m vegan. Or vegetarian.</summary>
-              <div class="faq-answer">
-                <p>
-                  Choose vegan, vegetarian, eggs, or meat-inclusive meals during
-                  setup. Your custom nutrition plan, if included, follows your
-                  preferences too.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>I’m a complete beginner. Is this for me?</summary>
-              <div class="faq-answer">
-                <p>
-                  Yes. Start with exercise instructions, form guidance,
-                  progression rules, and meals.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>I’ve been training for years. What changes?</summary>
-              <div class="faq-answer">
-                <p>
-                  The scan and weekly check-ins help find weak points and adjust
-                  a stalled plan.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>Is there a hidden subscription?</summary>
-              <div class="faq-answer">
-                <p>
-                  No. $97 one time, lifetime access. No monthly fees, recurring
-                  charges, or upsell walls.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>When do I get the custom plans?</summary>
-              <div class="faq-answer">
-                <p data-bonus-only>
-                  After you join, fill in the assessment. Both human-written
-                  plans arrive within seven days of your completed assessment.
-                  They’re included for the first 50 members.
-                </p>
-                <p data-sold-out hidden>
-                  The 50 custom-plan spots have been filled. The app remains
-                  available, but the human-written plans are no longer included.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>What if I don’t like it?</summary>
-              <div class="faq-answer">
-                <p>
-                  You have a 14-day money-back guarantee. Email
-                  <a href="mailto:aesthetixai.fit@gmail.com"
-                    >aesthetixai.fit@gmail.com</a
-                  >
-                  for a full refund of your $97. No questions asked.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>What if the fifty spots are gone?</summary>
-              <div class="faq-answer">
-                <p>
-                  The app stays. The human-written bonuses go away. This page
-                  shows the offer status:
-                  <strong data-spots>Bonuses for the first 50 members</strong>.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>What’s actually in the workout plan?</summary>
-              <div class="faq-answer">
-                <p>
-                  Your split, exercises, sets, reps, rest, effort, tempo, form
-                  cues and videos, progression rules, equipment swaps, warm-ups,
-                  and cooldowns.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>Does the diet plan give me actual meals?</summary>
-              <div class="faq-answer">
-                <p>
-                  Yes: meals, macro and water targets, food swaps, and a weekly
-                  grocery list, plus rest-day and cheat-meal guidance.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>What do I do at the weekly check-in?</summary>
-              <div class="faq-answer">
-                <p>
-                  Upload new photos and your weight. The app compares your
-                  check-ins and adjusts your training and nutrition.
-                </p>
-              </div>
-            </details>
+            <details><summary>Is the AI actually accurate?</summary><div class="faq-answer"><p>It’s a visual estimate, not a medical scan, and I’ll always say that. It won’t give you an exact body-fat number. But for spotting your weak points and setting your calories, it beats guessing. And guessing is what most of us are doing. The weekly check-ins then test the plan against your real progress.</p></div></details>
+            <details><summary>How fast do I get access?</summary><div class="faq-answer"><p>About five seconds after payment you’re inside the full software. Upload your photos tonight and you’ll have your plan in about a minute.</p></div></details>
+            <details><summary>When do I get the custom plans?</summary><div class="faq-answer"><p data-bonus-only>After you join you’ll see the assessment form inside. Both plans arrive within seven days of your completed assessment. They’re included for the first 50 members only.</p><p data-sold-out hidden>All 50 custom-plan spots are taken, so the human-written plans are no longer included. The app is still fully available.</p></div></details>
+            <details><summary>I don’t have a gym. Will this work?</summary><div class="faq-answer"><p>Yes. Tell it what you have and the whole plan<span data-bonus-only>, and your custom protocol,</span> gets built around that: full gym, home setup, a few dumbbells, bands, or just your bodyweight.</p></div></details>
+            <details><summary>I’m vegan. Or vegetarian.</summary><div class="faq-answer"><p>Every meal respects how you eat. You choose vegan, vegetarian, eggs or everything during setup<span data-bonus-only>, and your custom nutrition plan is written around it too</span>.</p></div></details>
+            <details><summary>I’m a complete beginner.</summary><div class="faq-answer"><p>Beginners get the most out of this. You skip the entire wasted year I had. Every exercise comes with form cues, common mistakes and a video.</p></div></details>
+            <details><summary>I’ve been training for years.</summary><div class="faq-answer"><p>Then you’re probably where I was at the end of year one: training hard, and stuck. The weak-point targeting and the weekly loop are exactly what get you unstuck.</p></div></details>
+            <details><summary>Is there a hidden subscription?</summary><div class="faq-answer"><p>No. $97, once. The page says lifetime, and that’s what it means. No monthly or yearly charges.</p></div></details>
+            <details><summary>What if I don’t like it?</summary><div class="faq-answer"><p>You have 14 days. One email to <a href="mailto:aesthetixai.fit@gmail.com">aesthetixai.fit@gmail.com</a> and you get a full refund. No questions.</p></div></details>
+            <details><summary>What if the fifty spots are gone?</summary><div class="faq-answer"><p>Then they’re gone, and I’m sorry. The app will still be here. The bonuses won’t. If this page still says lifetime and still shows the two bonuses, you’re still in time.</p></div></details>
+            <details><summary>What do I do at the weekly check-in?</summary><div class="faq-answer"><p>Upload a new photo and your weight. It compares this week with your earlier ones and rewrites your plan: more work for what’s behind, calories adjusted if fat loss stalls, more push if you’re flying.</p></div></details>
+            <details><summary>What if I get hurt or feel pain?</summary><div class="faq-answer"><p>Tell the AI coach where it hurts. It adjusts today’s workout, gives safer alternatives, and tells you when you should see a doctor. AesthetixAI is a fitness tool, not medical advice.</p></div></details>
           </div>
         </div>
       </section>
-      <!-- VSL 23 -->
-      <section
-        class="section navy"
-        id="start"
-        data-vsl="23"
-        aria-labelledby="start-title"
-      >
+
+      <!-- ================= CONTACT ================= -->
+      <section class="section" id="contact" aria-labelledby="contact-title">
         <div class="wrap">
-          <p class="eyebrow">Start tonight</p>
-          <h2 id="start-title">Three photos.<br />Your next step.</h2>
-          <p>
-            Join AesthetixAI. Find your focus.<br />Keep the loop going, every
-            week.
-          </p>
-          <a
-            class="buy-button"
-            data-buy
-            href="https://www.paypal.com/ncp/payment/SPAZMDNRU5EQA"
-            >Get lifetime access: $97</a
-          >
+          <p class="eyebrow">Still deciding?</p>
+          <h2 id="contact-title">Ask me anything.</h2>
+          <p>A real person on my team reads every message and replies by email, usually within 24 hours.</p>
+          <form class="contact-form" id="contact-form" action="https://formsubmit.co/aesthetixai.fit@gmail.com" method="POST" novalidate>
+            <div class="field-row">
+              <label class="field"><span>Name</span><input type="text" name="name" autocomplete="name" placeholder="Your name" required /></label>
+              <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="you@email.com" required /></label>
+            </div>
+            <label class="field"><span>Topic</span>
+              <select name="topic" required>
+                <option value="" disabled selected>Choose a topic</option>
+                <option>Before I buy</option>
+                <option>The custom 6-month plans</option>
+                <option>Equipment or diet type</option>
+                <option>Payment or access</option>
+                <option>Refunds</option>
+                <option>Something else</option>
+              </select>
+            </label>
+            <label class="field"><span>Message</span><textarea name="message" rows="5" placeholder="Ask me anything about the app, the custom plans or the guarantee." required></textarea></label>
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <input type="hidden" name="_subject" value="New AesthetixAI sales page question" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <button class="buy-button send-button" type="submit">Send message <span aria-hidden="true">→</span></button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= FINAL CLOSE ================= -->
+      <section class="section navy final" id="start" aria-labelledby="start-title">
+        <div class="wrap">
+          <div class="photo-pair small-pair">
+            <figure><img src="/info/assets/photos/photo-1.jpg" width="750" height="1000" alt="Before, face covered" loading="lazy" /><figcaption><strong>Then</strong></figcaption></figure>
+            <figure><img src="/info/assets/photos/photo-3.jpg" width="750" height="1000" alt="After, face covered" loading="lazy" /><figcaption><strong>Now</strong></figcaption></figure>
+          </div>
+          <h2 id="start-title">I never planned to make this.</h2>
+          <p>Being on camera, even in a mask, is uncomfortable for me. But two years ago I’d have given anything for someone to sit me down and say: <em>“Here’s what you’re doing wrong. Here’s exactly what to change. And here’s someone who’ll keep looking.”</em></p>
+          <p><strong>So that’s what this is. That’s what I built.</strong> <span data-bonus-only>And that’s what the fifty are getting.</span></p>
+          <div class="final-cta">
+            <div class="checkout-urgency on-dark">
+              <span>Discount expires in</span>
+              <span class="countdown countdown-lg" data-countdown>
+                <span class="cd-unit"><b data-h>12</b><i>hrs</i></span><span class="cd-sep">:</span>
+                <span class="cd-unit"><b data-m>00</b><i>min</i></span><span class="cd-sep">:</span>
+                <span class="cd-unit"><b data-s>00</b><i>sec</i></span>
+              </span>
+            </div>
+            <a class="buy-button buy-button-xl buy-pulse" data-buy href="#">Start my transformation for $97 <span aria-hidden="true">→</span></a>
+            <p class="cta-sub">One time · Lifetime access · 14-day money-back guarantee</p>
+          </div>
+          <p class="signoff">I’ll see you inside.<br /><em>— Mateo</em></p>
+          <div class="ps">
+            <p><strong>P.S.</strong> If you scrolled straight down here: you get lifetime access to AesthetixAI<span data-bonus-only>, plus a human-written 6-month training protocol and 6-month nutrition plan built for your body</span>, for $97 once. Try all of it for 14 days. If it’s not for you, every cent comes back.</p>
+            <p><strong>P.P.S.</strong> If this page still says lifetime and still shows the two bonuses, you’re still in time. <span data-spots-text>Bonuses for the first 50 members</span>.</p>
+          </div>
           <div class="final-art">
-            <div class="speech">I’ll see you inside.</div>
             <div class="character-stage" data-rise>
-              <img
-                class=""
-                src="/info/assets/char/color-hoodie-finger-wag.webp"
-                width="946"
-                height="1000"
-                alt="The color narrator welcomes you inside"
-                loading="lazy"
-              />
+              <img src="/info/assets/char/color-hoodie-finger-wag.webp" width="946" height="1000" alt="The cartoon narrator waves you in" loading="lazy" />
             </div>
-          </div>
-        </div>
-      </section>
-      <!-- VSL 24 -->
-      <section
-        class="section illustrated-section"
-        id="close"
-        data-vsl="24"
-        aria-labelledby="close-title"
-      >
-        <div class="wrap">
-          <div class="illustrated">
-            <div>
-              <p class="eyebrow">Day one</p>
-              <h2 id="close-title">The first Sunday photo.</h2>
-              <p>
-                That’s what I’d do differently: take it on day one, not month
-                eleven. I needed someone to notice what wasn’t working—and keep
-                looking.
-              </p>
-              <p>
-                That’s what I built. Now I’m going back to being a cartoon.<br /><em
-                  >— Mateo</em
-                >
-              </p>
-            </div>
-            <img
-              class="illustration"
-              src="/info/assets/gen/close.webp"
-              width="326"
-              height="1000"
-              alt="Mateo waves goodbye"
-              loading="lazy"
-            />
           </div>
         </div>
       </section>
     </main>
+
     <footer class="footer">
       <div class="wrap footer-inner">
         <a class="wordmark" href="#top">Aesthetix<span>AI</span></a>
         <p>© <span id="year">2026</span> AesthetixAI</p>
-        <nav aria-label="Legal and contact">
-          <a href="/terms">Terms</a><a href="/privacy">Privacy</a
-          ><a href="mailto:aesthetixai.fit@gmail.com"
-            >aesthetixai.fit@gmail.com</a
-          >
-        </nav>
-        <p class="disclaimer">
-          AI visual estimates are for fitness purposes only, not a medical
-          diagnosis. Results vary.
-        </p>
+        <nav aria-label="Legal and contact"><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="mailto:aesthetixai.fit@gmail.com">aesthetixai.fit@gmail.com</a></nav>
+        <p class="disclaimer">AI visual estimates are for fitness purposes only, not a medical diagnosis. Results vary with starting point, consistency and recovery. Consult a doctor before starting a new exercise or nutrition program.</p>
       </div>
     </footer>
+
+    <!-- ================= MOBILE STICKY CTA ================= -->
+    <div class="mobile-cta" id="mobile-cta" aria-hidden="true">
+      <div class="mobile-cta-info">
+        <span class="mc-timer">Ends in <b data-countdown-inline>12:00:00</b></span>
+        <span class="mc-spots" data-spots-inline hidden><b data-spots-left>15</b> spots left</span>
+      </div>
+      <a class="buy-button" data-buy href="#" tabindex="-1">Claim my spot</a>
+    </div>
+
+    <!-- ================= REAL-BUYER TOAST (shows only with real data) ================= -->
+    <div class="toast" id="buyer-toast" role="status" aria-live="polite" hidden>
+      <span class="toast-dot" aria-hidden="true"></span>
+      <div><p class="toast-main"></p><p class="toast-sub"></p></div>
+      <button class="toast-close" type="button" aria-label="Dismiss">×</button>
+    </div>
+
+    <!-- ================= POPUP: 60 SECONDS ================= -->
+    <div class="modal" id="popup-timed" role="dialog" aria-modal="true" aria-labelledby="popup-timed-title" hidden>
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close aria-label="Close">×</button>
+        <img class="modal-char" src="/info/assets/char/navy-shirt-whisper-secret.webp" alt="" loading="lazy" />
+        <p class="modal-eyebrow">Quick heads-up</p>
+        <h3 id="popup-timed-title">The custom plans are going fast.</h3>
+        <p>Only <b data-spots-left>15</b> of the 50 human-written 6-month plans are left<span data-timer-text>, and the launch discount ends in <b data-countdown-inline>12:00:00</b></span>. Once they’re gone, they’re gone for good.</p>
+        <a class="buy-button buy-button-xl" data-buy href="#">Save my spot now <span aria-hidden="true">→</span></a>
+        <button class="modal-link" type="button" data-close data-goto="#bonuses">I’ll keep reading first</button>
+      </div>
+    </div>
+
+    <!-- ================= POPUP: EXIT INTENT ================= -->
+    <div class="modal" id="popup-exit" role="dialog" aria-modal="true" aria-labelledby="popup-exit-title" hidden>
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close aria-label="Close">×</button>
+        <p class="modal-eyebrow red">Wait, before you go</p>
+        <h3 id="popup-exit-title">Don’t give it another year.</h3>
+        <p>Lifetime access to AesthetixAI<span data-bonus-only> plus your custom 6-month workout and diet plans</span> is <s>$2,591</s> <b class="modal-price">$97</b> once.</p>
+        <p class="modal-small">Only <b data-spots-left>15</b> custom-plan spots left · 14-day money-back guarantee</p>
+        <a class="buy-button buy-button-xl" data-buy href="#">Yes, I’ll take it for $97 <span aria-hidden="true">→</span></a>
+        <button class="modal-link" type="button" data-close>No thanks, close this</button>
+      </div>
+    </div>
   </body>
 </html>
